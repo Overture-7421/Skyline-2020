@@ -9,10 +9,8 @@
 
 #include <frc2/command/Command.h>
 
-#include "commands/ExampleCommand.h"
-#include "subsystems/ExampleSubsystem.h"
-#include "frc2/command/RunCommand.h"
 #include "subsystems/Chassis.h"
+#include "frc2/command/RunCommand.h"
 #include "frc/XboxController.h"
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -24,14 +22,10 @@
 class RobotContainer {
  public:
   RobotContainer();
-
-  frc2::Command* GetAutonomousCommand();
-
+ 
  private:
   // The robot's subsystems and commands are defined here...
-  frc::XboxController xbox{0};
-  ExampleSubsystem m_subsystem;
-  ExampleCommand m_autonomousCommand;
-  Chassis chassis;
   void ConfigureButtonBindings();
+  Chassis chassis;
+  
 };
