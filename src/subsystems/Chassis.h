@@ -1,7 +1,9 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
-#include <ctre/phoenix/motorcontrol/can/VictorSPX.h>
+#include <ctre/phoenix/motorcontrol/can/WPI_VictorSPX.h>
+#include <frc/drive/DifferentialDrive.h>
+#include <frc/SpeedControllerGroup.h>
 using namespace ctre::phoenix::motorcontrol::can;
 using namespace ctre::phoenix::motorcontrol;
 
@@ -15,8 +17,12 @@ class Chassis : public frc2::SubsystemBase {
   void Periodic() override;
 
  private:
-  VictorSPX leftMotor {1};
-  VictorSPX rightMotor {2};
-  VictorSPX leftMotor1 {3};
-  VictorSPX rightMotor1 {4};
+  WPI_VictorSPX leftMotor {1};
+  WPI_VictorSPX rightMotor {2};
+  WPI_VictorSPX leftMotor1 {3};
+  WPI_VictorSPX rightMotor1 {4};
+
+  frc::SpeedControllerGroup left{leftMotor, leftMotor1};
+  frc::SpeedControllerGroup right{rightMotor, rightMotor1};
+  frc::DifferentialDrive drive{left, right};
 };
