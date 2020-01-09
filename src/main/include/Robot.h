@@ -9,7 +9,7 @@
 
 #include <frc/TimedRobot.h>
 #include <frc2/command/Command.h>
-
+#include <iostream>
 #include "RobotContainer.h"
 
 class Robot : public frc::TimedRobot {
