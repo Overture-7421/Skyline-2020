@@ -10,11 +10,11 @@ using namespace ctre::phoenix::motorcontrol;
 class Chassis : public frc2::SubsystemBase {
  public:
   Chassis();
-
+  void Periodic() override;
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
-  void Periodic() override;
+  void drive(double linear, double angular);
 
  private:
   WPI_VictorSPX leftMotor {1};
@@ -24,5 +24,8 @@ class Chassis : public frc2::SubsystemBase {
 
   frc::SpeedControllerGroup left{leftMotor, leftMotor1};
   frc::SpeedControllerGroup right{rightMotor, rightMotor1};
-  frc::DifferentialDrive drive{left, right};
+  frc::DifferentialDrive differentialDrive{left, right};
+
+  double linear = 0;
+  double angular = 0;
 };

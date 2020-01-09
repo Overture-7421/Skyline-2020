@@ -4,6 +4,7 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
 
+
 void Robot::RobotInit() {}
 
 /**
@@ -33,6 +34,17 @@ void Robot::DisabledPeriodic() {}
  * RobotContainer} class.
  */
 void Robot::AutonomousInit() {
+  autoCommand = new 
+  frc2::SequentialCommandGroup{
+
+   MoveTimed(&container.chassis, 1.5, 0.6),
+   MoveAngularTimed(&container.chassis, 1.5, 0.5),
+   MoveTimed(&container.chassis, 1.5, 0.6),
+   MoveAngularTimed(&container.chassis, 1.5, -0.5),
+   MoveTimed(&container.chassis, 1.5, 0.6)
+   };
+  
+   autoCommand->Schedule();
 
 }
 

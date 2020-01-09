@@ -22,10 +22,11 @@
 class RobotContainer {
  public:
   RobotContainer();
- 
+  Chassis chassis;
+
  private:
   // The robot's subsystems and commands are defined here...
   void ConfigureButtonBindings();
-  Chassis chassis;
+  
   
 };

@@ -9,8 +9,11 @@
 
 #include <frc/TimedRobot.h>
 #include <frc2/command/Command.h>
+#include <frc2/command/SequentialCommandGroup.h>
 #include <iostream>
 #include "RobotContainer.h"
+#include "commands/MoveTimed/MoveTimed.h"
+#include "commands/MoveAngularTimed/MoveAngularTimed.h"
 
 class Robot : public frc::TimedRobot {
  public:
@@ -25,6 +28,6 @@ class Robot : public frc::TimedRobot {
   void TestPeriodic() override;
 
  private:
-
+  frc2::Command* autoCommand;
   RobotContainer container;
 };
