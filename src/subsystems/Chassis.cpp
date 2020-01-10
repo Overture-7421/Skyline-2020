@@ -18,8 +18,13 @@ void Chassis::Periodic(){
 
     angular = error * frc::SmartDashboard::GetNumber("Heading P", 0.01);
     differentialDrive.ArcadeDrive(linear , angular);
+<<<<<<< HEAD
 
     frc::SmartDashboard::PutNumber("Heading", gyro.GetYaw());
+=======
+    frc::SmartDashboard::PutNumber("Left Encoder",leftEncoder.Get());
+    frc::SmartDashboard::PutNumber("Right Encoder", rightEncoder.Get());
+>>>>>>> 4db7c4ba833324fcacbecca3616efcca04476b50
 }
 
 void Chassis::drive(double linear, double angle){

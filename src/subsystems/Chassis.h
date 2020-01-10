@@ -4,9 +4,16 @@
 #include <ctre/phoenix/motorcontrol/can/WPI_VictorSPX.h>
 #include <frc/drive/DifferentialDrive.h>
 #include <frc/SpeedControllerGroup.h>
+<<<<<<< HEAD
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <AHRS.h>
 
+=======
+#include <frc/Encoder.h>
+#include <frc/smartdashboard/SmartDashboard.h>
+#include "RobotMap.h"
+#include <frc/kinematics/DifferentialDriveOdometry.h>
+>>>>>>> 4db7c4ba833324fcacbecca3616efcca04476b50
 using namespace ctre::phoenix::motorcontrol::can;
 using namespace ctre::phoenix::motorcontrol;
 
@@ -22,17 +29,29 @@ class Chassis : public frc2::SubsystemBase {
   double getYaw();
 
  private:
+<<<<<<< HEAD
   AHRS gyro {SPI::Port::kMXP};
   WPI_VictorSPX leftMotor {1};
   WPI_VictorSPX rightMotor {2};
   WPI_VictorSPX leftMotor1 {3};
   WPI_VictorSPX rightMotor1 {4};
 
+=======
+  WPI_VictorSPX leftMotor {ChassisMap::LEFTM};
+  WPI_VictorSPX rightMotor {ChassisMap::RIGHTM};
+  WPI_VictorSPX leftMotor1 {ChassisMap::RIGHTM1};
+  WPI_VictorSPX rightMotor1 {ChassisMap::RIGHTM1};
+  frc::Encoder leftEncoder{ChassisMap::ENC_L_A,ChassisMap::ENC_L_B};
+  frc::Encoder rightEncoder{ChassisMap::ENC_R_A,ChassisMap::ENC_R_B};
+>>>>>>> 4db7c4ba833324fcacbecca3616efcca04476b50
   frc::SpeedControllerGroup left{leftMotor, leftMotor1};
   frc::SpeedControllerGroup right{rightMotor, rightMotor1};
   frc::DifferentialDrive differentialDrive{left, right};
-
   double linear = 0;
   double angular = 0;
+<<<<<<< HEAD
   double targetangle = 0.0;
+=======
+  frc::DifferentialDriveOdometry odometry{}
+>>>>>>> 4db7c4ba833324fcacbecca3616efcca04476b50
 };
