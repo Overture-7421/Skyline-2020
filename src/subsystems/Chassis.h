@@ -24,6 +24,8 @@ class Chassis : public frc2::SubsystemBase {
   Chassis();
   void Periodic() override;
   void UpdateBoard();
+  void Ramsete(frc::Trajectory target);  
+  void TankDrive(double left, double right);
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */

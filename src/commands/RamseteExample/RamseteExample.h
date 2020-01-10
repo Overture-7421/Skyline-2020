@@ -10,7 +10,8 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 #include "subsystems/Chassis.h"
-#include "AHRS.h"
+#include "frc/trajectory/TrajectoryConfig.h"
+#include "frc/trajectory/TrajectoryGenerator.h"
 /**
  * An example command.
  *
@@ -18,10 +19,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class StraightDrive
-    : public frc2::CommandHelper<frc2::CommandBase, StraightDrive> {
+class RamseteExample
+    : public frc2::CommandHelper<frc2::CommandBase, RamseteExample> {
  public:
-  StraightDrive();
+  RamseteExample(Chassis* chassis);
 
   void Initialize() override;
 
@@ -30,4 +31,9 @@ class StraightDrive
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+  private:
+    frc::TrajectoryConfig config{units::meters_per_second_t(2), 
+                        units::meters_per_second_squared_t(2)};
+    frc::Trajectory targetTrajectory{};
+    Chassis* chassis;
 };

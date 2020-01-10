@@ -17,3 +17,8 @@ class ChassisMap {
         static const unsigned int RIGHT_2 = 5;
         static constexpr float RAMP = 1/3;
 };
+
+class OI {
+    public:
+         static const int DRIVER1_PORT = 0;
+}

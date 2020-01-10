@@ -17,6 +17,7 @@
   "wpilib.deployOffline": true,
   "files.associations": {
     "numeric": "cpp",
-    "*.inc": "cpp"
+    "*.inc": "cpp",
+    "math": "cpp"
   }
 }
