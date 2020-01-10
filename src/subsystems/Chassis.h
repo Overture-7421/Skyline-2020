@@ -9,7 +9,12 @@
 #include <frc/Encoder.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include "RobotMap.h"
+#include <frc/controller/PIDController.h>
 #include <frc/kinematics/DifferentialDriveOdometry.h>
+#include <frc/kinematics/DifferentialDriveKinematics.h>
+
+#include <frc/controller/RamseteController.h>
+#include <frc/trajectory/TrajectoryGenerator.h>
 
 using namespace ctre::phoenix::motorcontrol::can;
 using namespace ctre::phoenix::motorcontrol;
@@ -26,7 +31,9 @@ class Chassis : public frc2::SubsystemBase {
   double getYaw();
 
  private:
-
+  double kp = 0.5;
+  double kd = 0.0004;
+  double ki = 0.2;
   WPI_VictorSPX leftMotor {ChassisMap::LEFTM};
   WPI_VictorSPX rightMotor {ChassisMap::RIGHTM};
   WPI_VictorSPX leftMotor1 {ChassisMap::RIGHTM1};
@@ -36,9 +43,14 @@ class Chassis : public frc2::SubsystemBase {
   frc::SpeedControllerGroup left{leftMotor, leftMotor1};
   frc::SpeedControllerGroup right{rightMotor, rightMotor1};
   frc::DifferentialDrive differentialDrive{left, right};
+  frc2::PIDController leftPID{kp,ki,kd,units::second_t(5_ms)};
+  frc2::PIDController rightPID{kp,ki,kd,units::second_t(5_ms)};
   double linear = 0;
   double angular = 0;
   AHRS gyro{SPI::Port::kMXP};
   frc::DifferentialDriveOdometry odometry{ frc::Rotation2d (units::degree_t(-gyro.GetAngle()))};
+  DifferentialDriveKinematics kinematis {units::meter_t(0.5)};
   frc::Pose2d pose;
+  frc::RamseteController ramsete;
+  frc::Trajectory targetTrajectory;
 };

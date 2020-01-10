@@ -16,6 +16,7 @@
   "C_Cpp.default.configurationProvider": "vscode-wpilib",
   "wpilib.deployOffline": true,
   "files.associations": {
-    "numeric": "cpp"
+    "numeric": "cpp",
+    "*.inc": "cpp"
   }
 }
