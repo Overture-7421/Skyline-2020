@@ -38,9 +38,9 @@ void Robot::AutonomousInit() {
   frc2::SequentialCommandGroup{
 
    MoveTimed(&container.chassis, 1.5, 0.6),
-   MoveAngularTimed(&container.chassis, 1.5, 0.5),
+   MoveAngularTimed(&container.chassis, 90),
    MoveTimed(&container.chassis, 1.5, 0.6),
-   MoveAngularTimed(&container.chassis, 1.5, -0.5),
+   MoveAngularTimed(&container.chassis, 0),
    MoveTimed(&container.chassis, 1.5, 0.6)
    };
   

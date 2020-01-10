@@ -24,5 +24,6 @@ class MoveTimed
   double startTime = 0.0;
   double desiredTime = 0.0;
   double power = 0.0;
+  double startAngle = 0.0;
 
 };

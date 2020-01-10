@@ -1,17 +1,16 @@
 #include "MoveAngularTimed.h"
 
-MoveAngularTimed::MoveAngularTimed(Chassis* chassis , int time, double power): chassis(chassis){
+MoveAngularTimed::MoveAngularTimed(Chassis* chassis , double angle): chassis(chassis){
     AddRequirements({chassis});
-    desiredTime = time;
-    this->power = power;
+    this->angle = angle;
 }
 
 void MoveAngularTimed::Initialize(){
-    startTime = frc::Timer::GetFPGATimestamp(); 
+
 }
 
 void MoveAngularTimed::Execute() {
-  chassis->drive(0, power);
+  chassis->drive(0, angle);
 }
 
 void MoveAngularTimed::End(bool interrupted){
@@ -19,5 +18,5 @@ void MoveAngularTimed::End(bool interrupted){
 }
 
 bool MoveAngularTimed::IsFinished(){
-    return frc::Timer::GetFPGATimestamp() - startTime > desiredTime;
+    return std::abs(chassis->getYaw()-angle) < 1;
 }

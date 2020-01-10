@@ -8,14 +8,15 @@ MoveTimed::MoveTimed(Chassis* chassis , int time, double power): chassis(chassis
 
 void MoveTimed::Initialize(){
     startTime = frc::Timer::GetFPGATimestamp(); 
+    startAngle = chassis->getYaw();
 }
 
 void MoveTimed::Execute() {
-  chassis->drive(power, 0);
+  chassis->drive(power, startAngle);
 }
 
 void MoveTimed::End(bool interrupted){
-  chassis->drive(0,0);
+  chassis->drive(0,startAngle);
 }
 
 bool MoveTimed::IsFinished(){

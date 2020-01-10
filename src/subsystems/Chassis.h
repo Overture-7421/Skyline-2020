@@ -4,6 +4,9 @@
 #include <ctre/phoenix/motorcontrol/can/WPI_VictorSPX.h>
 #include <frc/drive/DifferentialDrive.h>
 #include <frc/SpeedControllerGroup.h>
+#include <frc/smartdashboard/SmartDashboard.h>
+#include <AHRS.h>
+
 using namespace ctre::phoenix::motorcontrol::can;
 using namespace ctre::phoenix::motorcontrol;
 
@@ -14,9 +17,12 @@ class Chassis : public frc2::SubsystemBase {
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
-  void drive(double linear, double angular);
+  void drive(double linear, double angle);
+  
+  double getYaw();
 
  private:
+  AHRS gyro {SPI::Port::kMXP};
   WPI_VictorSPX leftMotor {1};
   WPI_VictorSPX rightMotor {2};
   WPI_VictorSPX leftMotor1 {3};
@@ -28,4 +34,5 @@ class Chassis : public frc2::SubsystemBase {
 
   double linear = 0;
   double angular = 0;
+  double targetangle = 0.0;
 };
