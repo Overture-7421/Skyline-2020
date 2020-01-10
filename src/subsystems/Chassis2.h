@@ -31,17 +31,17 @@ class Chassis2 : public frc2::SubsystemBase {
   WPI_VictorSPX rightMotor1 {4};
   
 
-  frc::Encoder leftEncoder{ChassisMap::ENC_L_A,ChassisMap::ENC_L_B}
-  frc::Encoder rightEncoder{ChassisMap::ENC_L_A,ChassisMap::ENC_R_B}
-  frc::SpeedControllerGroup::left{leftMotor, leftMotor1}
-  frc::SpeedControllerGroup::right{rightMotor, rightMotor1}
-  frc::DifferentialDrive differentialDrive{left, right}
+  frc::Encoder leftEncoder{ChassisMap::ENC_L_A,ChassisMap::ENC_L_B};
+  frc::Encoder rightEncoder{ChassisMap::ENC_R_A,ChassisMap::ENC_R_B};
+  frc::SpeedControllerGroup left{leftMotor, leftMotor1};
+  frc::SpeedControllerGroup right{rightMotor, rightMotor1};
+  frc::DifferentialDrive differentialDrive{left, right};
 
   double linear = 0;
   double angular = 0;
   
-  AHRS::gyro::{SPI::Port::kMXP};
-  frc::DifferentialDriveOdometry::odometry{frc::Rotation2d (units::degree_t(-gyro.GetAngle()));
+  AHRS gyro {SPI::Port::kMXP};
+  frc::DifferentialDriveOdometry odometry{frc::Rotation2d (units::degree_t(-gyro.GetAngle()));
   frc::Pose2d pose;
 
   DifferentialDriveKinematics::kinematics{units::meter_t(0.5)};
