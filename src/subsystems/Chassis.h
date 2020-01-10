@@ -7,6 +7,7 @@
 #include <frc/Encoder.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include "RobotMap.h"
+#include <frc/kinematics/DifferentialDriveOdometry.h>
 using namespace ctre::phoenix::motorcontrol::can;
 using namespace ctre::phoenix::motorcontrol;
 
@@ -31,4 +32,5 @@ class Chassis : public frc2::SubsystemBase {
   frc::DifferentialDrive differentialDrive{left, right};
   double linear = 0;
   double angular = 0;
+  frc::DifferentialDriveOdometry odometry{}
 };
