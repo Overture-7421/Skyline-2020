@@ -27,7 +27,7 @@ class Chassis : public frc2::SubsystemBase {
    * Will be called periodically whenever the CommandScheduler runs.
    */
   void drive(double linear, double angular);
-  
+  void updateSmartDashboard();
   double getYaw();
 
  private:
