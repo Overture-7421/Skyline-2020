@@ -37,13 +37,7 @@ void Chassis::Periodic(){
     // rightPID.SetI(frc::SmartDashboard::GetNumber("kI",0));
     // rightPID.SetD(frc::SmartDashboard::GetNumber("kD",0));
     differentialDrive.TankDrive(leftPID.Calculate(leftEncoder.GetRate()) , rightPID.Calculate(rightEncoder.GetRate()));
-    frc::SmartDashboard::PutNumber("X", double_t(odometry.GetPose().Translation().X()));
-    frc::SmartDashboard::PutNumber("Right Encoder", rightEncoder.GetRate());
-    frc::SmartDashboard::PutNumber("Left encoder", leftEncoder.GetRate());
-    frc::SmartDashboard::PutNumber("Y", double_t(odometry.GetPose().Translation().Y()));
-    frc::SmartDashboard::PutNumber("Heading", gyro.GetYaw());
-    frc::SmartDashboard::PutNumber("Left Encoder",leftEncoder.Get());
-    frc::SmartDashboard::PutNumber("Right Encoder", rightEncoder.Get());
+   
     frc::Rotation2d gyroAngle{units::degree_t(-gyro.GetAngle())};
     pose = odometry.Update(gyroAngle, units::meter_t(leftEncoder.GetDistance()),
      units::meter_t(rightEncoder.GetDistance()));
@@ -64,4 +58,13 @@ double Chassis::getYaw(){
     return gyro.GetYaw();
 }
 
+void Chassis::UpdateBoard() {
+    frc::SmartDashboard::PutNumber("X", double_t(odometry.GetPose().Translation().X()));
+    frc::SmartDashboard::PutNumber("Right Encoder", rightEncoder.GetRate());
+    frc::SmartDashboard::PutNumber("Left encoder", leftEncoder.GetRate());
+    frc::SmartDashboard::PutNumber("Y", double_t(odometry.GetPose().Translation().Y()));
+    frc::SmartDashboard::PutNumber("Heading", gyro.GetYaw());
+    frc::SmartDashboard::PutNumber("Left Encoder",leftEncoder.Get());
+    frc::SmartDashboard::PutNumber("Right Encoder", rightEncoder.Get());
+}
 
