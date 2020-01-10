@@ -15,6 +15,7 @@ Chassis::Chassis() {
     /**
      * Trajectory code commented out to test correct command offloading 
      * */
+    
     //  frc::TrajectoryConfig config(units::meters_per_second_t(2),
     //                           units::meters_per_second_squared_t(2));
     // targetTrajectory = frc::TrajectoryGenerator::GenerateTrajectory(
