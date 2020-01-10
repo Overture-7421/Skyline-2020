@@ -6,7 +6,6 @@
 #include <frc/SpeedControllerGroup.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <AHRS.h>
-
 #include <frc/Encoder.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 #include "RobotMap.h"
@@ -22,7 +21,7 @@ class Chassis : public frc2::SubsystemBase {
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
-  void drive(double linear, double angle);
+  void drive(double linear, double angular);
   
   double getYaw();
 
@@ -39,6 +38,7 @@ class Chassis : public frc2::SubsystemBase {
   frc::DifferentialDrive differentialDrive{left, right};
   double linear = 0;
   double angular = 0;
-
-  frc::DifferentialDriveOdometry odometry{}
+  AHRS gyro{SPI::Port::kMXP};
+  frc::DifferentialDriveOdometry odometry{ frc::Rotation2d (units::degree_t(-gyro.GetAngle()))};
+  frc::Pose2d pose;
 };

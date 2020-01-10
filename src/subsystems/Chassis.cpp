@@ -2,34 +2,28 @@
 
 Chassis::Chassis(){
     frc::SmartDashboard::PutNumber("Heading P", 0.01);
-
+    leftEncoder.SetDistancePerPulse(0.000469043);
+    rightEncoder.SetDistancePerPulse(0.000469043);
 }
 
 void Chassis::Periodic(){
-    double error = (targetangle - gyro.GetYaw());
-
-    if(error > 180){
-        error -= 360;
-    }
-
-    if(error < -180){
-        error += 360;
-    }
-
-    angular = error * frc::SmartDashboard::GetNumber("Heading P", 0.01);
+   
     differentialDrive.ArcadeDrive(linear , angular);
-<<<<<<< HEAD
-
+    frc::SmartDashboard::PutNumber("X", double_t(odometry.GetPose().Translation().X()));
+    frc::SmartDashboard::PutNumber("Y", double_t(odometry.GetPose().Translation().Y()));
     frc::SmartDashboard::PutNumber("Heading", gyro.GetYaw());
-=======
     frc::SmartDashboard::PutNumber("Left Encoder",leftEncoder.Get());
     frc::SmartDashboard::PutNumber("Right Encoder", rightEncoder.Get());
->>>>>>> 4db7c4ba833324fcacbecca3616efcca04476b50
+    frc::Rotation2d gyroAngle{units::degree_t(-gyro.GetAngle())};
+    pose = odometry.Update(gyroAngle, units::meter_t(leftEncoder.GetDistance()),
+     units::meter_t(rightEncoder.GetDistance()));
+
+     
 }
 
-void Chassis::drive(double linear, double angle){
+void Chassis::drive(double linear, double angular){
     this->linear = linear;
-    this->targetangle = angle;
+    this->angular = angular;
 }
 
 double Chassis::getYaw(){
