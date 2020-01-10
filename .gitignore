@@ -1,5 +1,7 @@
 # Created by https://www.gitignore.io/api/c++,java,linux,macos,gradle,windows,visualstudiocode
-
+cmake-build-debug/
+.idea/
+CMakeLists.txt
 ### C++ ###
 # Prerequisites
 *.d

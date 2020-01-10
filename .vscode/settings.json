@@ -14,5 +14,9 @@
     "**/.factorypath": true
   },
   "C_Cpp.default.configurationProvider": "vscode-wpilib",
-  "wpilib.deployOffline": true
+  "wpilib.deployOffline": true,
+  "files.associations": {
+    "numeric": "cpp",
+    "*.inc": "cpp"
+  }
 }

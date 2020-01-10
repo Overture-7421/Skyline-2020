@@ -4,6 +4,7 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
 
+
 void Robot::RobotInit() {}
 
 /**
@@ -33,24 +34,24 @@ void Robot::DisabledPeriodic() {}
  * RobotContainer} class.
  */
 void Robot::AutonomousInit() {
-  m_autonomousCommand = container.GetAutonomousCommand();
+  autoCommand = new 
+  frc2::SequentialCommandGroup{
 
-  if (m_autonomousCommand != nullptr) {
-    m_autonomousCommand->Schedule();
-  }
+   MoveTimed(&container.chassis, 1.5, 0.6),
+   MoveAngularTimed(&container.chassis, 90),
+   MoveTimed(&container.chassis, 1.5, 0.6),
+   MoveAngularTimed(&container.chassis, 0),
+   MoveTimed(&container.chassis, 1.5, 0.6)
+   };
+  
+   autoCommand->Schedule();
+
 }
 
 void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit() {
-  // This makes sure that the autonomous stops running when
-  // teleop starts running. If you want the autonomous to
-  // continue until interrupted by another command, remove
-  // this line or comment it out.
-  if (m_autonomousCommand != nullptr) {
-    m_autonomousCommand->Cancel();
-    m_autonomousCommand = nullptr;
-  }
+
 }
 
 /**
