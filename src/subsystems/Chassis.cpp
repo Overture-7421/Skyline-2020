@@ -37,11 +37,7 @@ void Chassis::Periodic(){
     // rightPID.SetI(frc::SmartDashboard::GetNumber("kI",0));
     // rightPID.SetD(frc::SmartDashboard::GetNumber("kD",0));
     differentialDrive.TankDrive(leftPID.Calculate(leftEncoder.GetRate()) , rightPID.Calculate(rightEncoder.GetRate()));
-<<<<<<< HEAD
-    this->updateSmartDashboard();
-=======
    
->>>>>>> 7930ca4ee621772240b43733d2b270666f8eea7e
     frc::Rotation2d gyroAngle{units::degree_t(-gyro.GetAngle())};
     pose = odometry.Update(gyroAngle, units::meter_t(leftEncoder.GetDistance()),
     units::meter_t(rightEncoder.GetDistance()));
