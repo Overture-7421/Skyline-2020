@@ -43,9 +43,9 @@ void Chassis::Periodic(){
 
     // differentialDrive.TankDrive(leftPID.Calculate(leftEncoder.GetRate()) , rightPID.Calculate(rightEncoder.GetRate()));
    
-    // frc::Rotation2d gyroAngle{units::degree_t(-gyro.GetAngle())};
-    // pose = odometry.Update(gyroAngle, units::meter_t(leftEncoder.GetDistance()),
-    //  units::meter_t(rightEncoder.GetDistance()));
+     frc::Rotation2d gyroAngle{units::degree_t(-gyro.GetAngle())};
+     pose = odometry.Update(gyroAngle, units::meter_t(leftEncoder.GetDistance()),
+     units::meter_t(rightEncoder.GetDistance()));
 
     //  ChassisSpeeds speeds = ramsete.Calculate(pose, targetTrajectory.Sample(2_s));
     //  DifferentialDriveWheelSpeeds wheelsSpeed = kinematis.ToWheelSpeeds(speeds);
@@ -77,8 +77,8 @@ void Chassis::Ramsete(frc::Trajectory target) {
     
    differentialDrive.TankDrive(leftPID.Calculate(leftEncoder.GetRate()) , rightPID.Calculate(rightEncoder.GetRate()));
     frc::Rotation2d gyroAngle{units::degree_t(-gyro.GetAngle())};
-    pose = odometry.Update(gyroAngle, units::meter_t(leftEncoder.GetDistance()),
-     units::meter_t(rightEncoder.GetDistance()));
+    // pose = odometry.Update(gyroAngle, units::meter_t(leftEncoder.GetDistance()),
+    //  units::meter_t(rightEncoder.GetDistance()));
 
      ChassisSpeeds speeds = ramsete.Calculate(pose, targetTrajectory.Sample(2_s));
      DifferentialDriveWheelSpeeds wheelsSpeed = kinematis.ToWheelSpeeds(speeds);
