@@ -23,6 +23,7 @@ class Chassis : public frc2::SubsystemBase {
  public:
   Chassis();
   void Periodic() override;
+  void UpdateBoard();
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
