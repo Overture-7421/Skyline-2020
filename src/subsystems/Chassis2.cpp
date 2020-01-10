@@ -4,7 +4,7 @@ Chassis2::Chassis2(){
     frc::SmartDashboard::PutNumber("Target", 0);
     frc::SmartDashboard::PutNumber("Heading P", 0.01);
     leftEncoder.SetDistancePerPulse(0.000469043);
-    rigthEncoder.SetDistancePerPulse(0.000469043);
+    rightEncoder.SetDistancePerPulse(0.000469043);
     rightMotor.ConfigOpenLoopRamp(1/3);
     rightMotor1.ConfigOpenLoopRamp(1/3);
     leftMotor.ConfigOpenLoopRamp(1/3);
