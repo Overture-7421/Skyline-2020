@@ -9,6 +9,7 @@
 
 RamseteExample::RamseteExample(Chassis* chassis) {
   this->chassis = chassis;
+  SetName("RamseteExample");
   // Use addRequirements() here to declare subsystem dependencies.
   this->AddRequirements({chassis});
 }
@@ -32,7 +33,9 @@ void RamseteExample::Execute() {
   this->chassis->Ramsete(this->targetTrajectory);
 }
 // Called once the command ends or is interrupted.
-void RamseteExample::End(bool interrupted) {}
+void RamseteExample::End(bool interrupted) {
+  this->chassis->TankDrive(0,0);
+}
 
 // Returns true when the command should end.
 bool RamseteExample::IsFinished() { 

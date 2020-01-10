@@ -7,17 +7,18 @@
 
 #include "RobotContainer.h"
 
-RobotContainer::RobotContainer() : ramseteCommand(chassis) {
+RobotContainer::RobotContainer() {
   // Initialize all of your commands and subsystems here
-
-  // Configure the button bindings
+  chassis.SetDefaultCommand(frc2::RunCommand (
+    [this] {
+    chassis.TankDrive(
+    xbox.GetY(frc::XboxController::kLeftHand), 
+    xbox.GetY(frc::XboxController::kRightHand));}
+    ,&chassis));
   ConfigureButtonBindings();
 }
 
 void RobotContainer::ConfigureButtonBindings() {
-  frc2::JoystickButton(&xbox,1).WhenHeld(ramseteCommand).WhenReleased(frc2::InstantCommand([this], {chassis.TankDrive(
-    xbox.GetY(frc::XboxController::kLeftHand), xbox.GetY(frc::XboxController::kRightHand))
-  )}); // A button
-
+   this->ramseteBind.WhileActiveOnce(RamseteExample(&chassis),true); //interruptible 
 }
 

@@ -16,6 +16,7 @@ class ChassisMap {
         static const unsigned int RIGHT_1 = 4;
         static const unsigned int RIGHT_2 = 5;
         static constexpr float RAMP = 1/3;
+        static constexpr long float ENC_PPR = 0.000469043;
 };
 
 class OI {

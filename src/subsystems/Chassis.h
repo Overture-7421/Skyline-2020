@@ -12,7 +12,6 @@
 #include <frc/controller/PIDController.h>
 #include <frc/kinematics/DifferentialDriveOdometry.h>
 #include <frc/kinematics/DifferentialDriveKinematics.h>
-
 #include <frc/controller/RamseteController.h>
 #include <frc/trajectory/TrajectoryGenerator.h>
 
@@ -26,11 +25,7 @@ class Chassis : public frc2::SubsystemBase {
   void UpdateBoard();
   void Ramsete(frc::Trajectory target);  
   void TankDrive(double left, double right);
-  /**
-   * Will be called periodically whenever the CommandScheduler runs.
-   */
   void drive(double linear, double angular);
-  
   double getYaw();
 
  private:

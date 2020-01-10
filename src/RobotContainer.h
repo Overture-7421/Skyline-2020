@@ -9,12 +9,13 @@
 
 #include <frc2/command/Command.h>
 #include <frc2/command/button/JoystickButton.h>
+#include <frc2/command/button/Trigger.h>
 #include "subsystems/Chassis.h"
 #include "frc2/command/RunCommand.h"
 #include "frc/XboxController.h"
 #include "commands/RamseteExample/RamseteExample.h"
-#include "Constants.h"
-#include <frc2/command/InstantCommand.h>
+#include <frc2/command/RunCommand.h>
+
 /**
  * This class is where the bulk of the robot should be declared.  Since
  * Command-based is a "declarative" paradigm, very little robot logic should
@@ -26,12 +27,11 @@ class RobotContainer {
  public:
   RobotContainer();
   Chassis chassis;
-  RamseteExample ramseteCommand;
-
+  
  private:
   // The robot's subsystems and commands are defined here...
-  frc::XboxController xbox{OI::DRIVER1_PORT};
-  void ConfigureButtonBindings();
+  frc::XboxController xbox{0};
+  frc2::JoystickButton ramseteBind{&xbox,0}; // A button
 
-  
+  void ConfigureButtonBindings();
 };
