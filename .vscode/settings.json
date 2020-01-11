@@ -16,7 +16,9 @@
   "wpilib.deployOffline": true,
   "files.associations": {
     "numeric": "cpp",
-    "*.inc": "cpp"
-  },
-  "C_Cpp.default.configurationProvider": "vscode-wpilib"
+    "*.inc": "cpp",
+    "cstddef": "cpp",
+    "string": "cpp",
+    "cstdint": "cpp"
+  }
 }
