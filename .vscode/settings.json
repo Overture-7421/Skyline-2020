@@ -13,11 +13,12 @@
     "**/.settings": true,
     "**/.factorypath": true
   },
-  "C_Cpp.default.configurationProvider": "vscode-wpilib",
   "wpilib.deployOffline": true,
   "files.associations": {
     "numeric": "cpp",
     "*.inc": "cpp",
-    "math": "cpp"
+    "cstddef": "cpp",
+    "string": "cpp",
+    "cstdint": "cpp"
   }
 }

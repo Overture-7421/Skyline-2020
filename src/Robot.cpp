@@ -4,8 +4,12 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
 
+Robot::Robot() : TimedRobot(units::second_t(5_ms)){
 
-void Robot::RobotInit() {}
+}
+void Robot::RobotInit(){
+
+}
 
 /**
  * This function is called every robot packet, no matter the mode. Use
@@ -34,30 +38,49 @@ void Robot::DisabledPeriodic() {}
  * RobotContainer} class.
  */
 void Robot::AutonomousInit() {
-  autoCommand = new 
-  frc2::SequentialCommandGroup{
 
-   MoveTimed(&container.chassis, 1.5, 0.6),
-   MoveAngularTimed(&container.chassis, 90),
-   MoveTimed(&container.chassis, 1.5, 0.6),
-   MoveAngularTimed(&container.chassis, 0),
-   MoveTimed(&container.chassis, 1.5, 0.6)
-   };
-  
-   autoCommand->Schedule();
 
 }
 
 void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit() {
-
+    angleController.EnableContinuousInput(-180.0, 180.0);
+    angleController.SetSetpoint(container.chassis.getYaw());
+    targetAngle = container.chassis.getYaw();
+    frc::SmartDashboard::PutNumber("Heading P", angleController.GetP());
+    frc::SmartDashboard::PutNumber("Heading I",  angleController.GetI());
+    frc::SmartDashboard::PutNumber("Heading D",  angleController.GetD());
 }
 
 /**
  * This function is called periodically during operator control.
  */
-void Robot::TeleopPeriodic() {}
+void Robot::TeleopPeriodic() {
+    angleController.SetP(frc::SmartDashboard::GetNumber("Heading P",  angleController.GetP()));
+    angleController.SetI(frc::SmartDashboard::GetNumber("Heading I",  angleController.GetI()));
+    angleController.SetD(frc::SmartDashboard::GetNumber("Heading D",  angleController.GetD()));
+
+    frc::SmartDashboard::PutNumber("Heading Error", angleController.GetPositionError());
+    frc::SmartDashboard::PutNumber("Heading Target", targetAngle);
+
+    frc::SmartDashboard::PutNumber("Turn Command", control.GetX(frc::GenericHID::JoystickHand::kRightHand));
+    frc::SmartDashboard::PutNumber("Forward Command", control.GetY(frc::GenericHID::JoystickHand::kLeftHand));
+
+    targetAngle += control.GetX(frc::GenericHID::JoystickHand::kRightHand) * 0.005 * 90.0;
+
+    if(targetAngle > 180.0){
+        targetAngle -= 360;
+    }
+
+    if(targetAngle < -180.0){
+        targetAngle += 360;
+    }
+    angleController.SetSetpoint(targetAngle);
+    double angularSpeed = angleController.Calculate(container.chassis.getYaw());
+    container.chassis.arcadeDrive(control.GetY(frc::GenericHID::JoystickHand::kLeftHand), angularSpeed);
+
+}
 
 /**
  * This function is called periodically during test mode.

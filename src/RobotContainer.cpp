@@ -9,14 +9,10 @@
 
 RobotContainer::RobotContainer() {
   // Initialize all of your commands and subsystems here
-  chassis.SetDefaultCommand(frc2::RunCommand (
-    [this] {
-    chassis.TankDrive(
-    xbox.GetY(frc::XboxController::kLeftHand), 
-    xbox.GetY(frc::XboxController::kRightHand));}
-    ,&chassis));
+  // Configure the button bindings
   ConfigureButtonBindings();
 }
+
 
 void RobotContainer::ConfigureButtonBindings() {
    this->ramseteBind.WhileActiveOnce(RamseteExample(&chassis),true); //interruptible 
