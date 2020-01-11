@@ -12,11 +12,10 @@
 #include <frc2/command/SequentialCommandGroup.h>
 #include <iostream>
 #include "RobotContainer.h"
-#include "commands/MoveTimed/MoveTimed.h"
-#include "commands/MoveAngularTimed/MoveAngularTimed.h"
 
 class Robot : public frc::TimedRobot {
  public:
+  Robot();
   void RobotInit() override;
   void RobotPeriodic() override;
   void DisabledInit() override;
@@ -30,4 +29,8 @@ class Robot : public frc::TimedRobot {
  private:
   frc2::Command* autoCommand;
   RobotContainer container;
+
+  XboxController control {0};
+  frc2::PIDController angleController {0,0,0, units::second_t(5_ms)};
+  double targetAngle = 0.0;
 };
