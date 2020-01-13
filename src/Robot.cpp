@@ -8,7 +8,7 @@ Robot::Robot() : TimedRobot(units::second_t(5_ms)){
 
 }
 void Robot::RobotInit(){
-
+    std::cout << "Robot is online" << std::endl;
 }
 
 /**
@@ -20,7 +20,7 @@ void Robot::RobotInit(){
  * LiveWindow and SmartDashboard integrated updating.
  */
 void Robot::RobotPeriodic() { 
-  // std::cout << "Impala says hi" << std::endl;
+
   frc2::CommandScheduler::GetInstance().Run(); 
   }
 
@@ -45,40 +45,40 @@ void Robot::AutonomousInit() {
 void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit() {
-    angleController.EnableContinuousInput(-180.0, 180.0);
-    angleController.SetSetpoint(container.chassis.getYaw());
-    targetAngle = container.chassis.getYaw();
-    frc::SmartDashboard::PutNumber("Heading P", angleController.GetP());
-    frc::SmartDashboard::PutNumber("Heading I",  angleController.GetI());
-    frc::SmartDashboard::PutNumber("Heading D",  angleController.GetD());
+    // angleController.EnableContinuousInput(-180.0, 180.0);
+    // angleController.SetSetpoint(container.chassis.getYaw());
+    // targetAngle = container.chassis.getYaw();
+    // frc::SmartDashboard::PutNumber("Heading P", angleController.GetP());
+    // frc::SmartDashboard::PutNumber("Heading I",  angleController.GetI());
+    // frc::SmartDashboard::PutNumber("Heading D",  angleController.GetD());
 }
 
 /**
  * This function is called periodically during operator control.
  */
 void Robot::TeleopPeriodic() {
-    angleController.SetP(frc::SmartDashboard::GetNumber("Heading P",  angleController.GetP()));
-    angleController.SetI(frc::SmartDashboard::GetNumber("Heading I",  angleController.GetI()));
-    angleController.SetD(frc::SmartDashboard::GetNumber("Heading D",  angleController.GetD()));
+    // angleController.SetP(frc::SmartDashboard::GetNumber("Heading P",  angleController.GetP()));
+    // angleController.SetI(frc::SmartDashboard::GetNumber("Heading I",  angleController.GetI()));
+    // angleController.SetD(frc::SmartDashboard::GetNumber("Heading D",  angleController.GetD()));
 
-    frc::SmartDashboard::PutNumber("Heading Error", angleController.GetPositionError());
-    frc::SmartDashboard::PutNumber("Heading Target", targetAngle);
+    // frc::SmartDashboard::PutNumber("Heading Error", angleController.GetPositionError());
+    // frc::SmartDashboard::PutNumber("Heading Target", targetAngle);
 
-    frc::SmartDashboard::PutNumber("Turn Command", control.GetX(frc::GenericHID::JoystickHand::kRightHand));
-    frc::SmartDashboard::PutNumber("Forward Command", control.GetY(frc::GenericHID::JoystickHand::kLeftHand));
+    // frc::SmartDashboard::PutNumber("Turn Command", control.GetX(frc::GenericHID::JoystickHand::kRightHand));
+    // frc::SmartDashboard::PutNumber("Forward Command", control.GetY(frc::GenericHID::JoystickHand::kLeftHand));
 
-    targetAngle += control.GetX(frc::GenericHID::JoystickHand::kRightHand) * 0.005 * 90.0;
+    // targetAngle += control.GetX(frc::GenericHID::JoystickHand::kRightHand) * 0.005 * 90.0;
 
-    if(targetAngle > 180.0){
-        targetAngle -= 360;
-    }
+    // if(targetAngle > 180.0){
+    //     targetAngle -= 360;
+    // }
 
-    if(targetAngle < -180.0){
-        targetAngle += 360;
-    }
-    angleController.SetSetpoint(targetAngle);
-    double angularSpeed = angleController.Calculate(container.chassis.getYaw());
-    container.chassis.arcadeDrive(control.GetY(frc::GenericHID::JoystickHand::kLeftHand), angularSpeed);
+    // if(targetAngle < -180.0){
+    //     targetAngle += 360;
+    // }
+    // angleController.SetSetpoint(targetAngle);
+    // double angularSpeed = angleController.Calculate(container.chassis.getYaw());
+    // container.chassis.arcadeDrive(control.GetY(frc::GenericHID::JoystickHand::kLeftHand), angularSpeed);
 
 }
 

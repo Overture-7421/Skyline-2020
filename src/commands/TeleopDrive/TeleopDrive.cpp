@@ -1,6 +1,6 @@
 #include "TeleopDrive.h"
 
-TeleopDrive::TeleopDrive(Chassis* chassis){
+TeleopDrive::TeleopDrive(Chassis* chassis, frc::XboxController* xbox) : control(xbox) {
     AddRequirements(chassis);
     this->chassis = chassis;
     angleController.EnableContinuousInput(-180.0, 180.0);
@@ -16,7 +16,7 @@ void TeleopDrive::Initialize(){
 
 }
 
-void TeleopDrive::Execute(){
+void TeleopDrive::Execute() {
 
     angleController.SetP(frc::SmartDashboard::GetNumber("Heading P",  angleController.GetP()));
     angleController.SetI(frc::SmartDashboard::GetNumber("Heading I",  angleController.GetI()));
@@ -25,10 +25,10 @@ void TeleopDrive::Execute(){
     frc::SmartDashboard::PutNumber("Heading Error", angleController.GetPositionError());
     frc::SmartDashboard::PutNumber("Heading Target", targetAngle);
 
-    frc::SmartDashboard::PutNumber("Turn Command", control.GetX(frc::GenericHID::JoystickHand::kRightHand));
-    frc::SmartDashboard::PutNumber("Forward Command", control.GetY(frc::GenericHID::JoystickHand::kLeftHand));
+    frc::SmartDashboard::PutNumber("Turn Command", control->GetX(frc::GenericHID::JoystickHand::kRightHand));
+    frc::SmartDashboard::PutNumber("Forward Command", control->GetY(frc::GenericHID::JoystickHand::kLeftHand));
 
-    targetAngle += control.GetX(frc::GenericHID::JoystickHand::kRightHand) * 0.005;
+    targetAngle += control->GetX(frc::GenericHID::JoystickHand::kRightHand) * 0.005;
 
     if(targetAngle > 180.0){
         targetAngle -= 360;
@@ -39,7 +39,7 @@ void TeleopDrive::Execute(){
     }
     angleController.SetSetpoint(targetAngle);
     double angularSpeed = angleController.Calculate(-chassis->getYaw());
-    chassis->arcadeDrive(control.GetY(frc::GenericHID::JoystickHand::kLeftHand), angularSpeed);
+    chassis->arcadeDrive(control->GetY(frc::GenericHID::JoystickHand::kLeftHand), angularSpeed);
 
 }
 
@@ -48,5 +48,9 @@ void TeleopDrive::End(bool interrupted){
 }
 
 bool TeleopDrive::IsFinished(){
-    return false;
+    if( angleController.GetP() == 0.0) {
+        return true;
+    } else {
+        return false;
+    }
 }

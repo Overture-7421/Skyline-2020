@@ -19,6 +19,8 @@
     "*.inc": "cpp",
     "cstddef": "cpp",
     "string": "cpp",
-    "cstdint": "cpp"
-  }
+    "cstdint": "cpp",
+    "type_traits": "cpp"
+  },
+  "C_Cpp.default.configurationProvider": "vscode-wpilib"
 }

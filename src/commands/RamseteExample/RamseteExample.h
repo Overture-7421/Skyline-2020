@@ -12,6 +12,7 @@
 #include "subsystems/Chassis.h"
 #include "frc/trajectory/TrajectoryConfig.h"
 #include "frc/trajectory/TrajectoryGenerator.h"
+#include <iostream>
 /**
  * An example command.
  *

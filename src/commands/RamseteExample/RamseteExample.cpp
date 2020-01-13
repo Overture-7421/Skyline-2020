@@ -34,10 +34,11 @@ void RamseteExample::Execute() {
 }
 // Called once the command ends or is interrupted.
 void RamseteExample::End(bool interrupted) {
+  std::cout << "Ramsete command interrupted" << std::endl;
   this->chassis->TankDrive(0,0);
 }
 
 // Returns true when the command should end.
 bool RamseteExample::IsFinished() { 
-  return false; 
+    return false;
   }

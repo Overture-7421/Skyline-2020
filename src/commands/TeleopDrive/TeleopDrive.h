@@ -12,7 +12,7 @@ class TeleopDrive
     : public frc2::CommandHelper<frc2::CommandBase, TeleopDrive> {
  public:
 
-  explicit TeleopDrive(Chassis* chassis);
+  explicit TeleopDrive(Chassis* chassis, frc::XboxController* xbox);
 
   void Initialize() override;
 
@@ -23,7 +23,7 @@ class TeleopDrive
   bool IsFinished() override;
 
  private:
-    XboxController control {0};
+    XboxController* control;
     Chassis* chassis;
     frc2::PIDController angleController {0,0,0, units::second_t(5_ms)};
     double targetAngle = 0.0;
