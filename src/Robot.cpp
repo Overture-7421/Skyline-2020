@@ -4,7 +4,7 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/CommandScheduler.h>
 
-Robot::Robot() : TimedRobot(units::second_t(5_ms)){
+Robot::Robot() : TimedRobot(){
 
 }
 void Robot::RobotInit(){

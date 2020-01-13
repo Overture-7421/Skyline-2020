@@ -48,9 +48,5 @@ void TeleopDrive::End(bool interrupted){
 }
 
 bool TeleopDrive::IsFinished(){
-    if( angleController.GetP() == 0.0) {
-        return true;
-    } else {
-        return false;
-    }
+    return false;
 }

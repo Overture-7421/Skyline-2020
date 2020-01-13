@@ -20,7 +20,7 @@ using namespace ctre::phoenix::motorcontrol;
 
 class Chassis : public frc2::SubsystemBase {
  public:
-  Chassis(frc::CommandBase& command);
+  Chassis();
   void arcadeDrive(double linear, double angular);
   void TankDrive(double leftSpeed, double rightSpeed);
   void Ramsete(frc::Trajectory target);
@@ -30,7 +30,7 @@ class Chassis : public frc2::SubsystemBase {
   
 
  private:
-  AHRS gyro {SPI::Port::kMXP,200};
+  AHRS gyro {SPI::Port::kMXP,50};
   WPI_TalonSRX rightMaster {1};
   WPI_TalonSRX leftMaster {4};
 
@@ -49,7 +49,7 @@ class Chassis : public frc2::SubsystemBase {
   frc::SpeedControllerGroup left{leftMaster, leftMotor1, leftMotor2};
   frc::SpeedControllerGroup right{rightMaster, rightMotor1, rightMotor2};
   frc::DifferentialDrive differentialDrive{left, right};
-  frc::Encoder leftEncoder{ChassisMap::ENC_LEFT_A, ChassisMap::ENC_LEFT_B};
-  frc::Encoder rightEncoder{ChassisMap::ENC_RIGHT_A, ChassisMap::ENC_RIGHT_B};
+  // frc::Encoder leftEncoder{ChassisMap::ENC_LEFT_A, ChassisMap::ENC_LEFT_B};
+  // frc::Encoder rightEncoder{ChassisMap::ENC_RIGHT_A, ChassisMap::ENC_RIGHT_B};
   frc::RamseteController ramsete;
 };

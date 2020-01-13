@@ -10,8 +10,13 @@ Chassis::Chassis() {
     frc::SmartDashboard::PutNumber("kI",ChassisMap::KI);
     frc::SmartDashboard::PutNumber("kD",ChassisMap::KD);
     frc::SmartDashboard::PutData("Chassis",this);
+    leftMaster.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative);
+    rightMaster.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative);
+    
+
 }
 void Chassis::Periodic() {
+    
     frc::SmartDashboard::PutNumber("X", double_t(odometry.GetPose().Translation().X()));
     frc::SmartDashboard::PutNumber("Y", double_t(odometry.GetPose().Translation().Y()));
     leftPID.SetP(frc::SmartDashboard::GetNumber("kP",0));
@@ -20,6 +25,10 @@ void Chassis::Periodic() {
     rightPID.SetP(frc::SmartDashboard::GetNumber("kP",0));
     rightPID.SetI(frc::SmartDashboard::GetNumber("kI",0));
     rightPID.SetD(frc::SmartDashboard::GetNumber("kD",0));
+    frc::SmartDashboard::PutNumber("yaw", gyro.GetYaw());
+    frc::SmartDashboard::PutNumber("pitch", gyro.GetPitch());
+    frc::SmartDashboard::PutNumber("roll", gyro.GetRoll());
+    frc::SmartDashboard::PutNumber("heading", gyro.GetFusedHeading());
 }
 
 void Chassis::arcadeDrive(double linear, double angular) {
@@ -28,11 +37,11 @@ void Chassis::arcadeDrive(double linear, double angular) {
     frc::SmartDashboard::PutNumber("pitch", gyro.GetPitch());
     frc::SmartDashboard::PutNumber("roll", gyro.GetRoll());
     frc::SmartDashboard::PutNumber("heading", gyro.GetFusedHeading());
-    frc::SmartDashboard::PutNumber("Left encoder", leftEncoder.Get());
-    frc::SmartDashboard::PutNumber("Right encoder", rightEncoder.Get());
+    frc::SmartDashboard::PutNumber("Left encoder", leftMaster.GetSelectedSensorPosition());
+    frc::SmartDashboard::PutNumber("Right encoder", rightMaster.GetSelectedSensorPosition());
     gyroRot2d = frc::Rotation2d (units::degree_t(-gyro.GetAngle()));
-    pose = odometry.Update(gyroRot2d, units::meter_t(leftEncoder.GetDistance()),
-    units::meter_t(rightEncoder.GetDistance()));
+    pose = odometry.Update(gyroRot2d, units::meter_t(leftMaster.GetSelectedSensorPosition()),
+    units::meter_t(rightMaster.GetSelectedSensorPosition()));
 }
 
 void Chassis::TankDrive(double leftSpeed, double rightSpeed){
@@ -45,7 +54,7 @@ double Chassis::getYaw() {
 
 void Chassis::Ramsete(frc::Trajectory target) {
     
-   differentialDrive.TankDrive(leftPID.Calculate(leftEncoder.GetRate()) , rightPID.Calculate(rightEncoder.GetRate()));
+   differentialDrive.TankDrive(leftPID.Calculate(leftMaster.GetSelectedSensorVelocity()) , rightPID.Calculate(rightMaster.GetSelectedSensorVelocity()));
     frc::Rotation2d gyroAngle{units::degree_t(-gyro.GetAngle())};
     // pose = odometry.Update(gyroAngle, units::meter_t(leftEncoder.GetDistance()),
     //  units::meter_t(rightEncoder.GetDistance()));
