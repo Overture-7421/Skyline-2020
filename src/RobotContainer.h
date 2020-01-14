@@ -14,7 +14,6 @@
 #include "frc2/command/RunCommand.h"
 #include "frc/XboxController.h"
 #include "commands/TeleopDrive/TeleopDrive.h"
-#include "commands/RamseteExample/RamseteExample.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -31,7 +30,6 @@ class RobotContainer {
  private:
   // The robot's subsystems and commands are defined here...
   frc::XboxController xbox{0};
-  frc2::JoystickButton ramseteBind{&xbox,0}; // A button
   
   void ConfigureButtonBindings();
 };

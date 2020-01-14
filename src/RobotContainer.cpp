@@ -16,6 +16,6 @@ RobotContainer::RobotContainer() {
 
 
 void RobotContainer::ConfigureButtonBindings() {
-   this->ramseteBind.WhileActiveOnce(RamseteExample(&chassis),true); //interruptible 
+
 }
 

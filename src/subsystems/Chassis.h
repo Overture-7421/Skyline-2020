@@ -27,7 +27,6 @@ class Chassis : public frc2::SubsystemBase {
   void arcadeDrive(double linear, double angular);
   void tankDrive(double leftSpeed, double rightSpeed);
   void voltageDrive(units::volt_t leftVoltage, units::volt_t rightVoltage); //Used for Ramsette
-  void Ramsete(frc::Trajectory target);
   void Periodic() override;
   double getYaw();
   frc::DifferentialDriveWheelSpeeds getWheelSpeeds();
