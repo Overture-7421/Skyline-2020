@@ -63,11 +63,11 @@ double Chassis::getYaw() {
     return gyro.GetYaw();
 }
 
-frc2::RamseteCommand Chassis::getRamsetteCommand(frc::Trajectory trajectory){
-frc::DifferentialDriveVoltageConstraint autoVoltageConstraint(
-      frc::SimpleMotorFeedforward<units::meters>(
-          ChassisMap::ks, ChassisMap::kv, ChassisMap::ka),
-      kinematics, 10_V);
+std::unique_ptr<frc2::SequentialCommandGroup> Chassis::getRamsetteCommand(const Pose2d& start, const std::vector<Translation2d>& interiorWaypoints, const Pose2d& end){
+    frc::DifferentialDriveVoltageConstraint autoVoltageConstraint(
+        frc::SimpleMotorFeedforward<units::meters>(
+            ChassisMap::ks, ChassisMap::kv, ChassisMap::ka),
+        kinematics, 10_V);
 
   // Set up config for trajectory
   frc::TrajectoryConfig config(ChassisMap::kMaxSpeed,
@@ -76,20 +76,28 @@ frc::DifferentialDriveVoltageConstraint autoVoltageConstraint(
   config.SetKinematics(kinematics);
   // Apply the voltage constraint
   config.AddConstraint(autoVoltageConstraint);
+  auto targetTrajectory = frc::TrajectoryGenerator::GenerateTrajectory(start, interiorWaypoints, end, config);
 
-    return frc2::RamseteCommand(
-      trajectory, [this]() { return getPose(); },
-      frc::RamseteController(ChassisMap::kRamseteB,
-                             ChassisMap::kRamseteZeta),
-      frc::SimpleMotorFeedforward<units::meters>(
-          ChassisMap::ks, ChassisMap::kv, ChassisMap::ka),
-      kinematics,
-      [this] { return this->getWheelSpeeds(); },
-      frc2::PIDController(ChassisMap::kPDriveVel, 0, 0),
-      frc2::PIDController(ChassisMap::kPDriveVel, 0, 0),
-      [this](auto left, auto right) { voltageDrive(left, right); },
-      {this});
-    
+    auto commandGroup = std::make_unique<frc2::SequentialCommandGroup>();
+    commandGroup->AddCommands(
+        frc2::RamseteCommand(
+            targetTrajectory, [this]() { return getPose(); },
+            frc::RamseteController(ChassisMap::kRamseteB,
+                                    ChassisMap::kRamseteZeta),
+            frc::SimpleMotorFeedforward<units::meters>(
+                ChassisMap::ks, ChassisMap::kv, ChassisMap::ka),
+            kinematics,
+            [this] { return getWheelSpeeds(); },
+            frc2::PIDController(ChassisMap::kPDriveVel, 0, 0),
+            frc2::PIDController(ChassisMap::kPDriveVel, 0, 0),
+            [this](auto left, auto right) { voltageDrive(left, right); },
+            {this}
+        ),
+        frc2::RunCommand(
+            [this]() {tankDrive(0,0);}, this
+        )
+    );
+    return commandGroup;
 }
 
 frc::Pose2d Chassis::getPose() {

@@ -23,9 +23,6 @@ class ChassisMap {
         static constexpr auto kMaxAcceleration = 3_mps_sq;
         static constexpr double kRamseteB = 2;
         static constexpr double kRamseteZeta = 0.7;
-        static constexpr double ksVolts = 0;
-        static constexpr double kvVoltSecondsPerMeter = 0;
-        static constexpr double kaVoltSecondsSquaredPerMeter = 0;
         static constexpr double kPDriveVel = 0;
         static constexpr auto ks = 0_V;
         static constexpr auto kv = 0 * 1_V * 1_s / 1_m;

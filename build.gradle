@@ -40,8 +40,8 @@ deploy {
 // imports this is enabled by default. For new projects, its disabled
 def includeSrcInIncludeRoot = false
 
-// Set this to true to enable desktop support.
-def includeDesktopSupport = false
+// Set this to true to enable desktop supporst.
+def includeDesktopSupport = true
 
 // Enable simulation gui support. Must check the box in vscode to enable support
 // upon debugging
