@@ -4,7 +4,7 @@ TeleopDrive::TeleopDrive(Chassis* chassis, frc::XboxController* xbox) : control(
     AddRequirements(chassis);
     this->chassis = chassis;
     angleController.EnableContinuousInput(-180.0, 180.0);
-
+    SetName("TeleopDrive");
 }
 
 void TeleopDrive::Initialize(){
@@ -28,7 +28,7 @@ void TeleopDrive::Execute() {
     frc::SmartDashboard::PutNumber("Turn Command", control->GetX(frc::GenericHID::JoystickHand::kRightHand));
     frc::SmartDashboard::PutNumber("Forward Command", control->GetY(frc::GenericHID::JoystickHand::kLeftHand));
 
-    targetAngle += control->GetX(frc::GenericHID::JoystickHand::kRightHand) * 0.005;
+    targetAngle += -control->GetX(frc::GenericHID::JoystickHand::kRightHand) * 0.02 * 360;
 
     if(targetAngle > 180.0){
         targetAngle -= 360;
@@ -39,7 +39,7 @@ void TeleopDrive::Execute() {
     }
     angleController.SetSetpoint(targetAngle);
     double angularSpeed = angleController.Calculate(-chassis->getYaw());
-    chassis->arcadeDrive(control->GetY(frc::GenericHID::JoystickHand::kLeftHand), angularSpeed);
+    chassis->arcadeDrive(-control->GetY(frc::GenericHID::JoystickHand::kLeftHand), angularSpeed);
 
 }
 

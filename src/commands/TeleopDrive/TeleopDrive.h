@@ -25,6 +25,6 @@ class TeleopDrive
  private:
     XboxController* control;
     Chassis* chassis;
-    frc2::PIDController angleController {0,0,0, units::second_t(5_ms)};
+    frc2::PIDController angleController {0.023,0,0.004};
     double targetAngle = 0.0;
 };

@@ -9,8 +9,8 @@ Chassis::Chassis() {
     leftMaster.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative);
     rightMaster.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative);
 
-    leftMaster.ConfigSelectedFeedbackCoefficient(ChassisMap::ENC_METER_PER_PULSE);
-    rightMaster.ConfigSelectedFeedbackCoefficient(ChassisMap::ENC_METER_PER_PULSE);
+    leftMaster.ConfigSelectedFeedbackCoefficient(1);
+    rightMaster.ConfigSelectedFeedbackCoefficient(1);
 
     rightMotor1.Follow(rightMaster);
     rightMotor2.Follow(rightMaster);
@@ -20,6 +20,21 @@ Chassis::Chassis() {
 
     leftMaster.ConfigOpenloopRamp(ChassisMap::RAMP_RATE);
     rightMaster.ConfigOpenloopRamp(ChassisMap::RAMP_RATE);
+    rightMaster.SetInverted(true);
+    rightMotor1.SetInverted(true);
+    rightMotor2.SetInverted(true);
+    rightMaster.ConfigPeakCurrentLimit(ChassisMap::peakCurrentLimit);
+    rightMaster.ConfigContinuousCurrentLimit(ChassisMap::continuousCurrentLimit);
+    leftMaster.ConfigContinuousCurrentLimit(ChassisMap::continuousCurrentLimit);
+    rightMaster.ConfigPeakCurrentLimit(ChassisMap::peakCurrentLimit);
+    leftMaster.SetSelectedSensorPosition(0);
+    rightMaster.SetSelectedSensorPosition(0);
+    leftMaster.SetNeutralMode(NeutralMode::Brake);
+    rightMaster.SetNeutralMode(NeutralMode::Brake);
+    rightMotor1.SetNeutralMode(NeutralMode::Brake);
+    rightMotor2.SetNeutralMode(NeutralMode::Brake);
+    leftMotor1.SetNeutralMode(NeutralMode::Brake);
+    leftMotor2.SetNeutralMode(NeutralMode::Brake);
 }
 
 void Chassis::Periodic() {
@@ -33,19 +48,21 @@ void Chassis::Periodic() {
     frc::SmartDashboard::PutNumber("Chassis/Right Position", rightMaster.GetSelectedSensorPosition());
     frc::SmartDashboard::PutNumber("Chassis/Left Speed", leftMaster.GetSelectedSensorVelocity());
     frc::SmartDashboard::PutNumber("Chassis/Right Speed", rightMaster.GetSelectedSensorVelocity());
+    frc::SmartDashboard::PutNumber("Chassis/Left Master Current", leftMaster.GetSupplyCurrent());
+    frc::SmartDashboard::PutNumber("Chassis/ Right Master Current", rightMaster.GetSupplyCurrent());
     frc::Rotation2d gyroRot2d = frc::Rotation2d (units::degree_t(-gyro.GetAngle()));
-    odometry.Update(gyroRot2d, units::meter_t(leftMaster.GetSelectedSensorPosition()),
-    units::meter_t(rightMaster.GetSelectedSensorPosition()));
+    odometry.Update(gyroRot2d, units::meter_t(leftMaster.GetSelectedSensorPosition() * ChassisMap::ENC_METER_PER_PULSE),
+    units::meter_t(rightMaster.GetSelectedSensorPosition() * ChassisMap::ENC_METER_PER_PULSE));
 }
 frc::DifferentialDriveWheelSpeeds Chassis::getWheelSpeeds() {
     frc::DifferentialDriveWheelSpeeds wheelspeeds;
-    wheelspeeds.left = units::meters_per_second_t(leftMaster.GetSelectedSensorVelocity());
-    wheelspeeds.right = units::meters_per_second_t(rightMaster.GetSelectedSensorVelocity());
+    wheelspeeds.left = units::meters_per_second_t(leftMaster.GetSelectedSensorVelocity()* ChassisMap::ENC_METER_PER_PULSE);
+    wheelspeeds.right = units::meters_per_second_t(rightMaster.GetSelectedSensorVelocity() * ChassisMap::ENC_METER_PER_PULSE);
     return wheelspeeds;
 }
 void Chassis::arcadeDrive(double linear, double angular) {
-    leftMaster.Set(linear + angular);
-    rightMaster.Set(linear - angular);
+    leftMaster.Set(linear - angular);
+    rightMaster.Set(linear + angular);
 }
 
 void Chassis::tankDrive(double leftSpeed, double rightSpeed){
@@ -56,6 +73,8 @@ void Chassis::tankDrive(double leftSpeed, double rightSpeed){
 void Chassis::voltageDrive(units::volt_t leftVoltage, units::volt_t rightVoltage){
     leftMaster.SetVoltage(leftVoltage);
     rightMaster.SetVoltage(rightVoltage);  
+    frc::SmartDashboard::PutNumber("RightVoltage", double_t(rightVoltage));
+    frc::SmartDashboard::PutNumber("LeftVoltage", double_t(leftVoltage));
     
 }
 
@@ -90,7 +109,10 @@ std::unique_ptr<frc2::SequentialCommandGroup> Chassis::getRamsetteCommand(const 
             [this] { return getWheelSpeeds(); },
             frc2::PIDController(ChassisMap::kPDriveVel, 0, 0),
             frc2::PIDController(ChassisMap::kPDriveVel, 0, 0),
-            [this](auto left, auto right) { voltageDrive(left, right); },
+            [this](auto left, auto right) { 
+              
+                voltageDrive(left, right); 
+                },
             {this}
         ),
         frc2::RunCommand(

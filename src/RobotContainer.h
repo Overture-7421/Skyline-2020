@@ -25,6 +25,7 @@
 class RobotContainer {
  public:
   RobotContainer();
+  std::unique_ptr<frc2::Command> autocommand;
   Chassis chassis;
   
  private:
