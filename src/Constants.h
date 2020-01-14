@@ -6,6 +6,7 @@
 /*----------------------------------------------------------------------------*/
 
 #pragma once
+#include <units/units.h>
 
 class ChassisMap {
     public:
@@ -17,7 +18,7 @@ class ChassisMap {
         static const unsigned int RIGHT_2 = 3;
         static constexpr float RAMP_RATE = 1.0/10.0;
         static constexpr double ENC_METER_PER_PULSE = 1; ///TODO MEASURE
-        static constexpr double TRACK_WIDTH = 0.71;
+        static constexpr auto TRACK_WIDTH = 0.71_m;
         static constexpr auto kMaxSpeed = 3_mps;
         static constexpr auto kMaxAcceleration = 3_mps_sq;
         static constexpr double kRamseteB = 2;
@@ -26,6 +27,9 @@ class ChassisMap {
         static constexpr double kvVoltSecondsPerMeter = 0;
         static constexpr double kaVoltSecondsSquaredPerMeter = 0;
         static constexpr double kPDriveVel = 0;
+        static constexpr auto ks = 0_V;
+        static constexpr auto kv = 0 * 1_V * 1_s / 1_m;
+        static constexpr auto ka = 0 * 1_V * 1_s * 1_s / 1_m;
 };
 
 class OI {

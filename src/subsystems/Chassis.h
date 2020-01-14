@@ -14,7 +14,10 @@
 #include <frc/geometry/Rotation2d.h>
 #include <frc/controller/RamseteController.h>
 #include <frc2/command/RamseteCommand.h>
-
+#include <frc/kinematics/DifferentialDriveWheelSpeeds.h>
+#include <frc/trajectory/TrajectoryGenerator.h>
+#include <frc/trajectory/constraint/DifferentialDriveVoltageConstraint.h>
+#include <frc/controller/SimpleMotorFeedForward.h>
 using namespace ctre::phoenix::motorcontrol::can;
 using namespace ctre::phoenix::motorcontrol;
 
@@ -23,10 +26,11 @@ class Chassis : public frc2::SubsystemBase {
   Chassis();
   void arcadeDrive(double linear, double angular);
   void tankDrive(double leftSpeed, double rightSpeed);
-  void voltageDrive(double leftVoltage, double rightVoltage); //Used for Ramsette
+  void voltageDrive(units::volt_t leftVoltage, units::volt_t rightVoltage); //Used for Ramsette
   void Ramsete(frc::Trajectory target);
   void Periodic() override;
   double getYaw();
+  frc::DifferentialDriveWheelSpeeds getWheelSpeeds();
   frc::Pose2d getPose();
   frc2::RamseteCommand getRamsetteCommand(frc::Trajectory trajectory);
 
@@ -44,4 +48,5 @@ class Chassis : public frc2::SubsystemBase {
   frc::DifferentialDriveOdometry odometry{ frc::Rotation2d (units::degree_t(-gyro.GetAngle())) };
   frc::DifferentialDriveKinematics kinematics{units::meter_t(ChassisMap::TRACK_WIDTH)};
   frc::RamseteController ramsete;
+  frc::DifferentialDriveWheelSpeeds wheelSpeeds;
 };

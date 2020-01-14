@@ -37,7 +37,12 @@ void Chassis::Periodic() {
     odometry.Update(gyroRot2d, units::meter_t(leftMaster.GetSelectedSensorPosition()),
     units::meter_t(rightMaster.GetSelectedSensorPosition()));
 }
-
+frc::DifferentialDriveWheelSpeeds Chassis::getWheelSpeeds() {
+    frc::DifferentialDriveWheelSpeeds wheelspeeds;
+    wheelspeeds.left = units::meters_per_second_t(leftMaster.GetSelectedSensorVelocity());
+    wheelspeeds.right = units::meters_per_second_t(rightMaster.GetSelectedSensorVelocity());
+    return wheelspeeds;
+}
 void Chassis::arcadeDrive(double linear, double angular) {
     leftMaster.Set(linear + angular);
     rightMaster.Set(linear - angular);
@@ -48,9 +53,9 @@ void Chassis::tankDrive(double leftSpeed, double rightSpeed){
     rightMaster.Set(rightSpeed);
 }
 
-void Chassis::voltageDrive(double leftVoltage, double rightVoltage){
-    leftMaster.SetVoltage(units::volt_t(leftVoltage));
-    rightMaster.SetVoltage(units::volt_t(rightVoltage));  
+void Chassis::voltageDrive(units::volt_t leftVoltage, units::volt_t rightVoltage){
+    leftMaster.SetVoltage(leftVoltage);
+    rightMaster.SetVoltage(rightVoltage);  
     
 }
 
@@ -61,40 +66,29 @@ double Chassis::getYaw() {
 frc2::RamseteCommand Chassis::getRamsetteCommand(frc::Trajectory trajectory){
 frc::DifferentialDriveVoltageConstraint autoVoltageConstraint(
       frc::SimpleMotorFeedforward<units::meters>(
-          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
-      DriveConstants::kDriveKinematics, 10_V);
+          ChassisMap::ks, ChassisMap::kv, ChassisMap::ka),
+      kinematics, 10_V);
 
   // Set up config for trajectory
-  frc::TrajectoryConfig config(AutoConstants::kMaxSpeed,
-                               AutoConstants::kMaxAcceleration);
+  frc::TrajectoryConfig config(ChassisMap::kMaxSpeed,
+                               ChassisMap::kMaxAcceleration);
   // Add kinematics to ensure max speed is actually obeyed
-  config.SetKinematics(DriveConstants::kDriveKinematics);
+  config.SetKinematics(kinematics);
   // Apply the voltage constraint
   config.AddConstraint(autoVoltageConstraint);
 
-  // An example trajectory to follow.  All units in meters.
-  auto exampleTrajectory = frc::TrajectoryGenerator::GenerateTrajectory(
-      // Start at the origin facing the +X direction
-      frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)),
-      // Pass through these two interior waypoints, making an 's' curve path
-      {frc::Translation2d(1_m, 1_m), frc::Translation2d(2_m, -1_m)},
-      // End 3 meters straight ahead of where we started, facing forward
-      frc::Pose2d(3_m, 0_m, frc::Rotation2d(0_deg)),
-      // Pass the config
-      config);
-
     return frc2::RamseteCommand(
-      exampleTrajectory, [this]() { return getPose(); },
+      trajectory, [this]() { return getPose(); },
       frc::RamseteController(ChassisMap::kRamseteB,
                              ChassisMap::kRamseteZeta),
       frc::SimpleMotorFeedforward<units::meters>(
-          DriveConstants::ks, DriveConstants::kv, DriveConstants::ka),
-      DriveConstants::kDriveKinematics,
-      [this] { return m_drive.GetWheelSpeeds(); },
-      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
-      frc2::PIDController(DriveConstants::kPDriveVel, 0, 0),
-      [this](auto left, auto right) { m_drive.TankDriveVolts(left, right); },
-      {&m_drive});
+          ChassisMap::ks, ChassisMap::kv, ChassisMap::ka),
+      kinematics,
+      [this] { return this->getWheelSpeeds(); },
+      frc2::PIDController(ChassisMap::kPDriveVel, 0, 0),
+      frc2::PIDController(ChassisMap::kPDriveVel, 0, 0),
+      [this](auto left, auto right) { voltageDrive(left, right); },
+      {this});
     
 }
 
