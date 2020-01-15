@@ -41,62 +41,32 @@ void Robot::DisabledPeriodic() {}
  */
 void Robot::AutonomousInit()
 {
-
-  // container.autocommand = container.chassis.getRamsetteCommand( // Start at the origin facing the +X direction
-  //     frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)),
-  //     // Pass through these two interior waypoints, making an 's' curve path
-  //     {frc::Translation2d(1_m, 1_m), frc::Translation2d(2_m, -1_m)},
-  //     // End 3 meters straight ahead of where we started, facing forward
-  //     frc::Pose2d(3_m, 0_m, frc::Rotation2d(0_deg)));
-  container.autocommand = container.chassis.getRamsetteCommand( // Start at the origin facing the +X direction
-      frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)),
-      // Pass through these two interior waypoints, making an 's' curve path
-      {},
-      // End 3 meters straight ahead of where we started, facing forward
-      frc::Pose2d(2_m, 1_m, frc::Rotation2d(90_deg)));
-
-  container.autocommand->Schedule();
+  
 }
 
 void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit()
 {
-  // angleController.EnableContinuousInput(-180.0, 180.0);
-  // angleController.SetSetpoint(container.chassis.getYaw());
-  // targetAngle = container.chassis.getYaw();
-  // frc::SmartDashboard::PutNumber("Heading P", angleController.GetP());
-  // frc::SmartDashboard::PutNumber("Heading I",  angleController.GetI());
-  // frc::SmartDashboard::PutNumber("Heading D",  angleController.GetD());
+
 }
 
 /**
  * This function is called periodically during operator control.
  */
-void Robot::TeleopPeriodic()
-{
-  // angleController.SetP(frc::SmartDashboard::GetNumber("Heading P",  angleController.GetP()));
-  // angleController.SetI(frc::SmartDashboard::GetNumber("Heading I",  angleController.GetI()));
-  // angleController.SetD(frc::SmartDashboard::GetNumber("Heading D",  angleController.GetD()));
+void Robot::TeleopPeriodic(){
+  double linear = controller.GetY(XboxController::JoystickHand::kLeftHand);
+  double angular = -controller.GetX(XboxController::JoystickHand::kRightHand);
 
-  // frc::SmartDashboard::PutNumber("Heading Error", angleController.GetPositionError());
-  // frc::SmartDashboard::PutNumber("Heading Target", targetAngle);
 
-  // frc::SmartDashboard::PutNumber("Turn Command", control.GetX(frc::GenericHID::JoystickHand::kRightHand));
-  // frc::SmartDashboard::PutNumber("Forward Command", control.GetY(frc::GenericHID::JoystickHand::kLeftHand));
-
-  // targetAngle += control.GetX(frc::GenericHID::JoystickHand::kRightHand) * 0.005 * 90.0;
-
-  // if(targetAngle > 180.0){
-  //     targetAngle -= 360;
-  // }
-
-  // if(targetAngle < -180.0){
-  //     targetAngle += 360;
-  // }
-  // angleController.SetSetpoint(targetAngle);
-  // double angularSpeed = angleController.Calculate(container.chassis.getYaw());
-  // container.chassis.arcadeDrive(control.GetY(frc::GenericHID::JoystickHand::kLeftHand), angularSpeed);
+  rightMotor.Set(linear-angular);
+  rightMotor1.Set(linear-angular);
+  rightMotor2.Set(linear-angular);
+  
+  leftMotor.Set(-(linear+angular));
+  leftMotor1.Set(-(linear+angular));
+  leftMotor2.Set(-(linear+angular));
+  
 }
 
 /**
@@ -110,3 +80,18 @@ int main()
   return frc::StartRobot<Robot>();
 }
 #endif
+
+/*
+ * 
+ * <tipo> <nombre la funcion>(<parametros>){
+ *  <cuerpo>
+ * } 
+ * 
+ *  Rectangulo hola;
+ *  
+ * 
+ * int area = hola.GetArea();
+ * 
+ * 
+ * 
+ * */
