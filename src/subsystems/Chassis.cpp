@@ -8,9 +8,10 @@ Chassis::Chassis() {
     frc::SmartDashboard::PutData("Chassis/Chassis",this);
     leftMaster.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative);
     rightMaster.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative);
+    
 
-    leftMaster.ConfigSelectedFeedbackCoefficient(1);
-    rightMaster.ConfigSelectedFeedbackCoefficient(1);
+  rightMaster.ConfigSelectedFeedbackCoefficient(1.0/4.0);
+    leftMaster.ConfigSelectedFeedbackCoefficient(1.0/4.0);
 
     rightMotor1.Follow(rightMaster);
     rightMotor2.Follow(rightMaster);
@@ -96,13 +97,17 @@ std::unique_ptr<frc2::SequentialCommandGroup> Chassis::getRamsetteCommand(const 
   // Apply the voltage constraint
   config.AddConstraint(autoVoltageConstraint);
   auto targetTrajectory = frc::TrajectoryGenerator::GenerateTrajectory(start, interiorWaypoints, end, config);
+auto ramseteController = frc::RamseteController(ChassisMap::kRamseteB,
+                                    ChassisMap::kRamseteZeta);
 
+ramseteController.SetTolerance(
+    frc::Pose2d(0.01_m, 0.01_m, frc::Rotation2d(0_deg))
+);
     auto commandGroup = std::make_unique<frc2::SequentialCommandGroup>();
     commandGroup->AddCommands(
         frc2::RamseteCommand(
             targetTrajectory, [this]() { return getPose(); },
-            frc::RamseteController(ChassisMap::kRamseteB,
-                                    ChassisMap::kRamseteZeta),
+           ramseteController,
             frc::SimpleMotorFeedforward<units::meters>(
                 ChassisMap::ks, ChassisMap::kv, ChassisMap::ka),
             kinematics,

@@ -42,12 +42,18 @@ void Robot::DisabledPeriodic() {}
 void Robot::AutonomousInit()
 {
 
+  // container.autocommand = container.chassis.getRamsetteCommand( // Start at the origin facing the +X direction
+  //     frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)),
+  //     // Pass through these two interior waypoints, making an 's' curve path
+  //     {frc::Translation2d(1_m, 1_m), frc::Translation2d(2_m, -1_m)},
+  //     // End 3 meters straight ahead of where we started, facing forward
+  //     frc::Pose2d(3_m, 0_m, frc::Rotation2d(0_deg)));
   container.autocommand = container.chassis.getRamsetteCommand( // Start at the origin facing the +X direction
       frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)),
       // Pass through these two interior waypoints, making an 's' curve path
-      {frc::Translation2d(1_m, 1_m), frc::Translation2d(2_m, -1_m)},
+      {},
       // End 3 meters straight ahead of where we started, facing forward
-      frc::Pose2d(3_m, 0_m, frc::Rotation2d(0_deg)));
+      frc::Pose2d(2_m, 1_m, frc::Rotation2d(90_deg)));
 
   container.autocommand->Schedule();
 }
