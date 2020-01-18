@@ -57,8 +57,8 @@ void Chassis::Periodic() {
 }
 frc::DifferentialDriveWheelSpeeds Chassis::getWheelSpeeds() {
     frc::DifferentialDriveWheelSpeeds wheelspeeds;
-    wheelspeeds.left = units::meters_per_second_t(leftMaster.GetSelectedSensorVelocity()* ChassisMap::ENC_METER_PER_PULSE);
-    wheelspeeds.right = units::meters_per_second_t(rightMaster.GetSelectedSensorVelocity() * ChassisMap::ENC_METER_PER_PULSE);
+    wheelspeeds.left = units::meters_per_second_t(leftMaster.GetSelectedSensorVelocity() * ChassisMap::ENC_METER_PER_PULSE / 0.1);
+    wheelspeeds.right = units::meters_per_second_t(rightMaster.GetSelectedSensorVelocity() * ChassisMap::ENC_METER_PER_PULSE / 0.1);
     return wheelspeeds;
 }
 void Chassis::arcadeDrive(double linear, double angular) {
@@ -99,10 +99,6 @@ std::unique_ptr<frc2::SequentialCommandGroup> Chassis::getRamsetteCommand(const 
   auto targetTrajectory = frc::TrajectoryGenerator::GenerateTrajectory(start, interiorWaypoints, end, config);
 auto ramseteController = frc::RamseteController(ChassisMap::kRamseteB,
                                     ChassisMap::kRamseteZeta);
-
-ramseteController.SetTolerance(
-    frc::Pose2d(0.01_m, 0.01_m, frc::Rotation2d(0_deg))
-);
     auto commandGroup = std::make_unique<frc2::SequentialCommandGroup>();
     commandGroup->AddCommands(
         frc2::RamseteCommand(

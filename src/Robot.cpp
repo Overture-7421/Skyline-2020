@@ -39,9 +39,19 @@ void Robot::DisabledPeriodic() {}
  * This autonomous runs the autonomous command selected by your {@link
  * RobotContainer} class.
  */
-void Robot::AutonomousInit()
-{
-  
+void Robot::AutonomousInit(){
+  container.autocommand = container.chassis.getRamsetteCommand(
+    frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)),
+    {
+      frc::Translation2d(2.5_m,-2_m),
+      frc::Translation2d(5_m,1.25_m),  
+      //frc::Translation2d(4_m,0_m),
+      //frc::Translation2d(5_m,0_m),
+      //frc::Translation2d(7_m,-1_m),
+    },
+    frc::Pose2d(7_m, -1.6_m, frc::Rotation2d(0_deg))
+  );
+  container.autocommand->Schedule();
 }
 
 void Robot::AutonomousPeriodic() {}
@@ -55,18 +65,7 @@ void Robot::TeleopInit()
  * This function is called periodically during operator control.
  */
 void Robot::TeleopPeriodic(){
-  double linear = controller.GetY(XboxController::JoystickHand::kLeftHand);
-  double angular = -controller.GetX(XboxController::JoystickHand::kRightHand);
 
-
-  rightMotor.Set(linear-angular);
-  rightMotor1.Set(linear-angular);
-  rightMotor2.Set(linear-angular);
-  
-  leftMotor.Set(-(linear+angular));
-  leftMotor1.Set(-(linear+angular));
-  leftMotor2.Set(-(linear+angular));
-  
 }
 
 /**

@@ -30,17 +30,9 @@ class Robot : public frc::TimedRobot {
 
 	frc::XboxController controller {0};
 
-  WPI_TalonSRX rightMotor {1};
-  WPI_VictorSPX rightMotor1 {2};
-  WPI_VictorSPX rightMotor2 {3};
-
-  WPI_TalonSRX leftMotor {4};
-  WPI_VictorSPX leftMotor1 {5};
-  WPI_VictorSPX leftMotor2 {6};
-
  private:
   frc2::Command* autoCommand;
-  // RobotContainer container;
+   RobotContainer container;
   
   // frc2::PIDController angleController {0,0,0, units::second_t(5_ms)};
   // double targetAngle = 0.0;
