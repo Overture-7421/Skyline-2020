@@ -26,8 +26,9 @@ class RobotContainer {
  public:
   RobotContainer();
   std::unique_ptr<frc2::Command> autocommand;
+  std::unique_ptr<frc2::Command> TeleopDrive;
   Chassis chassis;
-  
+
  private:
   // The robot's subsystems and commands are defined here...
   frc::XboxController xbox{0};
