@@ -43,13 +43,9 @@ void Robot::AutonomousInit(){
   container.autocommand = container.chassis.getRamsetteCommand(
     frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)),
     {
-      frc::Translation2d(2.5_m,-2_m),
-      frc::Translation2d(5_m,1.25_m),  
-      //frc::Translation2d(4_m,0_m),
-      //frc::Translation2d(5_m,0_m),
-      //frc::Translation2d(7_m,-1_m),
+      frc::Translation2d(5_m,-1.0_m),
     },
-    frc::Pose2d(7_m, -1.6_m, frc::Rotation2d(0_deg))
+    frc::Pose2d(0_m, -1.0_m, frc::Rotation2d(180_deg))
   );
   container.autocommand->Schedule();
 }
@@ -58,7 +54,7 @@ void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit()
 {
-
+  
 }
 
 /**
