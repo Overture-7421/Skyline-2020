@@ -5,6 +5,7 @@ Chassis::Chassis() {
     gyro.Reset();
     gyro.ZeroYaw();
     gyro.ResetDisplacement();
+    
     frc::SmartDashboard::PutData("Chassis/Chassis",this);
     leftMaster.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative);
     rightMaster.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative);
@@ -82,7 +83,8 @@ double Chassis::getYaw() {
     return gyro.GetYaw();
 }
 
-std::unique_ptr<frc2::SequentialCommandGroup> Chassis::getRamsetteCommand(const Pose2d& start, const std::vector<Translation2d>& interiorWaypoints, const Pose2d& end){
+frc2::SequentialCommandGroup Chassis::getRamsetteCommand(const Pose2d& start, const std::vector<Translation2d>& interiorWaypoints, const Pose2d& end, bool reversed){
+    //gyro.SetAngleAdjustment(180);
     frc::DifferentialDriveVoltageConstraint autoVoltageConstraint(
         frc::SimpleMotorFeedforward<units::meters>(
             ChassisMap::ks, ChassisMap::kv, ChassisMap::ka),
@@ -91,6 +93,7 @@ std::unique_ptr<frc2::SequentialCommandGroup> Chassis::getRamsetteCommand(const 
   // Set up config for trajectory
   frc::TrajectoryConfig config(ChassisMap::kMaxSpeed,
                                ChassisMap::kMaxAcceleration);
+  config.SetReversed(reversed);
   // Add kinematics to ensure max speed is actually obeyed
   config.SetKinematics(kinematics);
   // Apply the voltage constraint
@@ -98,8 +101,8 @@ std::unique_ptr<frc2::SequentialCommandGroup> Chassis::getRamsetteCommand(const 
   auto targetTrajectory = frc::TrajectoryGenerator::GenerateTrajectory(start, interiorWaypoints, end, config);
 auto ramseteController = frc::RamseteController(ChassisMap::kRamseteB,
                                     ChassisMap::kRamseteZeta);
-    auto commandGroup = std::make_unique<frc2::SequentialCommandGroup>();
-    commandGroup->AddCommands(
+    auto commandGroup = frc2::SequentialCommandGroup();
+    commandGroup.AddCommands(
         frc2::RamseteCommand(
             targetTrajectory, [this]() { return getPose(); },
            ramseteController,
@@ -123,5 +126,6 @@ auto ramseteController = frc::RamseteController(ChassisMap::kRamseteB,
 }
 
 frc::Pose2d Chassis::getPose() {
+
     return odometry.GetPose();
 }

@@ -34,7 +34,7 @@ class Chassis : public frc2::SubsystemBase {
   double getYaw();
   frc::DifferentialDriveWheelSpeeds getWheelSpeeds();
   frc::Pose2d getPose();
-  std::unique_ptr<frc2::SequentialCommandGroup> getRamsetteCommand(const Pose2d& start, const std::vector<Translation2d>& interiorWaypoints,const Pose2d& end);
+  frc2::SequentialCommandGroup getRamsetteCommand(const Pose2d& start, const std::vector<Translation2d>& interiorWaypoints,const Pose2d& end, bool reversed = false);
 
  private:
   AHRS gyro {SPI::Port::kMXP};
