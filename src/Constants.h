@@ -30,7 +30,13 @@ class ChassisMap {
         static const auto peakCurrentLimit = 50;
         static const int continuousCurrentLimit = 30;
 };
-
+// class CannonMap {
+//     public:
+//         static const double PI  = 3.141592;
+//         static const float SPHERE_DRAG_C = 0.45;
+//         static const float AIR_DENSITY = 1.2754; // STP
+//         static const float BALL_RADIUS = 0.0889;
+// };
 class OI {
     public:
          static const int DRIVER1_PORT = 0;

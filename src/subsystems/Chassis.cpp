@@ -76,7 +76,6 @@ void Chassis::voltageDrive(units::volt_t leftVoltage, units::volt_t rightVoltage
     rightMaster.SetVoltage(rightVoltage);  
     frc::SmartDashboard::PutNumber("RightVoltage", double_t(rightVoltage));
     frc::SmartDashboard::PutNumber("LeftVoltage", double_t(leftVoltage));
-    
 }
 
 double Chassis::getYaw() {

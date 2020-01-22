@@ -28,7 +28,7 @@ void TeleopDrive::Execute() {
     frc::SmartDashboard::PutNumber("Turn Command", control->GetX(frc::GenericHID::JoystickHand::kRightHand));
     frc::SmartDashboard::PutNumber("Forward Command", control->GetY(frc::GenericHID::JoystickHand::kLeftHand));
 
-    targetAngle += -control->GetX(frc::GenericHID::JoystickHand::kRightHand) * 0.02 * 360;
+    targetAngle += -control->GetX(frc::GenericHID::JoystickHand::kRightHand) * 0.02 * 270;
 
     if(targetAngle > 180.0){
         targetAngle -= 360;
