@@ -31,7 +31,7 @@ class Robot : public frc::TimedRobot {
 	frc::XboxController controller {0};
 
  private:
-  frc2::Command* autoCommand;
+
    RobotContainer container;
   
   // frc2::PIDController angleController {0,0,0, units::second_t(5_ms)};

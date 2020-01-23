@@ -40,20 +40,23 @@ void Robot::DisabledPeriodic() {}
  * RobotContainer} class.
  */
 void Robot::AutonomousInit(){
-  container.autocommand = container.chassis.getRamsetteCommand(
-    frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)),
+  container.autocommand = std::make_unique<frc2::SequentialCommandGroup>(
+    container.chassis.getRamsetteCommand(
+    frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)), 
     {
-      frc::Translation2d(1_m,-2_m),
-      frc::Translation2d(2_m, 0_m),
-      frc::Translation2d(3_m,-1_m),
-      frc::Translation2d(4_m,0_m),
-      frc::Translation2d(5_m,-2_m),
-      frc::Translation2d(6_m,0_m),
-      frc::Translation2d(7_m,-1_m),
-
+      frc::Translation2d(1.0_m,-1.0_m),
     },
-    frc::Pose2d(0.8_m, -1_m, frc::Rotation2d(180_deg))
+    frc::Pose2d(2.0_m, -2.0_m, frc::Rotation2d(0_deg))
+    ), 
+  container.chassis.getRamsetteCommand(
+    frc::Pose2d(2.0_m, -2.0_m, frc::Rotation2d(0_deg)), 
+    {
+      frc::Translation2d(1.0_m,-1.0_m),
+    },
+    frc::Pose2d(3.0_m, 0.0_m,frc::Rotation2d(180_deg)), true
+    )
   );
+  
   container.autocommand->Schedule();
 }
 

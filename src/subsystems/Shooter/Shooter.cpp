@@ -5,17 +5,12 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "RobotContainer.h"
+#include "Shooter.h"
 
-RobotContainer::RobotContainer() {
-  // Initialize all of your commands and subsystems here
-  // Configure the button bindings
-  ConfigureButtonBindings();
-  chassis.SetDefaultCommand(TeleopDrive{&chassis, &xbox});
+Shooter::Shooter() {
+    ShooterR1.Follow(ShooterMaster);
+    
 }
 
-
-void RobotContainer::ConfigureButtonBindings() {
-
-}
-
+// This method will be called once per scheduler run
+void Shooter::Periodic() {}

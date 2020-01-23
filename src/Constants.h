@@ -19,18 +19,24 @@ class ChassisMap {
         static constexpr float RAMP_RATE = 1.0/8.0;
         static constexpr double ENC_METER_PER_PULSE = 0.001419446; 
         static constexpr auto TRACK_WIDTH = 0.7_m;
-        static constexpr auto kMaxSpeed = 3_mps;
-        static constexpr auto kMaxAcceleration = 1.5_mps_sq;
+        static constexpr auto kMaxSpeed = 3.0_mps;
+        static constexpr auto kMaxAcceleration = 2_mps_sq;
         static constexpr double kRamseteB = 2;
         static constexpr double kRamseteZeta = 0.7;
-        static constexpr double kPDriveVel = 3.0;
+        static constexpr double kPDriveVel = 3.5;
         static constexpr auto ks = 0.768_V;
         static constexpr auto kv = 0.32 * 1_V * 1_s / 1_m;
         static constexpr auto ka = 0.0743 * 1_V * 1_s * 1_s / 1_m;
         static const auto peakCurrentLimit = 50;
         static const int continuousCurrentLimit = 30;
 };
-
+// class CannonMap {
+//     public:
+//         static const double PI  = 3.141592;
+//         static const float SPHERE_DRAG_C = 0.45;
+//         static const float AIR_DENSITY = 1.2754; // STP
+//         static const float BALL_RADIUS = 0.0889;
+// };
 class OI {
     public:
          static const int DRIVER1_PORT = 0;

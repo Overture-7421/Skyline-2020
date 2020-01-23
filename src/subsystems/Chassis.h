@@ -19,7 +19,7 @@
 #include <frc/trajectory/constraint/DifferentialDriveVoltageConstraint.h>
 #include <frc/controller/SimpleMotorFeedForward.h>
 #include <frc2/command/SequentialCommandGroup.h>
-#include <frc2/command/RunCommand.h>
+#include <frc2/command/InstantCommand.h>
 
 using namespace ctre::phoenix::motorcontrol::can;
 using namespace ctre::phoenix::motorcontrol;
@@ -34,7 +34,7 @@ class Chassis : public frc2::SubsystemBase {
   double getYaw();
   frc::DifferentialDriveWheelSpeeds getWheelSpeeds();
   frc::Pose2d getPose();
-  std::unique_ptr<frc2::SequentialCommandGroup> getRamsetteCommand(const Pose2d& start, const std::vector<Translation2d>& interiorWaypoints,const Pose2d& end);
+  frc2::SequentialCommandGroup getRamsetteCommand(const Pose2d& start, const std::vector<Translation2d>& interiorWaypoints,const Pose2d& end, bool reversed = false);
 
  private:
   AHRS gyro {SPI::Port::kMXP};
@@ -49,6 +49,5 @@ class Chassis : public frc2::SubsystemBase {
 
   frc::DifferentialDriveOdometry odometry{ frc::Rotation2d (units::degree_t(-gyro.GetAngle())) };
   frc::DifferentialDriveKinematics kinematics{units::meter_t(ChassisMap::TRACK_WIDTH)};
-  frc::RamseteController ramsete;
   frc::DifferentialDriveWheelSpeeds wheelSpeeds;
 };
