@@ -14,6 +14,7 @@
 #include "frc2/command/RunCommand.h"
 #include "frc/XboxController.h"
 #include "commands/TeleopDrive/TeleopDrive.h"
+#include "subsystems/Shooter/Shooter.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -27,7 +28,8 @@ class RobotContainer {
   RobotContainer();
   std::unique_ptr<frc2::SequentialCommandGroup> autocommand;
   //std::unique_ptr<frc2::Command> TeleopDrive;
-  Chassis chassis;
+  //Chassis chassis;
+  Shooter shooter;
 
  private:
   // The robot's subsystems and commands are defined here...
