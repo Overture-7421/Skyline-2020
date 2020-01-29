@@ -13,9 +13,10 @@ Shooter::Shooter() {
     
     ShooterMaster.SetSelectedSensorPosition(0);
 
-    frc::SmartDashboard::PutNumber("Shooter P", 0.0);
+    frc::SmartDashboard::PutNumber("Shooter P", 0.1);
     frc::SmartDashboard::PutNumber("Shooter I", 0.0);
     frc::SmartDashboard::PutNumber("Shooter D", 0.0);
+    frc::SmartDashboard::PutNumber("Shooter F", 0.03);
 
     frc::SmartDashboard::PutNumber("rps", 0.0);
     
@@ -29,6 +30,7 @@ void Shooter::Periodic() {
     ShooterMaster.Config_kP(0,frc::SmartDashboard::GetNumber("Shooter P", 0.0));
     ShooterMaster.Config_kI(0,frc::SmartDashboard::GetNumber("Shooter I", 0.0));
     ShooterMaster.Config_kD(0,frc::SmartDashboard::GetNumber("Shooter D", 0.0));
+    ShooterMaster.Config_kF(0,frc::SmartDashboard::GetNumber("Shooter F", 0.0));
     frc::SmartDashboard::PutNumber("velocity", (ShooterMaster.GetSelectedSensorVelocity()/pulsesPerRev)*10);
     frc::SmartDashboard::PutNumber("Position", ShooterMaster.GetSelectedSensorPosition());
 
