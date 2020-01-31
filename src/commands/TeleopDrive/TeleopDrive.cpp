@@ -9,7 +9,7 @@ TeleopDrive::TeleopDrive(Chassis* chassis, frc::XboxController* xbox) : control(
 
 void TeleopDrive::Initialize(){
     angleController.SetSetpoint(-chassis->getYaw());
-    targetAngle = chassis->getYaw();
+    targetAngle = -chassis->getYaw();
     frc::SmartDashboard::PutNumber("Heading P", angleController.GetP());
     frc::SmartDashboard::PutNumber("Heading I",  angleController.GetI());
     frc::SmartDashboard::PutNumber("Heading D",  angleController.GetD());

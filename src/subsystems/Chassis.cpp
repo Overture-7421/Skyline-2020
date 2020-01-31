@@ -43,10 +43,10 @@ void Chassis::Periodic()
 {
     frc::SmartDashboard::PutNumber("Chassis/X", double_t(odometry.GetPose().Translation().X()));
     frc::SmartDashboard::PutNumber("Chassis/Y", double_t(odometry.GetPose().Translation().Y()));
-    frc::SmartDashboard::PutNumber("Chassis/yaw", gyro.GetYaw());
+    frc::SmartDashboard::PutNumber("Chassis/yaw", -gyro.GetYaw());
     frc::SmartDashboard::PutNumber("Chassis/pitch", gyro.GetPitch());
     frc::SmartDashboard::PutNumber("Chassis/roll", gyro.GetRoll());
-    frc::SmartDashboard::PutNumber("Chassis/heading", gyro.GetFusedHeading());
+    frc::SmartDashboard::PutNumber("Chassis/heading", -gyro.GetFusedHeading());
     frc::SmartDashboard::PutNumber("Chassis/Left Position", leftMaster.GetSelectedSensorPosition());
     frc::SmartDashboard::PutNumber("Chassis/Right Position", rightMaster.GetSelectedSensorPosition());
     frc::SmartDashboard::PutNumber("Chassis/Left Speed", leftMaster.GetSelectedSensorVelocity());
