@@ -28,8 +28,8 @@ class RobotContainer {
   RobotContainer();
   std::unique_ptr<frc2::SequentialCommandGroup> autocommand;
   //std::unique_ptr<frc2::Command> TeleopDrive;
-  //Chassis chassis;
-  Shooter shooter;
+  Chassis chassis;
+ //Shooter shooter;
 
  private:
   // The robot's subsystems and commands are defined here...

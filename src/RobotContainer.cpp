@@ -11,7 +11,7 @@ RobotContainer::RobotContainer() {
   // Initialize all of your commands and subsystems here
   // Configure the button bindings
   ConfigureButtonBindings();
-  //chassis.SetDefaultCommand(TeleopDrive{&chassis, &xbox});
+  chassis.SetDefaultCommand(TeleopDrive{&chassis, &xbox});
 }
 
 
