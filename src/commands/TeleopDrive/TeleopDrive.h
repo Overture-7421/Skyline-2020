@@ -1,5 +1,7 @@
 #pragma once
 
+#include <networktables/NetworkTable.h>
+#include <networktables/NetworkTableInstance.h>
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 #include "subsystems/Chassis.h"
@@ -25,6 +27,8 @@ class TeleopDrive
  private:
     XboxController* control;
     Chassis* chassis;
-    frc2::PIDController angleController {0.023,0,0.004};
+    frc2::PIDController angleController {0.013,0,0.002};
+    
     double targetAngle = 0.0;
+   std::shared_ptr<nt::NetworkTable> visionTable = nt::NetworkTableInstance::GetDefault().GetTable("chameleon-vision");
 };
