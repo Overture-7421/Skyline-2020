@@ -20,7 +20,6 @@ void AlignToTower::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void AlignToTower::Execute() {
-    std::cout << "ALIGNING TO TOWER" << std::endl;
     visionYaw = visionTable->GetNumber("Microsoft LifeCam HD-3000/targetYaw", 0);
     isValid = visionTable->GetBoolean("Microsoft LifeCam HD-3000/isValid", 0);
     VisionController.SetSetpoint(0);
@@ -35,4 +34,6 @@ void AlignToTower::End(bool interrupted) {
 }
 
 // Returns true when the command should end.
-bool AlignToTower::IsFinished() { return std::abs(visionYaw) > 1 && isValid ; }
+bool AlignToTower::IsFinished() {
+  return std::abs(visionYaw) < 1 && isValid ; 
+}

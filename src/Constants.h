@@ -20,7 +20,7 @@ class ChassisMap {
         static constexpr double ENC_METER_PER_PULSE = 0.001419446; 
         static constexpr auto TRACK_WIDTH = 0.7_m;
         static constexpr auto kMaxSpeed = 3.0_mps;
-        static constexpr auto kMaxAcceleration = 2_mps_sq;
+        static constexpr auto kMaxAcceleration = 3_mps_sq;
         static constexpr double kRamseteB = 2;
         static constexpr double kRamseteZeta = 0.7;
         static constexpr double kPDriveVel = 3.5;
