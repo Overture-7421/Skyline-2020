@@ -54,8 +54,9 @@ void TeleopDrive::Execute() {
     angleController.SetSetpoint(targetAngle);
     double angularSpeed = angleController.Calculate(-chassis->getYaw());
     
-    if (isValid == true && control->GetBumperPressed(frc::GenericHID::JoystickHand::kRightHand)){
+    if (isValid && control->GetBumper(frc::GenericHID::JoystickHand::kRightHand)){
         chassis->arcadeDrive(-control->GetY(frc::GenericHID::JoystickHand::kLeftHand), visualangularSpeed);
+        targetAngle = -chassis->getYaw();
     }else{
         chassis->arcadeDrive(-control->GetY(frc::GenericHID::JoystickHand::kLeftHand), angularSpeed);
     }
