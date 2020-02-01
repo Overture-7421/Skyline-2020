@@ -14,6 +14,9 @@ void TeleopDrive::Initialize(){
     frc::SmartDashboard::PutNumber("Heading I",  angleController.GetI());
     frc::SmartDashboard::PutNumber("Heading D",  angleController.GetD());
 
+    frc::SmartDashboard::PutNumber("Vision P", VisionController.GetP());
+    frc::SmartDashboard::PutNumber("Vision I", VisionController.GetI());
+    frc::SmartDashboard::PutNumber("Vision D", VisionController.GetD());
 }
 
 void TeleopDrive::Execute() {
@@ -30,23 +33,34 @@ void TeleopDrive::Execute() {
     frc::SmartDashboard::PutNumber("Forward Command", control->GetY(frc::GenericHID::JoystickHand::kLeftHand));
 
     targetAngle += -control->GetX(frc::GenericHID::JoystickHand::kRightHand) * 0.02 * 270;
-    if(control->GetBButton() && isValid){
-        targetAngle -= visionYaw *0.05;
-    }else{
-        if(targetAngle > 180.0){
-            targetAngle -= 360;
-        }
-
-        if(targetAngle < -180.0){
-            targetAngle += 360;
-        }
+    if(targetAngle > 180.0){
+        targetAngle -= 360;
     }
+
+    if(targetAngle < -180.0){
+        targetAngle += 360;
+    }
+
+
+    VisionController.SetP(frc::SmartDashboard::GetNumber("Vision P", VisionController.GetP()));
+    VisionController.SetI(frc::SmartDashboard::GetNumber("Vision I", VisionController.GetI()));
+    VisionController.SetD(frc::SmartDashboard::GetNumber("Vision D", VisionController.GetD()));
+
+    
+    VisionController.SetSetpoint(targetVision);
+    double visualangularSpeed = VisionController.Calculate(visionYaw);
+
 
     angleController.SetSetpoint(targetAngle);
     double angularSpeed = angleController.Calculate(-chassis->getYaw());
-    chassis->arcadeDrive(-control->GetY(frc::GenericHID::JoystickHand::kLeftHand), angularSpeed);
-
+    
+    if (isValid == true && control->GetBumperPressed(frc::GenericHID::JoystickHand::kRightHand)){
+        chassis->arcadeDrive(-control->GetY(frc::GenericHID::JoystickHand::kLeftHand), visualangularSpeed);
+    }else{
+        chassis->arcadeDrive(-control->GetY(frc::GenericHID::JoystickHand::kLeftHand), angularSpeed);
+    }
 }
+
 
 void TeleopDrive::End(bool interrupted){
 

@@ -27,8 +27,14 @@ class TeleopDrive
  private:
     XboxController* control;
     Chassis* chassis;
+
     frc2::PIDController angleController {0.013,0,0.002};
-    
     double targetAngle = 0.0;
+
+
    std::shared_ptr<nt::NetworkTable> visionTable = nt::NetworkTableInstance::GetDefault().GetTable("chameleon-vision");
+
+
+   frc2::PIDController VisionController {0,0,0};
+   double targetVision = 0.0;
 };
