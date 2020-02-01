@@ -12,10 +12,11 @@
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
 AutoPrelude::AutoPrelude(Chassis* chassis) {
   // Add your commands here, e.g.
+  
    AddCommands(
-     chassis->getRamsetteCommand(
-       frc::Pose2d(0_m,0_m,frc::Rotation2d(-90_deg)),
+      chassis->getRamsetteCommand(
+       frc::Pose2d(0_m,0_m,frc::Rotation2d(0_deg)),
        {/*Empty vec*/},
-       frc::Pose2d(1_m,-1_m,frc::Rotation2d(0_deg))
+       frc::Pose2d(1_m,1_m,frc::Rotation2d(90_deg))
    ));
 }

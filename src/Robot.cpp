@@ -40,24 +40,24 @@ void Robot::DisabledPeriodic() {}
  * RobotContainer} class.
  */
 void Robot::AutonomousInit(){
-  container.autocommand = std::make_unique<frc2::SequentialCommandGroup>(
-     container.chassis.getRamsetteCommand(
-     frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)), 
-    {
-      frc::Translation2d(1.0_m,-1.0_m),
-    },
-    frc::Pose2d(2.0_m, -2.0_m, frc::Rotation2d(0_deg))
-    ), 
-  container.chassis.getRamsetteCommand(
-    frc::Pose2d(2.0_m, -2.0_m, frc::Rotation2d(0_deg)), 
-    {
-      frc::Translation2d(1.0_m,-1.0_m),
-    },
-    frc::Pose2d(3.0_m, 0.0_m,frc::Rotation2d(180_deg)), true
-    )
-  );
-  
-  container.autocommand->Schedule();
+  // container.autocommand = std::make_unique<frc2::SequentialCommandGroup>(
+  //    container.chassis.getRamsetteCommand(
+  //    frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)), 
+  //   {
+  //     frc::Translation2d(1.0_m,-1.0_m),
+  //   },
+  //   frc::Pose2d(2.0_m, -2.0_m, frc::Rotation2d(0_deg))
+  //   ), 
+  // container.chassis.getRamsetteCommand(
+  //   frc::Pose2d(2.0_m, -2.0_m, frc::Rotation2d(0_deg)), 
+  //   {
+  //     frc::Translation2d(1.0_m,-1.0_m),
+  //   },
+  //   frc::Pose2d(3.0_m, 0.0_m,frc::Rotation2d(180_deg)), true
+  //   )
+  // );
+  container.autoprelude.Schedule();
+  // container.autocommand->Schedule();
 }
 
 void Robot::AutonomousPeriodic() {}

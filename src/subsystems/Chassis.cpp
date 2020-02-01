@@ -6,7 +6,7 @@ Chassis::Chassis()
     gyro.Reset();
     gyro.ZeroYaw();
     gyro.ResetDisplacement();
-
+    
     frc::SmartDashboard::PutData("Chassis/Chassis", this);
     leftMaster.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative);
     rightMaster.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative);
