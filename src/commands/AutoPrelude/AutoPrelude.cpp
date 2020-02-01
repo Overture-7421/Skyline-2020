@@ -17,6 +17,8 @@ AutoPrelude::AutoPrelude(Chassis* chassis) {
       chassis->getRamsetteCommand(
        frc::Pose2d(0_m,0_m,frc::Rotation2d(0_deg)),
        {/*Empty vec*/},
-       frc::Pose2d(1_m,1_m,frc::Rotation2d(90_deg))
-   ));
+       frc::Pose2d(2_m,-1_m,frc::Rotation2d(-90_deg))
+   )
+   ,AlignToTower(chassis)
+   );
 }
