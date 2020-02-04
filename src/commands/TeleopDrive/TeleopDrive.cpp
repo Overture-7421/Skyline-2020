@@ -5,6 +5,7 @@ TeleopDrive::TeleopDrive(Chassis* chassis, frc::XboxController* xbox) : control(
     this->chassis = chassis;
     angleController.EnableContinuousInput(-180.0, 180.0);
     SetName("TeleopDrive");
+    
 }
 
 void TeleopDrive::Initialize(){
@@ -17,7 +18,7 @@ void TeleopDrive::Initialize(){
     frc::SmartDashboard::PutNumber("Vision P", VisionController.GetP());
     frc::SmartDashboard::PutNumber("Vision I", VisionController.GetI());
     frc::SmartDashboard::PutNumber("Vision D", VisionController.GetD());
-}
+    
 
 void TeleopDrive::Execute() {
     double visionYaw = visionTable->GetNumber("Microsoft LifeCam HD-3000/targetYaw", 0);
