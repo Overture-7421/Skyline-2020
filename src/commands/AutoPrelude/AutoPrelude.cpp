@@ -21,11 +21,11 @@ AutoPrelude::AutoPrelude(Chassis* chassis) {
       AlignToTower(chassis),
       chassis->getRamsetteCommand(
          frc::Pose2d(2_m,-1_m,frc::Rotation2d(-90_deg)),
-         {frc::Translation2d(0.6_m,0_m)},
-         frc::Pose2d(0.6_m,2.5_m,frc::Rotation2d(90_deg))),
+         {frc::Translation2d(0.2_m,-1_m),frc::Translation2d(0.2_m,0_m)},
+         frc::Pose2d(0.2_m,3_m,frc::Rotation2d(90_deg))),
       chassis->getRamsetteCommand(
-         frc::Pose2d(0.6_m,2.5_m,frc::Rotation2d(90_deg)),
-         {frc::Translation2d(0.6_m,0_m)},
+         frc::Pose2d(0.2_m,3_m,frc::Rotation2d(90_deg)),
+         {frc::Translation2d(0.2_m,0_m)},
          frc::Pose2d(2_m,-0_m,frc::Rotation2d(-90_deg)), true),
       AlignToTower(chassis)
    );

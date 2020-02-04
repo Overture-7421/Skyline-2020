@@ -39,5 +39,5 @@ class AlignToTower
     double visionYaw = 0;
     bool isValid = false;
     std::shared_ptr<nt::NetworkTable> visionTable = nt::NetworkTableInstance::GetDefault().GetTable("chameleon-vision");
-    frc2::PIDController VisionController {0.015,0.017,0.005};
+    frc2::PIDController VisionController {0.015,0.02,0.003};
 };
