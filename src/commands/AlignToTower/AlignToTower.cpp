@@ -15,15 +15,16 @@ AlignToTower::AlignToTower(Chassis* chassis) {
 
 // Called when the command is initially scheduled.
 void AlignToTower::Initialize() {
-  
+  visionYaw.Reset();
 }
 
 // Called repeatedly when this Command is scheduled to run
 void AlignToTower::Execute() {
-    visionYaw = visionTable->GetNumber("Microsoft LifeCam HD-3000/targetYaw", 0);
+    visionYawInput = visionTable->GetNumber("Microsoft LifeCam HD-3000/targetYaw", 0);
+    
     isValid = visionTable->GetBoolean("Microsoft LifeCam HD-3000/isValid", 0);
     VisionController.SetSetpoint(0);
-    double visualangularSpeed = VisionController.Calculate(visionYaw);
+    double visualangularSpeed = VisionController.Calculate(visionYaw.Calculate(visionYawInput));
     chassis->arcadeDrive(0.0,visualangularSpeed);
 
 }
@@ -35,5 +36,5 @@ void AlignToTower::End(bool interrupted) {
 
 // Returns true when the command should end.
 bool AlignToTower::IsFinished() {
-  return std::abs(visionYaw) < 1 && isValid ; 
+  return std::abs(visionYawInput) < 1 && isValid ; 
 }

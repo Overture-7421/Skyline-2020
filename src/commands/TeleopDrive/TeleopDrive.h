@@ -10,6 +10,7 @@
 #include <frc/controller/PIDController.h>
 #include <frc2/Timer.h>
 
+
 class TeleopDrive
     : public frc2::CommandHelper<frc2::CommandBase, TeleopDrive> {
  public:
@@ -34,7 +35,7 @@ class TeleopDrive
 
    std::shared_ptr<nt::NetworkTable> visionTable = nt::NetworkTableInstance::GetDefault().GetTable("chameleon-vision");
 
-
+  
    frc2::PIDController VisionController {0.03,0,0.005};
-   double targetVision = 0.0;
+   double targetVision = 0.0; 
 };

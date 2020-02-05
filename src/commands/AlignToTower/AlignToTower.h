@@ -13,6 +13,7 @@
 #include <networktables/NetworkTable.h>
 #include <networktables/NetworkTableInstance.h>
 #include <iostream>
+#include <frc/linearFilter.h>
 
 /**
  * An example command.
@@ -36,8 +37,9 @@ class AlignToTower
   bool IsFinished() override;
   private:
     Chassis *chassis;
-    double visionYaw = 0;
+    double visionYawInput = 0;
     bool isValid = false;
     std::shared_ptr<nt::NetworkTable> visionTable = nt::NetworkTableInstance::GetDefault().GetTable("chameleon-vision");
     frc2::PIDController VisionController {0.015,0.017,0.005};
+    frc::LinearFilter<double> visionYaw = frc::LinearFilter<double>::SinglePoleIIR(0.1_s, 0.02_s);
 };
