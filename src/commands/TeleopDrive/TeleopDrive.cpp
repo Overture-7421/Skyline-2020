@@ -18,7 +18,7 @@ void TeleopDrive::Initialize(){
     frc::SmartDashboard::PutNumber("Vision P", VisionController.GetP());
     frc::SmartDashboard::PutNumber("Vision I", VisionController.GetI());
     frc::SmartDashboard::PutNumber("Vision D", VisionController.GetD());
-    
+}
 
 void TeleopDrive::Execute() {
     double visionYaw = visionTable->GetNumber("Microsoft LifeCam HD-3000/targetYaw", 0);
@@ -49,7 +49,8 @@ void TeleopDrive::Execute() {
 
     
     VisionController.SetSetpoint(targetVision);
-    double visualangularSpeed = VisionController.Calculate(visionYaw);
+    double visionYawInput = visionTable->GetNumber("Microsoft LifeCam HD-3000/targetYaw", 0);
+    double visualangularSpeed = VisionController.Calculate(visionYawInput);
 
 
     angleController.SetSetpoint(targetAngle);
