@@ -32,7 +32,7 @@ class TeleopDrive
     frc2::PIDController angleController {0.013,0,0.002};
     double targetAngle = 0.0;
 
-
+   bool isValid = false;
    std::shared_ptr<nt::NetworkTable> visionTable = nt::NetworkTableInstance::GetDefault().GetTable("chameleon-vision");
 
 
