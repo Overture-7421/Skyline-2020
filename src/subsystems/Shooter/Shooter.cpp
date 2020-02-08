@@ -19,11 +19,9 @@ Shooter::Shooter() {
     frc::SmartDashboard::PutNumber("Shooter F", 0.03);
 
     frc::SmartDashboard::PutNumber("rps", 0.0);
-    
-
 }
 
-// This method will be called once per scheduler run
+
 void Shooter::Periodic() {    
     double pulsesPerRev = 4096/4;
 
@@ -33,6 +31,7 @@ void Shooter::Periodic() {
     ShooterMaster.Config_kF(0,frc::SmartDashboard::GetNumber("Shooter F", 0.0));
     frc::SmartDashboard::PutNumber("velocity", (ShooterMaster.GetSelectedSensorVelocity()/pulsesPerRev)*10);
     frc::SmartDashboard::PutNumber("Position", ShooterMaster.GetSelectedSensorPosition());
+    
 
     double rps = frc::SmartDashboard::GetNumber("rps", 0.0);
 

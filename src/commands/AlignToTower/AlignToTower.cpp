@@ -24,7 +24,7 @@ void AlignToTower::Execute() {
     
     isValid = visionTable->GetBoolean("Microsoft LifeCam HD-3000/isValid", 0);
     VisionController.SetSetpoint(0);
-    double visualangularSpeed = VisionController.Calculate(visionYaw.Calculate(visionYawInput));
+    double visualangularSpeed = VisionController.Calculate(visionYawInput);
     chassis->arcadeDrive(0.0,visualangularSpeed);
 
 }

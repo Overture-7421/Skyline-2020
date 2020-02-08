@@ -17,16 +17,16 @@ AutoPrelude::AutoPrelude(Chassis* chassis) {
       chassis->getRamsetteCommand(
          frc::Pose2d(0_m,0_m,frc::Rotation2d(0_deg)),
          {/*Empty vec*/},
-         frc::Pose2d(2_m,-1_m,frc::Rotation2d(-90_deg))),
+         frc::Pose2d(1.7_m, 0_m,frc::Rotation2d(-90_deg))),
       AlignToTower(chassis),
       chassis->getRamsetteCommand(
-         frc::Pose2d(2_m,-1_m,frc::Rotation2d(-90_deg)),
-         {frc::Translation2d(0.2_m,-1_m),frc::Translation2d(0.2_m,0_m)},
-         frc::Pose2d(0.2_m,3_m,frc::Rotation2d(90_deg))),
+         frc::Pose2d(1.7_m, 0_m,frc::Rotation2d(-90_deg)),
+         {frc::Translation2d(0.35_m, 0_m)},
+         frc::Pose2d(0.35_m,3_m,frc::Rotation2d(90_deg))),
       chassis->getRamsetteCommand(
-         frc::Pose2d(0.2_m,3_m,frc::Rotation2d(90_deg)),
-         {frc::Translation2d(0.2_m,0_m)},
-         frc::Pose2d(2_m,-0_m,frc::Rotation2d(-90_deg)), true),
+         frc::Pose2d(0.35_m,3_m,frc::Rotation2d(90_deg)),
+         {frc::Translation2d(0.35_m,0_m)},
+         frc::Pose2d(1.7_m,-0_m,frc::Rotation2d(-90_deg)), true),
       AlignToTower(chassis)
    );
 }
