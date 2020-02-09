@@ -12,6 +12,11 @@ using namespace ctre::phoenix::motorcontrol;
 class Shooter : public frc2::SubsystemBase {
  public:
   Shooter();
+  
+  void setRPS (double rps);
+  bool rpsObjectiveReached();
+ 
+
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -19,9 +24,11 @@ class Shooter : public frc2::SubsystemBase {
   void Periodic();
 
  private:
+  double pulsesPerRev = 4096/4;
   WPI_TalonSRX ShooterMaster {7};
   WPI_VictorSPX ShooterR1 {8}; 
-
   WPI_VictorSPX ShooterL1 {9};
-  WPI_VictorSPX ShooterL2 {10};
+
+  double rps; 
+
 };

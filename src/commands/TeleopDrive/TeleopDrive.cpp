@@ -18,15 +18,9 @@ void TeleopDrive::Initialize(){
     frc::SmartDashboard::PutNumber("Vision P", VisionController.GetP());
     frc::SmartDashboard::PutNumber("Vision I", VisionController.GetI());
     frc::SmartDashboard::PutNumber("Vision D", VisionController.GetD());
-<<<<<<< HEAD
-    
-}
-void TeleopDrive::Execute(){
-=======
 }
 
 void TeleopDrive::Execute() {
->>>>>>> 5bfc8b12f7efb39173d073f57b5a329557828ed3
     double visionYaw = visionTable->GetNumber("Microsoft LifeCam HD-3000/targetYaw", 0);
     bool isValid = visionTable->GetBoolean("Microsoft LifeCam HD-3000/isValid", 0);
 
