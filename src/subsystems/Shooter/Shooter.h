@@ -30,5 +30,7 @@ class Shooter : public frc2::SubsystemBase {
   WPI_VictorSPX ShooterL1 {9};
 
   double rps; 
+  double tolerance = 2;
+
 
 };

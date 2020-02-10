@@ -28,11 +28,11 @@ void Shooter::setRPS(double rps){
     this->rps = rps;
 }
 
+
 bool Shooter::rpsObjectiveReached(){
     double currentVelocity = (ShooterMaster.GetSelectedSensorVelocity()/pulsesPerRev)*10;
-    double error = -currentVelocity;
-
-
+    double error = rps - currentVelocity;
+    return abs(error)<tolerance;
 }
 
 
@@ -46,8 +46,9 @@ void Shooter::Periodic() {
 
     frc::SmartDashboard::PutNumber("Shooter/velocity", (ShooterMaster.GetSelectedSensorVelocity()/pulsesPerRev)*10);
     frc::SmartDashboard::PutNumber("Shooter/Position", ShooterMaster.GetSelectedSensorPosition());
+    frc::SmartDashboard::PutBoolean("Shooter/Objective Reached", rpsObjectiveReached());
 
-    rps = frc::SmartDashboard::GetNumber("rps", 0.0);
+    //rps = frc::SmartDashboard::GetNumber("rps", 0.0);
     double pulsesPerSecond = pulsesPerRev * rps;
 
     ShooterMaster.Set(ControlMode::Velocity,  pulsesPerSecond / 10.0); 
