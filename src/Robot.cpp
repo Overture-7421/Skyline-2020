@@ -62,8 +62,8 @@ void Robot::AutonomousInit(){
 
 void Robot::AutonomousPeriodic() {}
 
-void Robot::TeleopInit()
-{
+void Robot::TeleopInit(){
+container.speedUpShooter.Schedule();
 
 }
 

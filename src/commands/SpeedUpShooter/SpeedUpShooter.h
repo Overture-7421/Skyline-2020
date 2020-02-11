@@ -22,7 +22,4 @@ class SpeedUpShooter
   Shooter* shooter;
   double targetRPS;
 
-
-
-
 };
