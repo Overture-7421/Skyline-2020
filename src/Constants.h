@@ -23,10 +23,10 @@ class ChassisMap {
         static constexpr auto kMaxAcceleration = 3_mps_sq;
         static constexpr double kRamseteB = 2;
         static constexpr double kRamseteZeta = 0.7;
-        static constexpr double kPDriveVel = 3.5;
-        static constexpr auto ks = 0.768_V;
-        static constexpr auto kv = 0.32 * 1_V * 1_s / 1_m;
-        static constexpr auto ka = 0.0743 * 1_V * 1_s * 1_s / 1_m;
+        static constexpr double kPDriveVel = 9.26;
+        static constexpr auto ks = 0.984_V;
+        static constexpr auto kv = 0.665 * 1_V * 1_s / 1_m;
+        static constexpr auto ka = 0.208 * 1_V * 1_s * 1_s / 1_m;
         static const auto peakCurrentLimit = 50;
         static const int continuousCurrentLimit = 30;
 };
