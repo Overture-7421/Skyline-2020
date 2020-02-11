@@ -24,14 +24,17 @@ void AlignToTower::Execute() {
     
     isValid = visionTable->GetBoolean("Microsoft LifeCam HD-3000/isValid", 0);
     VisionController.SetSetpoint(0);
-    double visualangularSpeed = VisionController.Calculate(visionYaw.Calculate(visionYawInput));
-    chassis->arcadeDrive(0.0,visualangularSpeed);
-
+    if(isValid){
+      double visualangularSpeed = VisionController.Calculate(visionYawInput);
+      chassis->arcadeDrive(0.0, visualangularSpeed);
+    }else{
+      chassis->arcadeDrive(0.0, 0.0);
+    }
 }
 
 // Called once the command ends or is interrupted.
 void AlignToTower::End(bool interrupted) {
-  chassis->arcadeDrive(0.0,0.0);
+  chassis->arcadeDrive(0.0, 0.0);
 }
 
 // Returns true when the command should end.

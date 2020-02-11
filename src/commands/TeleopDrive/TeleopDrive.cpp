@@ -52,7 +52,7 @@ void TeleopDrive::Execute() {
     double visionYawInput = visionTable->GetNumber("Microsoft LifeCam HD-3000/targetYaw", 0);
     double visualangularSpeed = VisionController.Calculate(visionYawInput);
 
-
+    
     angleController.SetSetpoint(targetAngle);
     double angularSpeed = angleController.Calculate(-chassis->getYaw());
     

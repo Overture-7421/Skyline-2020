@@ -39,7 +39,7 @@ void Robot::DisabledPeriodic() {}
  * This autonomous runs the autonomous command selected by your {@link
  * RobotContainer} class.
  */
-void Robot::AutonomousInit(){
+void Robot::AutonomousInit() {
   // container.autocommand = std::make_unique<frc2::SequentialCommandGroup>(
   //    container.chassis.getRamsetteCommand(
   //    frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)), 
@@ -62,8 +62,8 @@ void Robot::AutonomousInit(){
 
 void Robot::AutonomousPeriodic() {}
 
-void Robot::TeleopInit()
-{
+void Robot::TeleopInit(){
+//container.speedUpShooter.Schedule();
 
 }
 
