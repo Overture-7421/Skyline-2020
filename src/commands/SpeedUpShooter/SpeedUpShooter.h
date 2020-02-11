@@ -8,7 +8,7 @@ class SpeedUpShooter
     : public frc2::CommandHelper<frc2::CommandBase, SpeedUpShooter> {
  public:
 
-  explicit SpeedUpShooter(Shooter* Shooter, double targetRPS);
+  explicit SpeedUpShooter(Shooter* shooter, double targetRPS);
 
   void Initialize() override;
 

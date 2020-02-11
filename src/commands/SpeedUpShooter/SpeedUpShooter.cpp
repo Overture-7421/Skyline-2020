@@ -9,7 +9,7 @@ SpeedUpShooter::SpeedUpShooter(Shooter* shooter, double targetRPS){
 
 // Called when the command is initially scheduled.
 void SpeedUpShooter::Initialize(){
-  Shooter->setRPS(targetRPS);
+  shooter->setRPS(targetRPS);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -22,6 +22,6 @@ void SpeedUpShooter::End(bool interrupted) {}
 // Returns true when the command should end.
 bool SpeedUpShooter::IsFinished() { 
   
-  return Shooter->rpsObjectiveReached(); 
+  return shooter->rpsObjectiveReached(); 
   
   }
