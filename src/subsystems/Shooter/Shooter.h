@@ -24,10 +24,10 @@ class Shooter : public frc2::SubsystemBase {
   void Periodic();
  private:
 
-  WPI_TalonSRX ShooterMaster {7};
-  WPI_VictorSPX ShooterR1 {8}; 
-  WPI_VictorSPX ShooterL2 {10};
-  WPI_VictorSPX ShooterL1 {9};
+  WPI_TalonSRX ShooterMaster {1};
+  WPI_VictorSPX ShooterR1 {2}; 
+  WPI_VictorSPX ShooterL2 {13};
+  WPI_VictorSPX ShooterFeeder {3};
 
   std::shared_ptr<nt::NetworkTable> visionTable = nt::NetworkTableInstance::GetDefault().GetTable("chameleon-vision");
 

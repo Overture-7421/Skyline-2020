@@ -29,8 +29,8 @@ class RobotContainer {
 
   Chassis chassis;
   Shooter shooter;
- AutoPrelude autoprelude{&chassis};
- SpeedUpShooter speedUpShooter{&shooter, 100};
+  AutoPrelude autoprelude{&chassis};
+  SpeedUpShooter speedUpShooter{&shooter, 100};
  
  private:
   // The robot's subsystems and commands are defined here...

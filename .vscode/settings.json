@@ -97,7 +97,8 @@
     "xstddef": "cpp",
     "xstring": "cpp",
     "xtr1common": "cpp",
-    "xtree": "cpp"
+    "xtree": "cpp",
+    "core": "cpp"
   },
   "C_Cpp.default.configurationProvider": "vscode-wpilib"
 }

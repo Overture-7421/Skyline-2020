@@ -2,7 +2,7 @@
 
 Shooter::Shooter() {
     ShooterR1.Follow(ShooterMaster);
-    ShooterL1.Follow(ShooterMaster);
+    ShooterL2.Follow(ShooterMaster);
 
     ShooterMaster.SetInverted(true);
     ShooterR1.SetInverted(true);

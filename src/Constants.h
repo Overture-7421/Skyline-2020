@@ -10,8 +10,8 @@
 
 class ChassisMap {
     public:
-        static const unsigned int RIGHT_MASTER = 1;
-        static const unsigned int LEFT_MASTER = 4;
+        static const unsigned int RIGHT_MASTER = 7;
+        static const unsigned int LEFT_MASTER = 14;
         static const unsigned int LEFT_1 = 5;
         static const unsigned int LEFT_2 = 6;
         static const unsigned int RIGHT_1 = 2;
