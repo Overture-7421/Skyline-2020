@@ -2,7 +2,9 @@
 
 Shooter::Shooter() {
     ShooterMaster.ConfigFactoryDefault();
+
     ShooterFeeder.ConfigOpenloopRamp(0.2);
+    ShooterFeeder.SetInverted(true);
     StorageMotor.ConfigOpenloopRamp(0.2);
     StorageMotor.Follow(ShooterFeeder);
 
@@ -30,9 +32,8 @@ void Shooter::setRPS(double rps){
     this->radsPerSecond = rps;
 }
 
-
 bool Shooter::rpsObjectiveReached(){
-    double currentVelocity = (ShooterMaster.GetSelectedSensorVelocity()/pulsesPerRev)*10;
+    double currentVelocity = getCurrentRPS();
     double error = radsPerSecond - currentVelocity;
     double currentTime = frc::Timer::GetFPGATimestamp();
     bool onTarget = abs(error) < tolerance;
@@ -55,12 +56,29 @@ void Shooter::feed(double output) {
     }
 }
 
-void Shooter::setHood(bool state) {
-    hoodPiston.Set(state ? frc::DoubleSolenoid::kForward : frc::DoubleSolenoid::kReverse);
+void Shooter::setHood(HoodPosition pos) {
+    switch(pos){
+        case HoodPosition::CLOSE_RANGE:
+            hoodPiston.Set(frc::DoubleSolenoid::kForward);
+            break;
+        case HoodPosition::LONG_RANGE:
+            hoodPiston.Set(frc::DoubleSolenoid::kReverse);
+            break;
+        default:
+            break;
+    }
+}
+
+int Shooter::getBallsShot() {
+    return ballCounter.Get();
+}
+
+double Shooter::getCurrentRPS(){
+    return (ShooterMaster.GetSelectedSensorVelocity() / pulsesPerRev) * M_2_PI * 10 ;
 }
 
 void Shooter::Periodic() {    
-    frc::SmartDashboard::PutNumber("Shooter/Velocity", ShooterMaster.GetSelectedSensorVelocity() * M_2_PI * 10 / pulsesPerRev);
+    frc::SmartDashboard::PutNumber("Shooter/Velocity", getCurrentRPS());
     frc::SmartDashboard::PutNumber("Shooter/Position", ShooterMaster.GetSelectedSensorPosition());
     frc::SmartDashboard::PutBoolean("Shooter/ObjectiveReached", rpsObjectiveReached());
     frc::SmartDashboard::PutNumber("Shooter/BallsCounted", getBallsShot());
@@ -71,10 +89,3 @@ void Shooter::Periodic() {
     double pulsesPerSecond = pulsesPerRev * targetRPS / M_2_PI;
     ShooterMaster.Set(ControlMode::Velocity,  pulsesPerSecond / 10.0);
 }
-
-int Shooter::getBallsShot() {
-    return ballCounter.Get();
-}
-
-
-

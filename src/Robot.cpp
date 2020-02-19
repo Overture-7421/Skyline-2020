@@ -75,8 +75,8 @@ void Robot::TeleopInit(){
  */
 void Robot::TeleopPeriodic(){
     container.shooter.setRPS(frc::SmartDashboard::GetNumber("ShooterRPS", 0));
-    container.shooter.feed(    frc::SmartDashboard::GetNumber("ShooterFeed", 0));
-    container.shooter.setHood(frc::SmartDashboard::GetBoolean("ShooterHood", false));
+    container.shooter.feed(frc::SmartDashboard::GetNumber("ShooterFeed", 0));
+    container.shooter.setHood(frc::SmartDashboard::GetBoolean("ShooterHood", false) ? HoodPosition::LONG_RANGE : HoodPosition::CLOSE_RANGE);
     container.feeder.feed(frc::SmartDashboard::GetNumber("FeederOutput", 0));
 
 }

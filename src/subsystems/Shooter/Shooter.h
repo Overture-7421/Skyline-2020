@@ -18,14 +18,20 @@
 using namespace ctre::phoenix::motorcontrol::can;
 using namespace ctre::phoenix::motorcontrol;
 
+enum class HoodPosition {
+   CLOSE_RANGE,
+   LONG_RANGE
+};
+
 class Shooter : public frc2::SubsystemBase {
  public:
     Shooter();
     void setRPS (double rps);
     bool rpsObjectiveReached();
     void feed(double output);
-    void setHood(bool state);
+    void setHood(HoodPosition pos);
     int getBallsShot();
+    double getCurrentRPS();
     /**
     * Will be called periodically whenever the CommandScheduler runs.
     */
