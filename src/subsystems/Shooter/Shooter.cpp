@@ -1,6 +1,7 @@
 #include "Shooter.h"
 
 Shooter::Shooter() {
+    ShooterMaster.ConfigFactoryDefault();
     ShooterFeeder.ConfigOpenloopRamp(0.2);
     StorageMotor.ConfigOpenloopRamp(0.2);
     StorageMotor.Follow(ShooterFeeder);
