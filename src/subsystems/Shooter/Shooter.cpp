@@ -1,6 +1,6 @@
 #include "Shooter.h"
 
-Shooter::Shooter() {
+Shooter::Shooter(frc::XboxController* xbox) : control(xbox) {
     ShooterMaster.ConfigFactoryDefault();
 
     ShooterFeeder.ConfigOpenloopRamp(0.2);
@@ -86,6 +86,18 @@ void Shooter::Periodic() {
 //    targetWidth = visionTable->GetNumber("Microsoft LifeCam HD-3000/TargetBoundingWidth", 0);
     double targetRPS = rpsRateLimiter.Calculate(units::radians_per_second_t(radsPerSecond)).to<double>();
     frc::SmartDashboard::PutNumber("Shooter/RateLimitedRPS", targetRPS);
-    double pulsesPerSecond = pulsesPerRev * targetRPS / M_2_PI;
+    
+    bool active = false;
+    double pulsesPerSecond = 0;
+
+    if(control->GetAButton()) {
+        active = !active;
+        if(active) {
+            pulsesPerSecond = pulsesPerRev * targetRPS / M_2_PI;
+        } else {
+            pulsesPerSecond = 0;
+        }
+    }
+
     ShooterMaster.Set(ControlMode::Velocity,  pulsesPerSecond / 10.0);
 }

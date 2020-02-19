@@ -15,6 +15,8 @@
 #include <frc/Counter.h>
 #include <frc/DigitalGlitchFilter.h>
 #include <units/units.h>
+#include <frc/XboxController.h>
+
 using namespace ctre::phoenix::motorcontrol::can;
 using namespace ctre::phoenix::motorcontrol;
 
@@ -25,7 +27,7 @@ enum class HoodPosition {
 
 class Shooter : public frc2::SubsystemBase {
  public:
-    Shooter();
+    Shooter(frc::XboxController* xbox);
     void setRPS (double rps);
     bool rpsObjectiveReached();
     void feed(double output);
@@ -37,6 +39,9 @@ class Shooter : public frc2::SubsystemBase {
     */
     void Periodic() override;
  private:
+
+    XboxController* control;
+
     frc::DigitalInput ballSwitch {0};
     frc::Counter ballCounter {&ballSwitch};
     frc::DigitalGlitchFilter ballSwitchFilter;
