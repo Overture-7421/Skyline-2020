@@ -10,12 +10,12 @@
 
 class ChassisMap {
     public:
-        static const unsigned int RIGHT_MASTER = 1;
-        static const unsigned int LEFT_MASTER = 4;
-        static const unsigned int LEFT_1 = 5;
-        static const unsigned int LEFT_2 = 6;
-        static const unsigned int RIGHT_1 = 2;
-        static const unsigned int RIGHT_2 = 3;
+        static const unsigned int RIGHT_MASTER = 7;
+        static const unsigned int LEFT_MASTER = 14;
+        static const unsigned int LEFT_1 = 15;
+        static const unsigned int LEFT_2 = 16;
+        static const unsigned int RIGHT_1 = 8;
+        static const unsigned int RIGHT_2 = 9;
         static constexpr float RAMP_RATE = 1.0/8.0;
         static constexpr double ENC_METER_PER_PULSE = 0.001419446; 
         static constexpr auto TRACK_WIDTH = 0.7_m;
@@ -30,13 +30,27 @@ class ChassisMap {
         static const auto peakCurrentLimit = 50;
         static const int continuousCurrentLimit = 30;
 };
-// class CannonMap {
-//     public:
-//         static const double PI  = 3.141592;
-//         static const float SPHERE_DRAG_C = 0.45;
-//         static const float AIR_DENSITY = 1.2754; // STP
-//         static const float BALL_RADIUS = 0.0889;
-// };
+
+class FeederMap {
+public:
+    static const unsigned int FEEDER_MOTOR = 10;
+};
+
+
+class StorageMap {
+public:
+    static const unsigned int STORAGE_MOTOR = 4;
+};
+
+
+class ShooterMap {
+public:
+    static const unsigned int MASTER_RIGHT = 1;
+    static const unsigned int RIGHT_1 = 2;
+    static const unsigned int LEFT_1 = 13;
+    static const unsigned int FEEDER = 3;
+};
+
 class OI {
     public:
          static const int DRIVER1_PORT = 0;

@@ -60,7 +60,7 @@ void TeleopDrive::Execute() {
         chassis->arcadeDrive(-control->GetY(frc::GenericHID::JoystickHand::kLeftHand), visualangularSpeed);
         targetAngle = -chassis->getYaw();
     }else{
-        chassis->arcadeDrive(-control->GetY(frc::GenericHID::JoystickHand::kLeftHand), angularSpeed);
+       chassis->arcadeDrive(-control->GetY(frc::GenericHID::JoystickHand::kLeftHand), angularSpeed);
     }
 }
 
