@@ -3,6 +3,9 @@
 
 Chassis::Chassis()
 {
+    leftMaster.ConfigFactoryDefault();
+    rightMaster.ConfigFactoryDefault();
+
     gyro.Reset();
     gyro.ZeroYaw();
     gyro.ResetDisplacement();

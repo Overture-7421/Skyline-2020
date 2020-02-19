@@ -56,21 +56,28 @@ void Robot::AutonomousInit() {
   //   frc::Pose2d(3.0_m, 0.0_m,frc::Rotation2d(180_deg)), true
   //   )
   // );
-  container.autoprelude.Schedule();
+//  container.autoprelude.Schedule();
   // container.autocommand->Schedule();
 }
 
 void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit(){
-//container.speedUpShooter.Schedule();
-
+    //container.speedUpShooter.Schedule();
+    frc::SmartDashboard::PutNumber("ShooterRPS", 0);
+    frc::SmartDashboard::PutBoolean("ShooterHood", false);
+    frc::SmartDashboard::PutNumber("ShooterFeed", 0);
+    frc::SmartDashboard::PutNumber("FeederOutput", 0);
 }
 
 /**
  * This function is called periodically during operator control.
  */
 void Robot::TeleopPeriodic(){
+    container.shooter.setRPS(frc::SmartDashboard::GetNumber("ShooterRPS", 0));
+    container.shooter.feed(frc::SmartDashboard::GetNumber("ShooterFeed", 0));
+    container.shooter.setHood(frc::SmartDashboard::GetBoolean("ShooterHood", false) ? HoodPosition::LONG_RANGE : HoodPosition::CLOSE_RANGE);
+    container.feeder.feed(frc::SmartDashboard::GetNumber("FeederOutput", 0));
 
 }
 

@@ -1,32 +1,40 @@
 #include "Shooter.h"
 
 Shooter::Shooter() {
-    ShooterR1.Follow(ShooterMaster);
-    ShooterL2.Follow(ShooterMaster);
+    ShooterMaster.ConfigFactoryDefault();
 
-    ShooterMaster.SetInverted(true);
-    ShooterR1.SetInverted(true);
+    ShooterFeeder.ConfigOpenloopRamp(0.2);
+    ShooterFeeder.SetInverted(true);
+    StorageMotor.ConfigOpenloopRamp(0.2);
+    StorageMotor.Follow(ShooterFeeder);
+
+    ballSwitchFilter.SetPeriodNanoSeconds(1250000);
+    ballSwitchFilter.Add(&ballCounter);
+
+    ShooterMaster.ConfigContinuousCurrentLimit(30);
+    ShooterR1.Follow(ShooterMaster);
+    ShooterL1.Follow(ShooterMaster);
+
+    ShooterL1.SetInverted(true);
 
     ShooterMaster.ConfigSelectedFeedbackSensor(FeedbackDevice::CTRE_MagEncoder_Relative); 
-    ShooterMaster.ConfigClosedloopRamp(0.1);
     ShooterMaster.SetSelectedSensorPosition(0);
+    ShooterMaster.ConfigSelectedFeedbackCoefficient(1);
 
     ShooterMaster.Config_kP(0, 0.28000);
     ShooterMaster.Config_kI(0, 0.0);
     ShooterMaster.Config_kD(0, 10.0);
     ShooterMaster.Config_kF(0, 0.025000);
-    frc::SmartDashboard::PutNumber("Shooter/rps",0);
 
 }
 
 void Shooter::setRPS(double rps){
-    this->rps = rps;
+    this->radsPerSecond = rps;
 }
 
-
 bool Shooter::rpsObjectiveReached(){
-    double currentVelocity = (ShooterMaster.GetSelectedSensorVelocity()/pulsesPerRev)*10;
-    double error = rps - currentVelocity;
+    double currentVelocity = getCurrentRPS();
+    double error = radsPerSecond - currentVelocity;
     double currentTime = frc::Timer::GetFPGATimestamp();
     bool onTarget = abs(error) < tolerance;
 
@@ -40,15 +48,44 @@ bool Shooter::rpsObjectiveReached(){
     return currentTime - lastTimeStable > timeToStableRPS && onTarget;
 }
 
+void Shooter::feed(double output) {
+    if(rpsObjectiveReached() && radsPerSecond > 10){
+        ShooterFeeder.Set(output);
+    }else{
+        ShooterFeeder.Set(0.0);
+    }
+}
+
+void Shooter::setHood(HoodPosition pos) {
+    switch(pos){
+        case HoodPosition::CLOSE_RANGE:
+            hoodPiston.Set(frc::DoubleSolenoid::kForward);
+            break;
+        case HoodPosition::LONG_RANGE:
+            hoodPiston.Set(frc::DoubleSolenoid::kReverse);
+            break;
+        default:
+            break;
+    }
+}
+
+int Shooter::getBallsShot() {
+    return ballCounter.Get();
+}
+
+double Shooter::getCurrentRPS(){
+    return (ShooterMaster.GetSelectedSensorVelocity() / pulsesPerRev) * M_2_PI * 10 ;
+}
+
 void Shooter::Periodic() {    
-    frc::SmartDashboard::PutNumber("Shooter/velocity", (ShooterMaster.GetSelectedSensorVelocity()/pulsesPerRev)*10);
+    frc::SmartDashboard::PutNumber("Shooter/Velocity", getCurrentRPS());
     frc::SmartDashboard::PutNumber("Shooter/Position", ShooterMaster.GetSelectedSensorPosition());
-    frc::SmartDashboard::PutBoolean("Shooter/Objective Reached", rpsObjectiveReached());
-    targetWidth = visionTable->GetNumber("Microsoft LifeCam HD-3000/targetBoundingWidth", 0);
+    frc::SmartDashboard::PutBoolean("Shooter/ObjectiveReached", rpsObjectiveReached());
+    frc::SmartDashboard::PutNumber("Shooter/BallsCounted", getBallsShot());
 
-    rps = frc::SmartDashboard::GetNumber("Shooter/rps",0);
-    
-    double pulsesPerSecond = pulsesPerRev * rps;
-
-    ShooterMaster.Set(ControlMode::Velocity,  pulsesPerSecond / 10.0); 
+//    targetWidth = visionTable->GetNumber("Microsoft LifeCam HD-3000/TargetBoundingWidth", 0);
+    double targetRPS = rpsRateLimiter.Calculate(units::radians_per_second_t(radsPerSecond)).to<double>();
+    frc::SmartDashboard::PutNumber("Shooter/RateLimitedRPS", targetRPS);
+    double pulsesPerSecond = pulsesPerRev * targetRPS / M_2_PI;
+    ShooterMaster.Set(ControlMode::Velocity,  pulsesPerSecond / 10.0);
 }
