@@ -9,11 +9,11 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include "subsystems/Chassis/Chassis.h"
+#include "subsystems/Chassis.h"
 #include <networktables/NetworkTable.h>
 #include <networktables/NetworkTableInstance.h>
 #include <iostream>
-#include <frc/linearFilter.h>
+// #include <frc/linearFilter.h>
 
 /**
  * An example command.
@@ -41,5 +41,5 @@ class AlignToTower
     bool isValid = false;
     std::shared_ptr<nt::NetworkTable> visionTable = nt::NetworkTableInstance::GetDefault().GetTable("chameleon-vision");
     frc2::PIDController VisionController {0.015,0.017,0.005};
-    frc::LinearFilter<double> visionYaw = frc::LinearFilter<double>::SinglePoleIIR(0.1, 0.02_s);
+    //frc::LinearFilter<double> visionYaw = frc::LinearFilter<double>::SinglePoleIIR(0.1, 0.02_s);
 };
