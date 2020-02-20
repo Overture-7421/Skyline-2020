@@ -26,6 +26,7 @@ class RobotContainer {
   RobotContainer();
   std::unique_ptr<frc2::SequentialCommandGroup> autocommand;
 
+  Feeder feeder;
   Chassis chassis;
   Shooter shooter;
   AutoPrelude autoprelude{&chassis};
