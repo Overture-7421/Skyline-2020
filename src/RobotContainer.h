@@ -5,11 +5,10 @@
 #include <frc2/command/button/JoystickButton.h>
 #include <frc2/command/button/Trigger.h>
 #include "subsystems/Chassis/Chassis.h"
-#include "subsystems/Shooter/Shooter.h"
-#include "subsystems/Feeder/Feeder.h"
 #include "frc2/command/RunCommand.h"
 #include "frc/XboxController.h"
 #include "commands/TeleopDrive/TeleopDrive.h"
+#include "subsystems/Shooter/Shooter.h"
 #include "commands/AutoPrelude/AutoPrelude.h"
 #include "commands/SpeedUpShooter/SpeedUpShooter.h"
 
@@ -25,12 +24,14 @@ class RobotContainer {
  public:
   RobotContainer();
   std::unique_ptr<frc2::SequentialCommandGroup> autocommand;
+  std::unique_ptr<frc2::Command> TeleopDrive;
+
 
   Feeder feeder;
   Chassis chassis;
   Shooter shooter;
-  AutoPrelude autoprelude{&chassis};
-  SpeedUpShooter speedUpShooter{&shooter, 100};
+ AutoPrelude autoprelude{&chassis};
+ SpeedUpShooter speedUpShooter{&shooter, 100};
  
  private:
   // The robot's subsystems and commands are defined here...

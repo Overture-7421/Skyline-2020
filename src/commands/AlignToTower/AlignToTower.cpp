@@ -15,7 +15,7 @@ AlignToTower::AlignToTower(Chassis* chassis) {
 
 // Called when the command is initially scheduled.
 void AlignToTower::Initialize() {
-  visionYaw.Reset();
+  VisionController.Reset();
 }
 
 // Called repeatedly when this Command is scheduled to run
