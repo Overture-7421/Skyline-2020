@@ -9,7 +9,7 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
-#include "subsystems/Chassis.h"
+#include "subsystems/Chassis/Chassis.h"
 #include <networktables/NetworkTable.h>
 #include <networktables/NetworkTableInstance.h>
 #include <iostream>
