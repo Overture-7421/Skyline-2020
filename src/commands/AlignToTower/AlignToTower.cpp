@@ -1,3 +1,4 @@
+  
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
@@ -15,7 +16,7 @@ AlignToTower::AlignToTower(Chassis* chassis) {
 
 // Called when the command is initially scheduled.
 void AlignToTower::Initialize() {
-  VisionController.Reset();
+  visionYaw.Reset();
 }
 
 // Called repeatedly when this Command is scheduled to run
