@@ -17,5 +17,6 @@ RobotContainer::RobotContainer() {
 
 void RobotContainer::ConfigureButtonBindings() {
 
-}
+  // SpeedUpShooter{&shooter, 100};
 
+}

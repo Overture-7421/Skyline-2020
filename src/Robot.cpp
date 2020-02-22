@@ -62,7 +62,7 @@ void Robot::AutonomousInit() {
 void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit(){
-    //container.speedUpShooter.Schedule();
+    container.speedUpShooter.Schedule();
     frc::SmartDashboard::PutNumber("ShooterRPS", 0);
     frc::SmartDashboard::PutBoolean("ShooterHood", false);
     frc::SmartDashboard::PutNumber("ShooterFeed", 0);
