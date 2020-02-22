@@ -6,7 +6,11 @@
 /*----------------------------------------------------------------------------*/
 
 #pragma once
-
+#include "subsystems/Shooter/Shooter.h"
+#include "subsystems/Chassis/Chassis.h"
+#include <frc/controller/PIDController.h>
+#include <networktables/NetworkTableInstance.h>
+#include <networktables/NetworkTable.h>
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
@@ -30,4 +34,22 @@ public:
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+
+private:
+  bool isValid = false;
+  Chassis *chassis;
+  Shooter *Shooter;
+
+  frc2::PIDController angleController{0.013, 0, 0.002};
+  double targetAngle = 0.0;
+
+  std::shared_ptr<nt::NetworkTable> visionTable = nt::NetworkTableInstance::GetDefault().GetTable("chameleon-vision");
+
+  frc2::PIDController VisionController{0.015, 0.00002, 0.003};
+  double targetVision = 0.0;
+
+
+
+
+
 };

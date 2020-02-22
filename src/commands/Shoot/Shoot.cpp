@@ -7,9 +7,12 @@
 
 #include "Shoot.h"
 
-Shoot::Shoot()
-{
-  // Use addRequirements() here to declare subsystem dependencies.
+Shoot::Shoot(Chassis* chassis, Shooter* shooter){
+  this->shooter = shooter;
+  
+
+
+
 }
 
 // Called when the command is initially scheduled.
