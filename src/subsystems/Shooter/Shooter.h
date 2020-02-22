@@ -40,7 +40,7 @@ public:
    void Periodic() override;
 
 private:
-   frc::DigitalInput ballSwitch{0};
+   frc::DigitalInput ballSwitch{9};
    frc::Counter ballCounter{&ballSwitch};
    frc::DigitalGlitchFilter ballSwitchFilter;
    frc::DoubleSolenoid hoodPiston{0, 1};

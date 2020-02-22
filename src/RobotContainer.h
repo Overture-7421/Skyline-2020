@@ -13,7 +13,6 @@
 #include "commands/AutoPrelude/AutoPrelude.h"
 #include "commands/SpeedUpShooter/SpeedUpShooter.h"
 
-
 /**
  * This class is where the bulk of the robot should be declared.  Since
  * Command-based is a "declarative" paradigm, very little robot logic should
@@ -22,8 +21,9 @@
  * commands, and button mappings) should be declared here.
  */
 
-class RobotContainer {
- public:
+class RobotContainer
+{
+public:
   RobotContainer();
   std::unique_ptr<frc2::SequentialCommandGroup> autocommand;
 
@@ -34,11 +34,11 @@ class RobotContainer {
   // The robot's subsystems and commands are defined here...
   frc::XboxController driverControl{0};
   frc::XboxController operatorControl{1};
- private:
-  frc2::Button speedUpFlywheelButton{[&] {return operatorControl.GetAButton();}};
-  frc2::Button feedIntakeButton{[&] {return operatorControl.GetBButton();}};
 
+private:
+  frc2::Button speedUpFlywheelButton{[&] { return operatorControl.GetAButton(); }};
+  frc2::Button feedIntakeButton{[&] { return operatorControl.GetBButton(); }};
+  frc2::Button feedShooterButton{[&] { return operatorControl.GetYButton(); }};
 
   void ConfigureButtonBindings();
-
 };
