@@ -30,7 +30,7 @@ class RobotContainer {
   Chassis chassis;
   Shooter shooter;
   Feeder feeder;
-  // AutoPrelude autoprelude{&chassis};
+  AutoPrelude autoprelude{&chassis};
   SpeedUpShooter speedUpShooter{&shooter, 100};
  
  private:
