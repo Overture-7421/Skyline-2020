@@ -78,7 +78,8 @@ void Shooter::setHood(HoodPosition pos)
     }
 }
 
-int Shooter::getBallsShot() {
+int Shooter::getBallsShot()
+{
     return ballCounter.Get();
 }
 
@@ -93,12 +94,10 @@ void Shooter::Periodic()
     frc::SmartDashboard::PutNumber("Shooter/Position", ShooterMaster.GetSelectedSensorPosition());
     frc::SmartDashboard::PutBoolean("Shooter/ObjectiveReached", rpsObjectiveReached());
     frc::SmartDashboard::PutNumber("Shooter/BallsCounted", getBallsShot());
-    
+
     //targetWidth = visionTable->GetNumber("Microsoft LifeCam HD-3000/TargetBoundingWidth", 0);
     double targetRPS = rpsRateLimiter.Calculate(units::radians_per_second_t(radsPerSecond)).to<double>();
     frc::SmartDashboard::PutNumber("Shooter/RateLimitedRPS", targetRPS);
     double pulsesPerSecond = pulsesPerRev * targetRPS / M_2_PI;
     ShooterMaster.Set(ControlMode::Velocity, pulsesPerSecond / 10.0);
-
-    StorageMotor.Set(ControlMode::PercentOutput, 1);
 }

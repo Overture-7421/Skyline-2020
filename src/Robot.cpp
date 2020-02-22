@@ -38,44 +38,47 @@ void Robot::DisabledPeriodic() {}
  * This autonomous runs the autonomous command selected by your {@link
  * RobotContainer} class.
  */
-void Robot::AutonomousInit() {
+void Robot::AutonomousInit()
+{
   // container.autocommand = std::make_unique<frc2::SequentialCommandGroup>(
   //    container.chassis.getRamsetteCommand(
-  //    frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)), 
+  //    frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)),
   //   {
   //     frc::Translation2d(1.0_m,-1.0_m),
   //   },
   //   frc::Pose2d(2.0_m, -2.0_m, frc::Rotation2d(0_deg))
-  //   ), 
+  //   ),
   // container.chassis.getRamsetteCommand(
-  //   frc::Pose2d(2.0_m, -2.0_m, frc::Rotation2d(0_deg)), 
+  //   frc::Pose2d(2.0_m, -2.0_m, frc::Rotation2d(0_deg)),
   //   {
   //     frc::Translation2d(1.0_m,-1.0_m),
   //   },
   //   frc::Pose2d(3.0_m, 0.0_m,frc::Rotation2d(180_deg)), true
   //   )
   // );
-//  container.autoprelude.Schedule();
+  //  container.autoprelude.Schedule();
   // container.autocommand->Schedule();
 }
 
 void Robot::AutonomousPeriodic() {}
 
-void Robot::TeleopInit(){
-    frc::SmartDashboard::PutBoolean("ShooterHood", false);
-    frc::SmartDashboard::PutNumber("ShooterRPS", 0);
-    frc::SmartDashboard::PutNumber("ShooterFeed", 0);
-    frc::SmartDashboard::PutNumber("FeederOutput", 0);
+void Robot::TeleopInit()
+{
+  frc::SmartDashboard::PutBoolean("ShooterHood", false);
+  frc::SmartDashboard::PutNumber("ShooterRPS", 0);
+  frc::SmartDashboard::PutNumber("ShooterFeed", 0);
+  frc::SmartDashboard::PutNumber("FeederOutput", 0);
 }
 
 /**
  * This function is called periodically during operator control.
  */
-void Robot::TeleopPeriodic(){
-    container.shooter.setHood(frc::SmartDashboard::GetBoolean("ShooterHood", false) ? HoodPosition::LONG_RANGE : HoodPosition::CLOSE_RANGE);
-    container.shooter.setRPS(frc::SmartDashboard::GetNumber("ShooterRPS", 0));
-    container.shooter.feed(frc::SmartDashboard::GetNumber("ShooterFeed", 0));
-    container.feeder.feed(frc::SmartDashboard::GetNumber("FeederOutput", 0));
+void Robot::TeleopPeriodic()
+{
+  container.shooter.setHood(frc::SmartDashboard::GetBoolean("ShooterHood", false) ? HoodPosition::LONG_RANGE : HoodPosition::CLOSE_RANGE);
+  container.shooter.setRPS(frc::SmartDashboard::GetNumber("ShooterRPS", 0));
+  // container.shooter.feed(frc::SmartDashboard::GetNumber("ShooterFeed", 0));
+  // container.feeder.feed(frc::SmartDashboard::GetNumber("FeederOutput", 0));
 }
 
 /**
