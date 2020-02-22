@@ -10,12 +10,12 @@
 RobotContainer::RobotContainer() {
   // Initialize all of your commands and subsystems here
   // Configure the button bindings
-  chassis.SetDefaultCommand(TeleopDrive{&chassis, &xbox});
-
+  chassis.SetDefaultCommand(TeleopDrive(&chassis, &driverControl));
   ConfigureButtonBindings();
 }
 
 
 void RobotContainer::ConfigureButtonBindings() {
-  
+  feedIntakeButton.WhenPressed([this] {feeder.feed(1.0);}).WhenReleased([this] {feeder.feed(0.0);});
+  //speedUpFlywheelButton.WhenPressed(SpeedUpShooter(&shooter, 100));
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "RobotContainer.h"
 #include <networktables/NetworkTable.h>
 #include <networktables/NetworkTableInstance.h>
 #include <frc2/command/CommandBase.h>

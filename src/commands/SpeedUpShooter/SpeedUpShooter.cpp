@@ -2,8 +2,8 @@
 
 SpeedUpShooter::SpeedUpShooter(Shooter* shooter, double targetRPS){
   // Use addRequirements() here to declare subsystem dependencies.
+  this-> shooter = shooter;
   AddRequirements(shooter);
-  this->shooter = shooter;
   this->targetRPS = targetRPS;
 }
 

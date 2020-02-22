@@ -30,12 +30,15 @@ class RobotContainer {
   Chassis chassis;
   Shooter shooter;
   Feeder feeder;
-  AutoPrelude autoprelude{&chassis};
-  SpeedUpShooter speedUpShooter{&shooter, 100};
- 
- private:
+
   // The robot's subsystems and commands are defined here...
-  frc::XboxController xbox{0};
-  
+  frc::XboxController driverControl{0};
+  frc::XboxController operatorControl{1};
+ private:
+  frc2::Button speedUpFlywheelButton{[&] {return operatorControl.GetAButton();}};
+  frc2::Button feedIntakeButton{[&] {return operatorControl.GetBButton();}};
+
+
   void ConfigureButtonBindings();
+
 };

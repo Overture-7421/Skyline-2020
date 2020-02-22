@@ -1,8 +1,8 @@
 #include "TeleopDrive.h"
 
 TeleopDrive::TeleopDrive(Chassis* chassis, frc::XboxController* xbox) : control(xbox) {
-    AddRequirements(chassis);
     this->chassis = chassis;
+    AddRequirements(chassis);
     angleController.EnableContinuousInput(-180.0, 180.0);
     SetName("TeleopDrive");
     

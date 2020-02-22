@@ -3,6 +3,7 @@
 #include <subsystems/Shooter/Shooter.h>
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
+#include "RobotContainer.h"
 
 class SpeedUpShooter
     : public frc2::CommandHelper<frc2::CommandBase, SpeedUpShooter> {
