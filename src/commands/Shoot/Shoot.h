@@ -25,7 +25,7 @@ class Shoot
     : public frc2::CommandHelper<frc2::CommandBase, Shoot>
 {
 public:
-  Shoot();
+  Shoot(Shooter* shooter, Chassis* chassis);
 
   void Initialize() override;
 
@@ -36,20 +36,11 @@ public:
   bool IsFinished() override;
 
 private:
-  bool isValid = false;
+  Shooter *shooter;
   Chassis *chassis;
-  Shooter *Shooter;
-
-  frc2::PIDController angleController{0.013, 0, 0.002};
   double targetAngle = 0.0;
 
   std::shared_ptr<nt::NetworkTable> visionTable = nt::NetworkTableInstance::GetDefault().GetTable("chameleon-vision");
-
-  frc2::PIDController VisionController{0.015, 0.00002, 0.003};
+  frc2::PIDController VisionController{0.035, 0.0002, 0.003};
   double targetVision = 0.0;
-
-
-
-
-
 };

@@ -11,8 +11,10 @@ Feeder::Feeder() {
 
 void Feeder::feed(double output) {
     feederMotor.Set(output);
+}
 
-    if(std::abs(output) > 0.1){
+void Feeder::lowerFeeder(bool lower){
+    if(lower){
         intakePiston.Set(frc::DoubleSolenoid::kForward);
     }else{
         intakePiston.Set(frc::DoubleSolenoid::kReverse);

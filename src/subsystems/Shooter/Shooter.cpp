@@ -53,14 +53,16 @@ bool Shooter::rpsObjectiveReached()
 
 void Shooter::feed(double output)
 {
-    if (rpsObjectiveReached() && radsPerSecond > 10)
-    {
-        ShooterFeeder.Set(output);
-    }
-    else
-    {
-        ShooterFeeder.Set(0.0);
-    }
+    // if (rpsObjectiveReached() && radsPerSecond > 10)
+    // {
+    //     ShooterFeeder.Set(output);
+    // }
+    // else
+    // {
+    //     ShooterFeeder.Set(0.0);
+    // }
+
+    ShooterFeeder.Set(output);
 }
 
 void Shooter::setHood(HoodPosition pos)

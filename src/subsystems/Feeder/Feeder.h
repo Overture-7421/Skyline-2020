@@ -15,6 +15,7 @@ class Feeder : public frc2::SubsystemBase {
 public:
     explicit Feeder();
     void feed(double output);
+    void lowerFeeder(bool lower);
 private:
     frc::DoubleSolenoid intakePiston{2, 3};
     WPI_VictorSPX feederMotor {FeederMap::FEEDER_MOTOR};

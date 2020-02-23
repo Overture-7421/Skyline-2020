@@ -12,6 +12,7 @@
 #include "commands/TeleopDrive/TeleopDrive.h"
 #include "commands/AutoPrelude/AutoPrelude.h"
 #include "commands/SpeedUpShooter/SpeedUpShooter.h"
+#include "commands/Shoot/Shoot.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -21,8 +22,7 @@
  * commands, and button mappings) should be declared here.
  */
 
-class RobotContainer
-{
+class RobotContainer {
 public:
   RobotContainer();
   std::unique_ptr<frc2::SequentialCommandGroup> autocommand;
@@ -39,6 +39,7 @@ private:
   frc2::Button speedUpFlywheelButton{[&] { return operatorControl.GetAButton(); }};
   frc2::Button feedIntakeButton{[&] { return operatorControl.GetBButton(); }};
   frc2::Button feedShooterButton{[&] { return operatorControl.GetYButton(); }};
+  frc2::Button shootButton{[&] {return operatorControl.GetXButton(); }};
 
   void ConfigureButtonBindings();
 };
