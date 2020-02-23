@@ -136,3 +136,12 @@ frc::Pose2d Chassis::getPose()
 
     return odometry.GetPose();
 }
+void Chassis::setRateLimit(bool state){
+    if(state){
+        leftMaster.ConfigOpenloopRamp(ChassisMap::RAMP_RATE);
+        rightMaster.ConfigOpenloopRamp(ChassisMap::RAMP_RATE);
+    }else{
+        leftMaster.ConfigOpenloopRamp(0.0);
+        rightMaster.ConfigOpenloopRamp(0.0);
+    }
+}

@@ -10,23 +10,35 @@
 // NOTE:  Consider using this command inline, rather than writing a subclass.
 // For more information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-AutoPrelude::AutoPrelude(Chassis* chassis) {
+AutoPrelude::AutoPrelude(Chassis* chassis, Shooter* shooter, Feeder* feeder) {
   // Add your commands here, e.g.
   
    AddCommands(
       chassis->getRamsetteCommand(
          frc::Pose2d(0_m,0_m,frc::Rotation2d(0_deg)),
          {/*Empty vec*/},
-         frc::Pose2d(1.7_m, 0_m,frc::Rotation2d(-90_deg))),
-      AlignToTower(chassis),
+         frc::Pose2d(1.7_m, -0.20_m,frc::Rotation2d(-90_deg))),
+      Shoot(shooter, chassis, feeder, 3),
+      frc2::InstantCommand(
+            [feeder]() { 
+               feeder->lowerFeeder(true); 
+               feeder->feed(1.0); 
+
+      }, feeder),
       chassis->getRamsetteCommand(
-         frc::Pose2d(1.7_m, 0_m,frc::Rotation2d(-90_deg)),
-         {frc::Translation2d(0.35_m, 0_m)},
-         frc::Pose2d(0.35_m,3_m,frc::Rotation2d(90_deg))),
+         frc::Pose2d(1.7_m, -0.20_m,frc::Rotation2d(-90_deg)),
+         {/*Empty vec*/},
+         frc::Pose2d(0.1_m,5.5_m,frc::Rotation2d(90_deg))),
+      frc2::InstantCommand(
+            [feeder]() { 
+               feeder->lowerFeeder(false); 
+               feeder->feed(0.0); 
+
+      }, feeder),
       chassis->getRamsetteCommand(
-         frc::Pose2d(0.35_m,3_m,frc::Rotation2d(90_deg)),
-         {frc::Translation2d(0.35_m,0_m)},
-         frc::Pose2d(1.7_m,-0_m,frc::Rotation2d(-90_deg)), true),
-      AlignToTower(chassis)
+         frc::Pose2d(0.1_m,5.5_m,frc::Rotation2d(90_deg)),
+         {/*Empty vec*/},
+         frc::Pose2d(1.7_m, -0.0_m,frc::Rotation2d(-90_deg)),true),
+      Shoot(shooter, chassis, feeder, 3)
    );
 }

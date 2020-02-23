@@ -10,6 +10,7 @@
 RobotContainer::RobotContainer() {
   // Initialize all of your commands and subsystems here
   // Configure the button bindings
+  //autoPrelude = std::make_unique<frc2::SequentialCommandGroup>;
   chassis.SetDefaultCommand(TeleopDrive(&chassis, &driverControl));
   ConfigureButtonBindings();
 }
@@ -23,16 +24,12 @@ void RobotContainer::ConfigureButtonBindings() {
      feeder.lowerFeeder(false);
      });
 
-  feedShooterButton.WhenPressed([this] { 
-    shooter.feed(1.0);
+  lowerIntakeButton.WhenPressed([this] { 
     feeder.lowerFeeder(true);
    }).WhenReleased([this] { 
-     shooter.feed(0.0); 
      feeder.lowerFeeder(false);
      });
 
-  shootButton.WhenPressed([this] {
-    Shoot(&shooter, &chassis);
-  });
+   shootButton.WhileHeld(Shoot(&shooter, &chassis, &feeder));
   //speedUpFlywheelButton.WhenPressed(SpeedUpShooter(&shooter, 100));
 }

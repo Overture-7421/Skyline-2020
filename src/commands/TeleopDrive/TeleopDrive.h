@@ -29,6 +29,6 @@ private:
    XboxController *control;
    Chassis *chassis;
 
-   frc2::PIDController angleController{0.027, 0, 0.002};
+   frc2::PIDController angleController{0.02, 0, 0.0085};
    double targetAngle = 0.0;
 };

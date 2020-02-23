@@ -35,7 +35,7 @@ class Chassis : public frc2::SubsystemBase {
   frc::DifferentialDriveWheelSpeeds getWheelSpeeds();
   frc::Pose2d getPose();
   frc2::SequentialCommandGroup getRamsetteCommand(const Pose2d& start, const std::vector<Translation2d>& interiorWaypoints,const Pose2d& end, bool reversed = false);
-
+  void setRateLimit(bool state);
  private:
   AHRS gyro {SPI::Port::kMXP};
   WPI_TalonSRX rightMaster {ChassisMap::RIGHT_MASTER};

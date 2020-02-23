@@ -70,10 +70,10 @@ void Shooter::setHood(HoodPosition pos)
     switch (pos)
     {
     case HoodPosition::CLOSE_RANGE:
-        hoodPiston.Set(frc::DoubleSolenoid::kForward);
+        hoodPiston.Set(frc::DoubleSolenoid::kReverse);
         break;
     case HoodPosition::LONG_RANGE:
-        hoodPiston.Set(frc::DoubleSolenoid::kReverse);
+        hoodPiston.Set(frc::DoubleSolenoid::kForward);
         break;
     default:
         break;

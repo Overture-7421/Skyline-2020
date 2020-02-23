@@ -8,6 +8,7 @@
 #pragma once
 #include "subsystems/Shooter/Shooter.h"
 #include "subsystems/Chassis/Chassis.h"
+#include "subsystems/Feeder/Feeder.h"
 #include <frc/controller/PIDController.h>
 #include <networktables/NetworkTableInstance.h>
 #include <networktables/NetworkTable.h>
@@ -25,7 +26,7 @@ class Shoot
     : public frc2::CommandHelper<frc2::CommandBase, Shoot>
 {
 public:
-  Shoot(Shooter* shooter, Chassis* chassis);
+  Shoot(Shooter* shooter, Chassis* chassis, Feeder* feeder, int amount = 0);
 
   void Initialize() override;
 
@@ -38,9 +39,12 @@ public:
 private:
   Shooter *shooter;
   Chassis *chassis;
+  Feeder* feeder;
   double targetAngle = 0.0;
+  int ballsToShoot = 0;
+  int initialBalls = 0;
 
   std::shared_ptr<nt::NetworkTable> visionTable = nt::NetworkTableInstance::GetDefault().GetTable("chameleon-vision");
-  frc2::PIDController VisionController{0.035, 0.0002, 0.003};
+  frc2::PIDController VisionController{0.055, 0.050, 0.005};
   double targetVision = 0.0;
 };

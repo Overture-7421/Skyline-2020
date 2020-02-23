@@ -17,18 +17,18 @@ public:
     static const unsigned int LEFT_2 = 16;
     static const unsigned int RIGHT_1 = 8;
     static const unsigned int RIGHT_2 = 9;
-    static constexpr float RAMP_RATE = 1.0 / 8.0;
+    static constexpr float RAMP_RATE = 1.0 / 4.0;
     static constexpr double ENC_METER_PER_PULSE = 0.001419446;
     static constexpr auto TRACK_WIDTH = 0.7_m;
-    static constexpr auto kMaxSpeed = 3.0_mps;
-    static constexpr auto kMaxAcceleration = 2_mps_sq;
+    static constexpr auto kMaxSpeed = 1.5_mps;
+    static constexpr auto kMaxAcceleration = 1_mps_sq;
     static constexpr double kRamseteB = 2;
     static constexpr double kRamseteZeta = 0.7;
-    static constexpr double kPDriveVel = 9.26;
-    static constexpr auto ks = 0.984_V;
-    static constexpr auto kv = 0.665 * 1_V * 1_s / 1_m;
-    static constexpr auto ka = 0.208 * 1_V * 1_s * 1_s / 1_m;
-    static const auto peakCurrentLimit = 50;
+    static constexpr double kPDriveVel = 3.5;
+    static constexpr auto ks = 1.7_V;
+    static constexpr auto kv = 0.6 * 1_V * 1_s / 1_m;
+    static constexpr auto ka = 0.5 * 1_V * 1_s * 1_s / 1_m;
+    static const auto peakCurrentLimit = 100;
     static const int continuousCurrentLimit = 30;
 };
 

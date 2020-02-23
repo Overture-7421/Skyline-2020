@@ -40,6 +40,7 @@ void Robot::DisabledPeriodic() {}
  */
 void Robot::AutonomousInit()
 {
+  container.chassis.setRateLimit(false);
   // container.autocommand = std::make_unique<frc2::SequentialCommandGroup>(
   //    container.chassis.getRamsetteCommand(
   //    frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)),
@@ -56,7 +57,7 @@ void Robot::AutonomousInit()
   //   frc::Pose2d(3.0_m, 0.0_m,frc::Rotation2d(180_deg)), true
   //   )
   // );
-  //  container.autoprelude.Schedule();
+  container.autoPrelude.Schedule();
   // container.autocommand->Schedule();
 }
 
@@ -64,10 +65,12 @@ void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit()
 {
-  frc::SmartDashboard::PutBoolean("ShooterHood", false);
-  frc::SmartDashboard::PutNumber("ShooterRPS", 0);
-  frc::SmartDashboard::PutNumber("ShooterFeed", 0);
-  frc::SmartDashboard::PutNumber("FeederOutput", 0);
+    container.chassis.setRateLimit(true);
+
+  // frc::SmartDashboard::PutBoolean("ShooterHood", false);
+  // frc::SmartDashboard::PutNumber("ShooterRPS", 0);
+  // frc::SmartDashboard::PutNumber("ShooterFeed", 0);
+  // frc::SmartDashboard::PutNumber("FeederOutput", 0);
 }
 
 /**
@@ -75,8 +78,8 @@ void Robot::TeleopInit()
  */
 void Robot::TeleopPeriodic()
 {
-  container.shooter.setHood(frc::SmartDashboard::GetBoolean("ShooterHood", false) ? HoodPosition::LONG_RANGE : HoodPosition::CLOSE_RANGE);
-  container.shooter.setRPS(frc::SmartDashboard::GetNumber("ShooterRPS", 0));
+  // container.shooter.setHood(frc::SmartDashboard::GetBoolean("ShooterHood", false) ? HoodPosition::LONG_RANGE : HoodPosition::CLOSE_RANGE);
+  // container.shooter.setRPS(frc::SmartDashboard::GetNumber("ShooterRPS", 0));
   // container.shooter.feed(frc::SmartDashboard::GetNumber("ShooterFeed", 0));
   // container.feeder.feed(frc::SmartDashboard::GetNumber("FeederOutput", 0));
 }

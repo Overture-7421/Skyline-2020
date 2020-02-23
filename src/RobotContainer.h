@@ -30,16 +30,15 @@ public:
   Chassis chassis;
   Shooter shooter;
   Feeder feeder;
-
+  AutoPrelude autoPrelude {&chassis , &shooter, &feeder};
   // The robot's subsystems and commands are defined here...
   frc::XboxController driverControl{0};
   frc::XboxController operatorControl{1};
 
 private:
-  frc2::Button speedUpFlywheelButton{[&] { return operatorControl.GetAButton(); }};
+  frc2::Button lowerIntakeButton{[&] { return operatorControl.GetAButton(); }};
   frc2::Button feedIntakeButton{[&] { return operatorControl.GetBButton(); }};
-  frc2::Button feedShooterButton{[&] { return operatorControl.GetYButton(); }};
-  frc2::Button shootButton{[&] {return operatorControl.GetXButton(); }};
-
+  //frc2::Button feedShooterButton{[&] { return operatorControl.GetYButton(); }};
+  frc2::Button shootButton{[&] {return driverControl.GetBumper(frc::XboxController::kRightHand); }};
   void ConfigureButtonBindings();
 };

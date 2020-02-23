@@ -6,7 +6,7 @@
 
 Feeder::Feeder() {
     feederMotor.ConfigOpenloopRamp(0.2);
-    feederMotor.SetInverted(true);
+    //feederMotor.SetInverted(true);
 }
 
 void Feeder::feed(double output) {
