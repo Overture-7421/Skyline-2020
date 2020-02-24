@@ -44,7 +44,7 @@ private:
    frc::Counter ballCounter{&ballSwitch};
    frc::DigitalGlitchFilter ballSwitchFilter;
    frc::DoubleSolenoid hoodPiston{0, 1};
-   frc::SlewRateLimiter<units::radians_per_second> rpsRateLimiter{units::radians_per_second_t(40) / units::second_t(1)};
+   frc::SlewRateLimiter<units::radians_per_second> rpsRateLimiter{units::radians_per_second_t(50) / units::second_t(1)};
    WPI_TalonSRX ShooterMaster{ShooterMap::MASTER_RIGHT};
    WPI_VictorSPX ShooterR1{ShooterMap::RIGHT_1};
    WPI_VictorSPX ShooterL1{ShooterMap::LEFT_1};

@@ -8,7 +8,8 @@ Robot::Robot() : TimedRobot()
 }
 void Robot::RobotInit()
 {
-  std::cout << "Robot is online" << std::endl;
+    container.chassis.setRateLimit(false);
+    std::cout << "Robot is online" << std::endl;
 }
 
 /**
@@ -40,7 +41,6 @@ void Robot::DisabledPeriodic() {}
  */
 void Robot::AutonomousInit()
 {
-  container.chassis.setRateLimit(false);
   // container.autocommand = std::make_unique<frc2::SequentialCommandGroup>(
   //    container.chassis.getRamsetteCommand(
   //    frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)),

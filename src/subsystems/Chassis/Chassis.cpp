@@ -92,7 +92,7 @@ double Chassis::getYaw()
     return gyro.GetYaw();
 }
 
-frc2::SequentialCommandGroup Chassis::getRamsetteCommand(const Pose2d &start, const std::vector<Translation2d> &interiorWaypoints, const Pose2d &end, bool reversed)
+frc2::SequentialCommandGroup Chassis::getRamsetteCommand(const Pose2d &start, const std::vector<Translation2d> &interiorWaypoints, const Pose2d &end, bool reversed, double maxSpeed)
 {
     //gyro.SetAngleAdjustment(180);
     frc::DifferentialDriveVoltageConstraint autoVoltageConstraint(
@@ -101,7 +101,7 @@ frc2::SequentialCommandGroup Chassis::getRamsetteCommand(const Pose2d &start, co
         kinematics, 10_V);
 
     // Set up config for trajectory
-    frc::TrajectoryConfig config(ChassisMap::kMaxSpeed,
+    frc::TrajectoryConfig config(maxSpeed != -1 ? units::meters_per_second_t(maxSpeed) : ChassisMap::kMaxSpeed,
                                  ChassisMap::kMaxAcceleration);
     config.SetReversed(reversed);
     // Add kinematics to ensure max speed is actually obeyed

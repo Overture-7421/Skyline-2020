@@ -45,6 +45,6 @@ private:
   int initialBalls = 0;
 
   std::shared_ptr<nt::NetworkTable> visionTable = nt::NetworkTableInstance::GetDefault().GetTable("chameleon-vision");
-  frc2::PIDController VisionController{0.055, 0.050, 0.005};
+  frc2::PIDController VisionController{0.065, 0.070, 0.005};
   double targetVision = 0.0;
 };
