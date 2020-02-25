@@ -66,7 +66,7 @@ void Robot::AutonomousPeriodic() {}
 void Robot::TeleopInit()
 {
     container.chassis.setRateLimit(true);
-
+    container.climb.climb();
   // frc::SmartDashboard::PutBoolean("ShooterHood", false);
   // frc::SmartDashboard::PutNumber("ShooterRPS", 0);
   // frc::SmartDashboard::PutNumber("ShooterFeed", 0);

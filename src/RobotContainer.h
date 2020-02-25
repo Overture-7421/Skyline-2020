@@ -13,6 +13,7 @@
 #include "commands/AutoPrelude/AutoPrelude.h"
 #include "commands/SpeedUpShooter/SpeedUpShooter.h"
 #include "commands/Shoot/Shoot.h"
+#include "subsystems/Climb/Climb.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -30,6 +31,7 @@ public:
   Chassis chassis;
   Shooter shooter;
   Feeder feeder;
+  Climb climb;
   AutoPrelude autoPrelude {&chassis , &shooter, &feeder};
   // The robot's subsystems and commands are defined here...
   frc::XboxController driverControl{0};
