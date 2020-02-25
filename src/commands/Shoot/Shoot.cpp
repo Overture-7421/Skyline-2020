@@ -54,7 +54,7 @@ void Shoot::Execute() {
       chassis->arcadeDrive(0.0, 0);
   }
 
-  if(std::abs(VisionController.GetPositionError()) <= 1.5) {
+  if(std::abs(VisionController.GetPositionError()) <= 3.5) {
     //y = -371.06x + 52.406
       shooter->setRPS(-371.06* targetArea + 52);
 

@@ -58,7 +58,7 @@ private:
    double pulsesPerRev = 4096;
    double targetWidth = 0;
    double tolerance = 5;
-   const double timeToStableRPS = 1; //Seconds
+   const double timeToStableRPS = 0.2; //Seconds
    double lastTimeStable = frc::Timer::GetFPGATimestamp();
    bool lastOnTargetState = false;
 };

@@ -19,9 +19,9 @@ public:
     static const unsigned int RIGHT_2 = 9;
     static constexpr float RAMP_RATE = 1.0 / 4.0;
     static constexpr double ENC_METER_PER_PULSE = 0.001419446;
-    static constexpr auto TRACK_WIDTH = 1.0_m;
+    static constexpr auto TRACK_WIDTH = 0.7_m;
     static constexpr auto kMaxSpeed = 3.0_mps;
-    static constexpr auto kMaxAcceleration = 4_mps_sq;
+    static constexpr auto kMaxAcceleration = 3_mps_sq;
     static constexpr double kRamseteB = 2;
     static constexpr double kRamseteZeta = 0.7;
     static constexpr double kPDriveVel = 2.0;

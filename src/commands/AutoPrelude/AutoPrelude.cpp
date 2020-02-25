@@ -30,10 +30,14 @@ AutoPrelude::AutoPrelude(Chassis* chassis, Shooter* shooter, Feeder* feeder) {
                feeder->feed(1.0); 
 
       }, feeder),
-      chassis->getRamsetteCommand(
+       chassis->getRamsetteCommand(
          frc::Pose2d(1.7_m, -0.20_m,frc::Rotation2d(-90_deg)),
          {},
-         frc::Pose2d(0.09_m,5.5_m,frc::Rotation2d(90_deg)), false, 1.5),
+         frc::Pose2d(0.1_m,1.0_m,frc::Rotation2d(90_deg)), false),
+      chassis->getRamsetteCommand(
+         frc::Pose2d(0.1_m,1.0_m, frc::Rotation2d(90_deg)),
+         {},
+         frc::Pose2d(0.1_m,5.5_m,frc::Rotation2d(90_deg)), false, 1.5),
       frc2::InstantCommand(
             [feeder]() { 
                feeder->lowerFeeder(false); 
@@ -46,7 +50,7 @@ AutoPrelude::AutoPrelude(Chassis* chassis, Shooter* shooter, Feeder* feeder) {
 
                }, shooter),
       chassis->getRamsetteCommand(
-         frc::Pose2d(0.08_m,5.5_m,frc::Rotation2d(90_deg)),
+         frc::Pose2d(0.1_m,5.5_m,frc::Rotation2d(90_deg)),
          {/*Empty vec*/},
          frc::Pose2d(1.7_m, 0.5_m,frc::Rotation2d(-90_deg)),true),
       Shoot(shooter, chassis, feeder, 3)
