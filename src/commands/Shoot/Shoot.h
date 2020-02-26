@@ -40,6 +40,12 @@ private:
   Shooter *shooter;
   Chassis *chassis;
   Feeder* feeder;
+  double h2 = 2.30;
+  double h1 = 0.62;
+  double a1 = 30;
+
+
+
   double targetAngle = 0.0;
   int ballsToShoot = 0;
   int initialBalls = 0;

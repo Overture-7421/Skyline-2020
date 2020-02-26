@@ -66,11 +66,13 @@ void Robot::AutonomousPeriodic() {}
 void Robot::TeleopInit()
 {
     container.chassis.setRateLimit(true);
-    container.climb.climb();
-  // frc::SmartDashboard::PutBoolean("ShooterHood", false);
-  // frc::SmartDashboard::PutNumber("ShooterRPS", 0);
-  // frc::SmartDashboard::PutNumber("ShooterFeed", 0);
-  // frc::SmartDashboard::PutNumber("FeederOutput", 0);
+    //container.climb.climb();
+    // frc::SmartDashboard::PutBoolean("ShooterHood", false);
+    // frc::SmartDashboard::PutNumber("ShooterRPS", 0);
+    // frc::SmartDashboard::PutNumber("ShooterFeed", 0);
+    // frc::SmartDashboard::PutNumber("FeederOutput", 0);
+    frc::SmartDashboard::PutNumber("climbVelocity", 0);
+    frc::SmartDashboard::PutNumber("winchVelocity", 0);
 }
 
 /**
@@ -78,11 +80,17 @@ void Robot::TeleopInit()
  */
 void Robot::TeleopPeriodic()
 {
-  // container.shooter.setHood(frc::SmartDashboard::GetBoolean("ShooterHood", false) ? HoodPosition::LONG_RANGE : HoodPosition::CLOSE_RANGE);
-  // container.shooter.setRPS(frc::SmartDashboard::GetNumber("ShooterRPS", 0));
-  // container.shooter.feed(frc::SmartDashboard::GetNumber("ShooterFeed", 0));
-  // container.feeder.feed(frc::SmartDashboard::GetNumber("FeederOutput", 0));
-}
+    // double targetPitch = visionTable->GetNumber("VisionCamera/targetPitch", 0);
+    // double distance = (h2 - h1) / tan( (targetPitch + a1) * M_PI / 180.0);
+    // frc::SmartDashboard::PutNumber("distance", distance);
+
+    // container.shooter.setHood(frc::SmartDashboard::GetBoolean("ShooterHood", false) ? HoodPosition::LONG_RANGE : HoodPosition::CLOSE_RANGE);
+    // container.shooter.setRPS(frc::SmartDashboard::GetNumber("ShooterRPS", 0));
+    // container.shooter.feed(frc::SmartDashboard::GetNumber("ShooterFeed", 0));
+    // container.feeder.feed(frc::SmartDashboard::GetNumber("FeederOutput", 0));
+    container.climb.climb(frc::SmartDashboard::GetNumber("climbVelocity", 0));
+    container.climb.winch(frc::SmartDashboard::GetNumber("winchVelocity", 0));
+  }
 
 /**
  * This function is called periodically during test mode.

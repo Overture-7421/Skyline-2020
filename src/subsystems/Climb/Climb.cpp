@@ -1,11 +1,15 @@
 #include "Climb.h"
 
 Climb::Climb() {
-    //nuthin
+    climbMotor1.SetInverted(true);
 }
 
-void Climb::climb() {
-    climbMotor1.Set(ControlMode::PercentOutput, 0.1);
-    climbMotor2.Set(ControlMode::PercentOutput, 0.1);
-    climbMotor3.Set(ControlMode::PercentOutput, 0.1);
+void Climb::climb(double velocity) {
+   climbMotor1.Set(ControlMode::PercentOutput, velocity);
+//    climbMotor2.Set(ControlMode::PercentOutput, velocity);
+   climbMotor3.Set(ControlMode::PercentOutput, velocity * 0.5);
 }
+
+void Climb::winch(double velocity) {
+    climbMotor2.Set(ControlMode::PercentOutput, velocity);
+}  

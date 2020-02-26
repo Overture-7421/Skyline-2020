@@ -20,11 +20,12 @@ using namespace ctre::phoenix::motorcontrol;
 class Climb : public::frc2::SubsystemBase
 {
 public:
-    Climb();
-    void climb();
+   Climb();
+   void climb(double velocity);
+   void winch(double velocity);
 
 private:
-    WPI_VictorSPX climbMotor1 {3};
-    WPI_VictorSPX climbMotor2 {5};
-    WPI_VictorSPX climbMotor3 {6};
+   WPI_VictorSPX climbMotor1 {3};
+   WPI_VictorSPX climbMotor2 {5};
+   WPI_VictorSPX climbMotor3 {6};
 };

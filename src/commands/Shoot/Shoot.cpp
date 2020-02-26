@@ -37,13 +37,17 @@ void Shoot::Execute() {
   VisionController.SetSetpoint(targetVision);
   bool isValid = visionTable->GetBoolean("VisionCamera/isValid", 0);
   double visionYawInput = visionTable->GetNumber("VisionCamera/targetYaw", 0);
-  double targetArea = visionTable->GetNumber("VisionCamera/targetArea", 0);
+  double targetPitch = visionTable->GetNumber("VisionCamera/targetPitch", 0);
+  double distance = (h2 - h1) / tan( (targetPitch + a1) * M_PI / 180.0);
+  frc::SmartDashboard::PutNumber("Vision/distance", distance);
 
-
-  if(targetArea <= 0.02 ){
-    shooter->setHood(HoodPosition::LONG_RANGE);
-  }else{
+  double targetRPS = 0;
+  if(distance <= 2.3){
+    targetRPS = 35;
     shooter->setHood(HoodPosition::CLOSE_RANGE);
+  }else{
+    targetRPS = 0.5 * distance + 40.54; 
+    shooter->setHood(HoodPosition::LONG_RANGE);
   }
 
   double visualangularSpeed = VisionController.Calculate(visionYawInput);
@@ -56,7 +60,7 @@ void Shoot::Execute() {
 
   if(std::abs(VisionController.GetPositionError()) <= 3.5) {
     //y = -371.06x + 52.406
-      shooter->setRPS(-371.06* targetArea + 52);
+      shooter->setRPS(targetRPS);
 
       if(shooter->rpsObjectiveReached()){
         shooter->feed(1);

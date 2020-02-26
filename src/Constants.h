@@ -20,16 +20,16 @@ public:
     static constexpr float RAMP_RATE = 1.0 / 4.0;
     static constexpr double ENC_METER_PER_PULSE = 0.001419446;
     static constexpr auto TRACK_WIDTH = 0.7_m;
-    static constexpr auto kMaxSpeed = 3.0_mps;
+    static constexpr auto kMaxSpeed = 3_mps;
     static constexpr auto kMaxAcceleration = 3_mps_sq;
     static constexpr double kRamseteB = 2;
     static constexpr double kRamseteZeta = 0.7;
-    static constexpr double kPDriveVel = 2.0;
+    static constexpr double kPDriveVel = 3.5;
     static constexpr auto ks = 1.7_V;
     static constexpr auto kv = 0.472 * 1_V * 1_s / 1_m;
     static constexpr auto ka = 0 * 1_V * 1_s * 1_s / 1_m;
     static const auto peakCurrentLimit = 100;
-    static const int continuousCurrentLimit = 75;
+    static const int continuousCurrentLimit = 30;
 };
 
 class FeederMap
