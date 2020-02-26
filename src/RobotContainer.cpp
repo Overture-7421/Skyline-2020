@@ -13,6 +13,11 @@ RobotContainer::RobotContainer() {
   //autoPrelude = std::make_unique<frc2::SequentialCommandGroup>;
   chassis.SetDefaultCommand(TeleopDrive(&chassis, &driverControl));
   ConfigureButtonBindings();
+
+
+  autoChooser.SetDefaultOption("AutoPrelude",std::make_unique<AutoPrelude>(&chassis , &shooter, &feeder));
+  autoChooser.AddOption("AutoSupport", std::make_unique<AutoSupport>(&chassis , &shooter, &feeder));
+  frc::SmartDashboard::PutData("AutoChooser", &autoChooser);
 }
 
 void RobotContainer::ConfigureButtonBindings() {

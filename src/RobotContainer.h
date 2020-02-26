@@ -11,9 +11,11 @@
 #include "frc/XboxController.h"
 #include "commands/TeleopDrive/TeleopDrive.h"
 #include "commands/AutoPrelude/AutoPrelude.h"
+#include "commands/AutoSupport/AutoSupport.h"
 #include "commands/SpeedUpShooter/SpeedUpShooter.h"
 #include "commands/Shoot/Shoot.h"
 #include "subsystems/Climb/Climb.h"
+#include <frc/smartdashboard/SendableChooser.h>
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -32,12 +34,14 @@ public:
   Shooter shooter;
   Feeder feeder;
   Climb climb;
-  AutoPrelude autoPrelude {&chassis , &shooter, &feeder};
+  // AutoPrelude autoPrelude {&chassis , &shooter, &feeder};
   // The robot's subsystems and commands are defined here...
   frc::XboxController driverControl{0};
   frc::XboxController operatorControl{1};
+  frc::SendableChooser<std::unique_ptr<frc2::SequentialCommandGroup>> autoChooser;
 
 private:
+
   frc2::Button lowerIntakeButton{[&] { return operatorControl.GetAButton(); }};
   frc2::Button feedIntakeButton{[&] { return operatorControl.GetBButton(); }};
   //frc2::Button feedShooterButton{[&] { return operatorControl.GetYButton(); }};

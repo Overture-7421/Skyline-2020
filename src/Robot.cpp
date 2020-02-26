@@ -57,7 +57,7 @@ void Robot::AutonomousInit()
   //   frc::Pose2d(3.0_m, 0.0_m,frc::Rotation2d(180_deg)), true
   //   )
   // );
-  container.autoPrelude.Schedule();
+  container.autoChooser.GetSelected()->Schedule();
   // container.autocommand->Schedule();
 }
 
