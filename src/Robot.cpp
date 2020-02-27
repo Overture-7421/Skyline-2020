@@ -88,7 +88,8 @@ void Robot::TeleopPeriodic()
     container.climb.climb(0);
   }
 
-  if(abs(container.operatorControl.GetY(frc::GenericHID::JoystickHand::kRightHand)) > 0.15){
+  if(abs(container.operatorControl.GetY(frc::GenericHID::JoystickHand::kRightHand)) 
+  15){
     container.climb.winch(-container.operatorControl.GetY(frc::GenericHID::JoystickHand::kRightHand));
   }
   else{
