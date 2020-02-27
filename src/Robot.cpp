@@ -80,6 +80,21 @@ void Robot::TeleopInit()
  */
 void Robot::TeleopPeriodic()
 {
+  if(abs(container.operatorControl.GetY(frc::GenericHID::JoystickHand::kLeftHand))> 0.15)
+  {
+    container.climb.climb(-container.operatorControl.GetY(frc::GenericHID::JoystickHand::kLeftHand));
+  }
+  else{
+    container.climb.climb(0);
+  }
+
+  if(abs(container.operatorControl.GetY(frc::GenericHID::JoystickHand::kRightHand)) > 0.15){
+    container.climb.winch(-container.operatorControl.GetY(frc::GenericHID::JoystickHand::kRightHand));
+  }
+  else{
+    container.climb.winch(0);
+  }
+
     // double targetPitch = visionTable->GetNumber("VisionCamera/targetPitch", 0);
     // double distance = (h2 - h1) / tan( (targetPitch + a1) * M_PI / 180.0);
     // frc::SmartDashboard::PutNumber("distance", distance);
@@ -88,8 +103,8 @@ void Robot::TeleopPeriodic()
     // container.shooter.setRPS(frc::SmartDashboard::GetNumber("ShooterRPS", 0));
     // container.shooter.feed(frc::SmartDashboard::GetNumber("ShooterFeed", 0));
     // container.feeder.feed(frc::SmartDashboard::GetNumber("FeederOutput", 0));
-    container.climb.climb(frc::SmartDashboard::GetNumber("climbVelocity", 0));
-    container.climb.winch(frc::SmartDashboard::GetNumber("winchVelocity", 0));
+    // container.climb.climb(frc::SmartDashboard::GetNumber("climbVelocity", 0));
+    // container.climb.winch(frc::SmartDashboard::GetNumber("winchVelocity", 0));
   }
 
 /**

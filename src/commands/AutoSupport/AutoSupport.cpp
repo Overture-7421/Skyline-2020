@@ -33,8 +33,8 @@ AutoSupport::AutoSupport(Chassis* chassis, Shooter* shooter, Feeder* feeder) {
       chassis->getRamsetteCommand(
             frc::Pose2d(3_m,0_m,frc::Rotation2d(0_deg)),
             {},
-            frc::Pose2d(0_m,3.5_m,frc::Rotation2d(180_deg)), true),
-      Shoot(shooter, chassis, feeder, 5)
+            frc::Pose2d(0.5_m,3_m,frc::Rotation2d(160_deg)), true),
+      Shoot(shooter, chassis, feeder, 5, 0.5)
 
   );
 }

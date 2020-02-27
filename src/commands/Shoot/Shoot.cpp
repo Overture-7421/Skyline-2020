@@ -7,11 +7,12 @@
 
 #include "Shoot.h"
 
-Shoot::Shoot(Shooter* shooter, Chassis* chassis, Feeder* feeder, int amount){
+Shoot::Shoot(Shooter* shooter, Chassis* chassis, Feeder* feeder, int amount, double feedSpeed){
   this->shooter = shooter;
   this->chassis = chassis;
   this->feeder = feeder;
   this->ballsToShoot = amount;
+  this->feedSpeed = feedSpeed;
 
   AddRequirements({shooter, chassis, feeder});
 }
@@ -58,12 +59,12 @@ void Shoot::Execute() {
       chassis->arcadeDrive(0.0, 0);
   }
 
-  if(std::abs(VisionController.GetPositionError()) <= 3.5) {
+  if(std::abs(VisionController.GetPositionError()) <= 2.5) {
     //y = -371.06x + 52.406
       shooter->setRPS(targetRPS);
 
       if(shooter->rpsObjectiveReached()){
-        shooter->feed(1);
+        shooter->feed(feedSpeed);
       }
   }
 
