@@ -7,12 +7,14 @@
 
 #include "Shoot.h"
 
-Shoot::Shoot(Shooter* shooter, Chassis* chassis, Feeder* feeder, int amount, double feedSpeed){
+Shoot::Shoot(Shooter* shooter, Chassis* chassis, Feeder* feeder, int amount, double feedSpeed, double shootSpeed, bool useHood){
   this->shooter = shooter;
   this->chassis = chassis;
   this->feeder = feeder;
   this->ballsToShoot = amount;
   this->feedSpeed = feedSpeed;
+  this->shootSpeed = shootSpeed;
+  this->useHood = useHood;
 
   AddRequirements({shooter, chassis, feeder});
 }
@@ -43,11 +45,11 @@ void Shoot::Execute() {
   frc::SmartDashboard::PutNumber("Vision/distance", distance);
 
   double targetRPS = 0;
-  if(distance <= 2.3){
-    targetRPS = 35;
+  if(!useHood){
+    targetRPS = 38;
     shooter->setHood(HoodPosition::CLOSE_RANGE);
   }else{
-    targetRPS = 0.5 * distance + 40.54; 
+    targetRPS = 0.5 * distance + 45; 
     shooter->setHood(HoodPosition::LONG_RANGE);
   }
 
@@ -61,7 +63,7 @@ void Shoot::Execute() {
 
   if(std::abs(VisionController.GetPositionError()) <= 2.5) {
     //y = -371.06x + 52.406
-      shooter->setRPS(targetRPS);
+      shooter->setRPS(shootSpeed);
 
       if(shooter->rpsObjectiveReached()){
         shooter->feed(feedSpeed);

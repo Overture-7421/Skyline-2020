@@ -37,7 +37,7 @@ AutoPrelude::AutoPrelude(Chassis* chassis, Shooter* shooter, Feeder* feeder) {
       chassis->getRamsetteCommand(
          frc::Pose2d(0.4_m,1.5_m, frc::Rotation2d(90_deg)),
          {},
-         frc::Pose2d(0.2_m,5.5_m,frc::Rotation2d(90_deg)), false, 1.8),
+         frc::Pose2d(0.18_m,5.3_m,frc::Rotation2d(90_deg)), false, 1.5),
       frc2::InstantCommand(
             [feeder]() { 
                feeder->lowerFeeder(false); 

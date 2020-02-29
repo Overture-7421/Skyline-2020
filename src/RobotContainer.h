@@ -16,6 +16,7 @@
 #include "commands/Shoot/Shoot.h"
 #include "subsystems/Climb/Climb.h"
 #include <frc/smartdashboard/SendableChooser.h>
+#include "commands/Panic/Panic.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -44,7 +45,14 @@ private:
 
   frc2::Button lowerIntakeButton{[&] { return operatorControl.GetAButton(); }};
   frc2::Button feedIntakeButton{[&] { return operatorControl.GetBButton(); }};
-  //frc2::Button feedShooterButton{[&] { return operatorControl.GetYButton(); }};
-  frc2::Button shootButton{[&] {return driverControl.GetBumper(frc::XboxController::kRightHand); }};
+  frc2::Button feedShooterButton{[&] { return driverControl.GetYButton(); }};
+  frc2::Button shootCloseButton{[&] {return driverControl.GetBumper(frc::XboxController::kRightHand); }};
+  frc2::Button shootFarButton{[&] {return driverControl.GetBumper(frc::XboxController::kLeftHand); }};
+
+
+  // Panic button makes shooter feed go backwards
+  frc2::Button panicButton{[&] {return operatorControl.GetBumper(frc::XboxController::kRightHand); }};
+  frc2::Button reverseFeeder{[&] {return operatorControl.GetXButton(); }};
+
   void ConfigureButtonBindings();
 };

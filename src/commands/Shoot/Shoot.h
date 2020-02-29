@@ -26,7 +26,7 @@ class Shoot
     : public frc2::CommandHelper<frc2::CommandBase, Shoot>
 {
 public:
-  Shoot(Shooter* shooter, Chassis* chassis, Feeder* feeder, int amount = 0, double feedSpeed = 1);
+  Shoot(Shooter* shooter, Chassis* chassis, Feeder* feeder, int amount = 0, double feedSpeed = 0.7, double shootSpeed = 40, bool useHood = false);
 
   void Initialize() override;
 
@@ -40,6 +40,7 @@ private:
   Shooter *shooter;
   Chassis *chassis;
   Feeder* feeder;
+  double shootSpeed = 0;
   double h2 = 2.30;
   double h1 = 0.62;
   double a1 = 30;
@@ -50,7 +51,7 @@ private:
   int ballsToShoot = 0;
   double feedSpeed = 1;
   int initialBalls = 0;
-
+  bool useHood = false;
   std::shared_ptr<nt::NetworkTable> visionTable = nt::NetworkTableInstance::GetDefault().GetTable("chameleon-vision");
   frc2::PIDController VisionController{0.045, 0.060, 0.005};
   double targetVision = 0.0;

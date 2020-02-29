@@ -21,6 +21,11 @@ RobotContainer::RobotContainer() {
 }
 
 void RobotContainer::ConfigureButtonBindings() {
+  feedShooterButton.WhenPressed([this] {
+    shooter.feed(0.7);
+  }).WhenReleased([this] {
+    shooter.feed(0.0);
+  });
   feedIntakeButton.WhenPressed([this] { 
     feeder.feed(1.0);
     feeder.lowerFeeder(true);
@@ -35,6 +40,23 @@ void RobotContainer::ConfigureButtonBindings() {
      feeder.lowerFeeder(false);
      });
 
-   shootButton.WhileHeld(Shoot(&shooter, &chassis, &feeder));
+  panicButton.WhenPressed([this] {
+    shooter.feed(-0.5);
+    shooter.setRPS(-10);
+  }).WhenReleased([this] {
+    shooter.feed(0.0);
+    shooter.setRPS(0.0);
+  });
+
+  reverseFeeder.WhenPressed([this] {
+    feeder.feed(-1.0);
+    feeder.lowerFeeder(true);
+  }).WhenReleased([this] {
+    feeder.feed(0.0);
+    feeder.lowerFeeder(false);
+  });
+
+   shootCloseButton.WhileHeld(Shoot(&shooter, &chassis, &feeder, 0, 0.7, 35));
+   shootFarButton.WhileHeld(Shoot(&shooter, &chassis, &feeder, 0, 0.7, 45, true));
   //speedUpFlywheelButton.WhenPressed(SpeedUpShooter(&shooter, 100));
 }

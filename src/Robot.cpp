@@ -80,7 +80,7 @@ void Robot::TeleopInit()
  */
 void Robot::TeleopPeriodic()
 {
-  if(abs(container.operatorControl.GetY(frc::GenericHID::JoystickHand::kLeftHand))> 0.15)
+  if(abs(container.operatorControl.GetY(frc::GenericHID::JoystickHand::kLeftHand)) > 0.15)
   {
     container.climb.climb(-container.operatorControl.GetY(frc::GenericHID::JoystickHand::kLeftHand));
   }
@@ -88,12 +88,13 @@ void Robot::TeleopPeriodic()
     container.climb.climb(0);
   }
 
-  if(abs(container.operatorControl.GetY(frc::GenericHID::JoystickHand::kRightHand)) 
-  15){
+  if(abs(container.operatorControl.GetY(frc::GenericHID::JoystickHand::kRightHand)) > 0.15){
     container.climb.winch(-container.operatorControl.GetY(frc::GenericHID::JoystickHand::kRightHand));
   }
   else{
     container.climb.winch(0);
+
+
   }
 
     // double targetPitch = visionTable->GetNumber("VisionCamera/targetPitch", 0);
@@ -101,7 +102,7 @@ void Robot::TeleopPeriodic()
     // frc::SmartDashboard::PutNumber("distance", distance);
 
     // container.shooter.setHood(frc::SmartDashboard::GetBoolean("ShooterHood", false) ? HoodPosition::LONG_RANGE : HoodPosition::CLOSE_RANGE);
-    // container.shooter.setRPS(frc::SmartDashboard::GetNumber("ShooterRPS", 0));
+    //container.shooter.setRPS(frc::SmartDashboard::GetNumber("ShooterRPS", 0));
     // container.shooter.feed(frc::SmartDashboard::GetNumber("ShooterFeed", 0));
     // container.feeder.feed(frc::SmartDashboard::GetNumber("FeederOutput", 0));
     // container.climb.climb(frc::SmartDashboard::GetNumber("climbVelocity", 0));
