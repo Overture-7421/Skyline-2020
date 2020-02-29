@@ -18,7 +18,7 @@ AutoPrelude::AutoPrelude(Chassis* chassis, Shooter* shooter, Feeder* feeder) {
          frc::Pose2d(0_m,0_m,frc::Rotation2d(0_deg)),
          {/*Empty vec*/},
          frc::Pose2d(1.7_m, -0.20_m,frc::Rotation2d(-90_deg))),
-      Shoot(shooter, chassis, feeder, 3),
+      Shoot(shooter, chassis, feeder, 3, 0.7, 45, true),
       frc2::InstantCommand(
       [shooter]() {
             shooter->setRPS(0.0);
@@ -48,6 +48,6 @@ AutoPrelude::AutoPrelude(Chassis* chassis, Shooter* shooter, Feeder* feeder) {
          frc::Pose2d(0.35_m,5.5_m,frc::Rotation2d(90_deg)),
          {/*Empty vec*/},
          frc::Pose2d(1.7_m, 0.5_m,frc::Rotation2d(-90_deg)),true),
-      Shoot(shooter, chassis, feeder, 3)
+       Shoot(shooter, chassis, feeder, 3, 0.7, 45, true)
    );
 }

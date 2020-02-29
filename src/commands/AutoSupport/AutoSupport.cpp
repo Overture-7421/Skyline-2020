@@ -34,7 +34,7 @@ AutoSupport::AutoSupport(Chassis* chassis, Shooter* shooter, Feeder* feeder) {
             frc::Pose2d(3_m,0_m,frc::Rotation2d(0_deg)),
             {},
             frc::Pose2d(0.5_m,3_m,frc::Rotation2d(160_deg)), true),
-      Shoot(shooter, chassis, feeder, 5, 0.5)
+      Shoot(shooter, chassis, feeder, 5, 0.5, 50, true)
 
   );
 }
