@@ -14,6 +14,7 @@
 #include <networktables/NetworkTable.h>
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
+#include <frc/DigitalOutput.h>
 
 /**
  * An example command.
@@ -45,7 +46,7 @@ private:
   double h1 = 0.62;
   double a1 = 30;
 
-
+  DigitalOutput visionLEDs {6};
 
   double targetAngle = 0.0;
   int ballsToShoot = 0;

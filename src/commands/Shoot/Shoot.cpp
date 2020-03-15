@@ -28,6 +28,8 @@ void Shoot::Initialize() {
     shooter->feed(0);
     feeder->lowerFeeder(true);
     initialBalls = shooter->getBallsShot();
+    visionLEDs.Set(false); 
+
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -77,6 +79,7 @@ void Shoot::End(bool interrupted) {
     shooter->setRPS(0);
     shooter->feed(0);
     feeder->lowerFeeder(false);
+    visionLEDs.Set(true);
 }
 
 // Returns true when the command should end.
