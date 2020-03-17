@@ -1,19 +1,22 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
 
 #pragma once
 
 #include <frc2/command/Command.h>
 #include <frc2/command/button/JoystickButton.h>
 #include <frc2/command/button/Trigger.h>
-#include "subsystems/Chassis.h"
+#include "subsystems/Chassis/Chassis.h"
+#include "subsystems/Shooter/Shooter.h"
+#include "subsystems/Feeder/Feeder.h"
 #include "frc2/command/RunCommand.h"
 #include "frc/XboxController.h"
 #include "commands/TeleopDrive/TeleopDrive.h"
+#include "commands/AutoPrelude/AutoPrelude.h"
+#include "commands/AutoSupport/AutoSupport.h"
+#include "commands/SpeedUpShooter/SpeedUpShooter.h"
+#include "commands/Shoot/Shoot.h"
+#include "subsystems/Climb/Climb.h"
+#include <frc/smartdashboard/SendableChooser.h>
+#include "commands/Panic/Panic.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -22,17 +25,34 @@
  * scheduler calls).  Instead, the structure of the robot (including subsystems,
  * commands, and button mappings) should be declared here.
  */
+
 class RobotContainer {
- public:
+public:
   RobotContainer();
-  std::unique_ptr<frc2::Command> autocommand;
-  std::unique_ptr<frc2::Command> TeleopDrive;
+  std::unique_ptr<frc2::SequentialCommandGroup> autocommand;
 
   Chassis chassis;
-
- private:
+  Shooter shooter;
+  Feeder feeder;
+  Climb climb;
+  // AutoPrelude autoPrelude {&chassis , &shooter, &feeder};
   // The robot's subsystems and commands are defined here...
-  frc::XboxController xbox{0};
-  
+  frc::XboxController driverControl{0};
+  frc::XboxController operatorControl{1};
+  frc::SendableChooser<std::unique_ptr<frc2::SequentialCommandGroup>> autoChooser;
+
+private:
+
+  frc2::Button lowerIntakeButton{[&] { return operatorControl.GetAButton(); }};
+  frc2::Button feedIntakeButton{[&] { return operatorControl.GetBButton(); }};
+  frc2::Button feedShooterButton{[&] { return driverControl.GetYButton(); }};
+  frc2::Button shootCloseButton{[&] {return driverControl.GetBumper(frc::XboxController::kRightHand); }};
+  frc2::Button shootFarButton{[&] {return driverControl.GetBumper(frc::XboxController::kLeftHand); }};
+
+
+  // Panic button makes shooter feed go backwards
+  frc2::Button panicButton{[&] {return operatorControl.GetBumper(frc::XboxController::kRightHand); }};
+  frc2::Button reverseFeeder{[&] {return operatorControl.GetXButton(); }};
+
   void ConfigureButtonBindings();
 };

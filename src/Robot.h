@@ -14,6 +14,9 @@
 #include "RobotContainer.h"
 #include <frc/XboxController.h>
 #include <frc/drive/DifferentialDrive.h>
+#include <networktables/NetworkTable.h>
+#include <networktables/NetworkTableInstance.h>
+
 
 class Robot : public frc::TimedRobot {
  public:
@@ -31,7 +34,7 @@ class Robot : public frc::TimedRobot {
 	frc::XboxController controller {0};
 
  private:
-  frc2::Command* autoCommand;
+ 
    RobotContainer container;
   
   // frc2::PIDController angleController {0,0,0, units::second_t(5_ms)};
