@@ -8,15 +8,7 @@
 #pragma once
 
 #include <frc/TimedRobot.h>
-#include <frc2/command/Command.h>
-#include <frc2/command/SequentialCommandGroup.h>
-#include <iostream>
-#include "RobotContainer.h"
-#include <frc/XboxController.h>
-#include <frc/drive/DifferentialDrive.h>
-#include <networktables/NetworkTable.h>
-#include <networktables/NetworkTableInstance.h>
-
+#include <frc2/command/CommandScheduler.h>
 
 class Robot : public frc::TimedRobot {
  public:
@@ -31,12 +23,4 @@ class Robot : public frc::TimedRobot {
   void TeleopPeriodic() override;
   void TestPeriodic() override;
 
-	frc::XboxController controller {0};
-
- private:
- 
-   RobotContainer container;
-  
-  // frc2::PIDController angleController {0,0,0, units::second_t(5_ms)};
-  // double targetAngle = 0.0;
 };
