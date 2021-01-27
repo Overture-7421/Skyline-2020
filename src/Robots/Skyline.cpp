@@ -1,13 +1,8 @@
-#include "Robot.h"
+#include "Skyline.h"
 
+Skyline::Skyline() : TimedRobot() {}
 
-Robot::Robot() : TimedRobot()
-{
-}
-void Robot::RobotInit()
-{
-
-}
+void Skyline::RobotInit() {}
 
 /**
  * This function is called every robot packet, no matter the mode. Use
@@ -17,49 +12,33 @@ void Robot::RobotInit()
  * <p> This runs after the mode specific periodic functions, but before
  * LiveWindow and SmartDashboard integrated updating.
  */
-void Robot::RobotPeriodic()
-{
-
-  frc2::CommandScheduler::GetInstance().Run();
-}
+void Skyline::RobotPeriodic() { frc2::CommandScheduler::GetInstance().Run(); }
 
 /**
  * This function is called once each time the robot enters Disabled mode. You
  * can use it to reset any subsystem information you want to clear when the
  * robot is disabled.
  */
-void Robot::DisabledInit() {}
+void Skyline::DisabledInit() {}
 
-void Robot::DisabledPeriodic() {}
+void Skyline::DisabledPeriodic() {}
 
 /**
  * This autonomous runs the autonomous command selected by your {@link
  * RobotContainer} class.
  */
-void Robot::AutonomousInit(){
-}
+void Skyline::AutonomousInit() {}
 
-void Robot::AutonomousPeriodic() {}
+void Skyline::AutonomousPeriodic() {}
 
-void Robot::TeleopInit(){
-  
-}
+void Skyline::TeleopInit() {}
 
 /**
  * This function is called periodically during operator control.
  */
-void Robot::TeleopPeriodic(){
- 
-}
+void Skyline::TeleopPeriodic() {}
 
 /**
  * This function is called periodically during test mode.
  */
-void Robot::TestPeriodic() {}
-
-#ifndef RUNNING_FRC_TESTS
-int main()
-{
-  return frc::StartRobot<Robot>();
-}
-#endif
+void Skyline::TestPeriodic() {}

@@ -10,9 +10,9 @@
 #include <frc/TimedRobot.h>
 #include <frc2/command/CommandScheduler.h>
 
-class Robot : public frc::TimedRobot {
+class Skyline : public frc::TimedRobot {
  public:
-  Robot();
+  Skyline();
   void RobotInit() override;
   void RobotPeriodic() override;
   void DisabledInit() override;
@@ -22,5 +22,4 @@ class Robot : public frc::TimedRobot {
   void TeleopInit() override;
   void TeleopPeriodic() override;
   void TestPeriodic() override;
-
 };
