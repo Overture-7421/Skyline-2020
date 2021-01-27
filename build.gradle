@@ -4,6 +4,11 @@ plugins {
     id "edu.wpi.first.GradleRIO" version "2021.1.2"
 }
 
+def roboRIODeployDir = '"' + '/home/lvuser/deploy/' + '"'
+def ntRemoteServer = '"' + '189.153.91.94' + '"'
+def ntRemotePort = '1735'
+
+
 // Define my targets (RoboRIO) and artifacts (deployable files)
 // This is added by GradleRIO's backing project EmbeddedTools.
 deploy {
@@ -62,10 +67,23 @@ sim {
 
 model {
     components {
-        frcUserProgram(NativeExecutableSpec) {
+        frcUserProgram(NativeExecutableSpec) {        
             targetPlatform wpi.platforms.roborio
             if (includeDesktopSupport) {
                 targetPlatform wpi.platforms.desktop
+            }
+
+            binaries.all {
+                def target = targetPlatform.name == wpi.platforms.roborio ? 'Robot' : 'Simulation'
+                if (target == 'Simulation') {
+                    cppCompiler.define('SIMULATION')
+                    def projectDir = '"' + project.projectDir.toString() + "/deploy/" + '"'
+                    cppCompiler.define('DEPLOY_DIR', projectDir)
+                    cppCompiler.define('NT_REMOTE_SERVER', ntRemoteServer)
+                    cppCompiler.define('NT_REMOTE_PORT', ntRemotePort)
+                }else{
+                    cppCompiler.define('DEPLOY_DIR', roboRIODeployDir)
+                }
             }
 
             sources.cpp {
@@ -84,22 +102,6 @@ model {
             // Defining my dependencies. In this case, WPILib (+ friends), and vendor libraries.
             wpi.deps.vendor.cpp(it)
             wpi.deps.wpilib(it)
-        }
-    }
-    testSuites {
-        frcUserProgramTest(GoogleTestTestSuiteSpec) {
-            testing $.components.frcUserProgram
-
-            sources.cpp {
-                source {
-                    srcDir 'test/'
-                    include '**/*.cpp'
-                }
-            }
-
-            wpi.deps.vendor.cpp(it)
-            wpi.deps.wpilib(it)
-            wpi.deps.googleTest(it)
         }
     }
 }

@@ -8,6 +8,8 @@
 #pragma once
 
 #include <frc/TimedRobot.h>
+#include "Core/GazeboMotor/GazeboMotor.h"
+#include "Core/PCM/GazeboPiston.h"
 
 class Skyline : public frc::TimedRobot {
  public:
@@ -21,4 +23,8 @@ class Skyline : public frc::TimedRobot {
   void TeleopInit() override;
   void TeleopPeriodic() override;
   void TestPeriodic() override;
+
+private:
+  GazeboMotor testMotor {"Slimer2020_Offseason", "BackRightRotation"};
+  GazeboPiston testPiston {"Slimer2020_Offseason", "HoodPiston"};
 };

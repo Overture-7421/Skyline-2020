@@ -1,8 +1,14 @@
 #include "Skyline.h"
 #include "frc2/command/CommandScheduler.h"
+#include <frc/smartdashboard/SmartDashboard.h>
+
 Skyline::Skyline() : TimedRobot() {}
 
-void Skyline::RobotInit() {}
+void Skyline::RobotInit() {
+    frc::SmartDashboard::PutNumber("Setpoint Pos", 0); 
+    frc::SmartDashboard::PutBoolean("Setpoint Piston", false); 
+
+}
 
 /**
  * This function is called every robot packet, no matter the mode. Use
@@ -12,7 +18,11 @@ void Skyline::RobotInit() {}
  * <p> This runs after the mode specific periodic functions, but before
  * LiveWindow and SmartDashboard integrated updating.
  */
-void Skyline::RobotPeriodic() { frc2::CommandScheduler::GetInstance().Run(); }
+void Skyline::RobotPeriodic() { 
+    testMotor.set(frc::SmartDashboard::GetNumber("Setpoint Pos", 0));
+    frc::SmartDashboard::PutNumber("Pos", testMotor.getPosition());
+    testPiston.setState(frc::SmartDashboard::GetBoolean("Setpoint Piston", false));
+}
 
 /**
  * This function is called once each time the robot enters Disabled mode. You
