@@ -5,7 +5,7 @@ plugins {
 }
 
 def roboRIODeployDir = '"' + '/home/lvuser/deploy/' + '"'
-def ntRemoteServer = '"' + '189.153.91.94' + '"'
+def ntRemoteServer = '"' + '189.153.87.144' + '"'
 def ntRemotePort = '1735'
 
 
@@ -75,6 +75,7 @@ model {
 
             binaries.all {
                 def target = targetPlatform.name == wpi.platforms.roborio ? 'Robot' : 'Simulation'
+                cppCompiler.define('SPDLOG_COMPILED_LIB')
                 if (target == 'Simulation') {
                     cppCompiler.define('SIMULATION')
                     def projectDir = '"' + project.projectDir.toString() + "/deploy/" + '"'
@@ -91,11 +92,18 @@ model {
                     srcDir 'src/'
                     include '**/*.cpp'
                 }
+
+                source {
+                    srcDir 'libs/spdlog/src'
+                    include '**/*.cpp'
+                }
+
                 exportedHeaders {
                     srcDir 'src/'
-                    if (includeSrcInIncludeRoot) {
-                        srcDir 'src/'
-                    }
+                }
+
+                exportedHeaders {
+                    srcDir 'libs/spdlog/include'
                 }
             }
 
