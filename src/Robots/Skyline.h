@@ -8,23 +8,34 @@
 #pragma once
 
 #include <frc/TimedRobot.h>
+#include <frc/XboxController.h>
 #include "Core/MotorHandler/EctoMotor/EctoGazeboMotor.h"
 #include "Core/PCM/EctoPiston/EctoGazeboPiston.h"
 
 class Skyline : public frc::TimedRobot {
- public:
-  Skyline();
-  void RobotInit() override;
-  void RobotPeriodic() override;
-  void DisabledInit() override;
-  void DisabledPeriodic() override;
-  void AutonomousInit() override;
-  void AutonomousPeriodic() override;
-  void TeleopInit() override;
-  void TeleopPeriodic() override;
-  void TestPeriodic() override;
+public:
+    Skyline();
+
+    void RobotInit() override;
+
+    void RobotPeriodic() override;
+
+    void DisabledInit() override;
+
+    void DisabledPeriodic() override;
+
+    void AutonomousInit() override;
+
+    void AutonomousPeriodic() override;
+
+    void TeleopInit() override;
+
+    void TeleopPeriodic() override;
+
+    void TestPeriodic() override;
 
 private:
-  EctoGazeboMotor testMotor {"Slimer2020_Offseason", "BackRightRotation"};
-  EctoGazeboPiston testPiston {"Slimer2020_Offseason", "HoodPiston"};
+    frc::X xboxController{0};
+    EctoGazeboMotor leftMotor{"TankChassis_clone_0", "LeftChassis"};
+    EctoGazeboMotor rightMotor{"TankChassis_clone_0", "RightChassis"};
 };

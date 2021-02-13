@@ -5,8 +5,6 @@
 Skyline::Skyline() : TimedRobot() {}
 
 void Skyline::RobotInit() {
-    frc::SmartDashboard::PutNumber("Setpoint Pos", 0); 
-    frc::SmartDashboard::PutBoolean("Setpoint Piston", false); 
 
 }
 
@@ -19,9 +17,10 @@ void Skyline::RobotInit() {
  * LiveWindow and SmartDashboard integrated updating.
  */
 void Skyline::RobotPeriodic() { 
-    testMotor.set(frc::SmartDashboard::GetNumber("Setpoint Pos", 0));
-    frc::SmartDashboard::PutNumber("Pos", testMotor.getPosition());
-    testPiston.setState(frc::SmartDashboard::GetBoolean("Setpoint Piston", false));
+    double leftY = xboxController.GetY(frc::XboxController::kLeftHand);
+    double rightY = xboxController.GetY(frc::XboxController::kRightHand);
+    leftMotor.set(leftY);
+    rightMotor.set(rightY);
 }
 
 /**
