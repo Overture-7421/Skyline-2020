@@ -10,6 +10,7 @@
 #include <frc/TimedRobot.h>
 #include "Core/MotorHandler/EctoMotor/EctoGazeboMotor.h"
 #include "Core/PCM/EctoPiston/EctoGazeboPiston.h"
+#include <frc/XboxController.h>
 
 class Skyline : public frc::TimedRobot {
  public:
@@ -25,6 +26,7 @@ class Skyline : public frc::TimedRobot {
   void TestPeriodic() override;
 
 private:
-  EctoGazeboMotor testMotor {"Slimer2020_Offseason", "BackRightRotation"};
-  EctoGazeboPiston testPiston {"Slimer2020_Offseason", "HoodPiston"};
+    frc::XboxController xboxController {0};
+    EctoGazeboMotor rightMotor {"TankChassis_clone_0", "RightChassis"};
+    EctoGazeboMotor leftMotor {"TankChassis_clone_0", "LeftChassis"};
 };
