@@ -8,7 +8,7 @@
 #pragma once
 
 #include <frc/TimedRobot.h>
-#include <frc/XboxController.h>
+#include <frc/Joystick.h>
 #include "Core/MotorHandler/EctoMotor/EctoGazeboMotor.h"
 #include "Core/PCM/EctoPiston/EctoGazeboPiston.h"
 
@@ -35,7 +35,9 @@ public:
     void TestPeriodic() override;
 
 private:
-    frc::X xboxController{0};
-    EctoGazeboMotor leftMotor{"TankChassis_clone_0", "LeftChassis"};
-    EctoGazeboMotor rightMotor{"TankChassis_clone_0", "RightChassis"};
+    const double deadband = 0.15;
+
+    frc::Joystick xboxController{0};
+    EctoGazeboMotor leftMotor{"TankChassis", "LeftChassis"};
+    EctoGazeboMotor rightMotor{"TankChassis", "RightChassis"};
 };
