@@ -38,6 +38,6 @@ private:
     const double deadband = 0.15;
 
     frc::Joystick xboxController{0};
-    EctoGazeboMotor leftMotor{"TankChassis", "LeftChassis"};
-    EctoGazeboMotor rightMotor{"TankChassis", "RightChassis"};
+    EctoGazeboMotor leftMotor{"TankChassis_clone_0", "LeftChassis"};
+    EctoGazeboMotor rightMotor{"TankChassis_clone_0", "RightChassis"};
 };
